@@ -1,10 +1,61 @@
 /**
- * CocheCierto Garaje — Despiece Interactivo y Scrollytelling
- * Spec 009: Visor Dinámico con Efectos de Zona y Telemetría
+ * CocheCierto Garaje — Despiece Interactivo, Scrollytelling y Navegación Móvil
+ * Spec 010: Arquitectura Responsive y Ergonomía Táctil
  */
 (function() {
     'use strict';
 
+    // 1. Inicialización del Menú Móvil
+    function initMobileMenu() {
+        var toggleBtn = document.querySelector('.garage-menu-toggle');
+        var drawer = document.getElementById('garage-mobile-drawer');
+        if (!toggleBtn || !drawer) return;
+
+        var overlay = drawer.querySelector('.garage-mobile-drawer__overlay');
+        var links = drawer.querySelectorAll('.garage-mobile-link, .garage-mobile-cta');
+
+        function openMenu() {
+            toggleBtn.setAttribute('aria-expanded', 'true');
+            toggleBtn.classList.add('is-active');
+            drawer.setAttribute('aria-hidden', 'false');
+            drawer.classList.add('is-open');
+            document.body.classList.add('garage-menu-locked');
+        }
+
+        function closeMenu() {
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            toggleBtn.classList.remove('is-active');
+            drawer.setAttribute('aria-hidden', 'true');
+            drawer.classList.remove('is-open');
+            document.body.classList.remove('garage-menu-locked');
+        }
+
+        toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var isOpen = toggleBtn.getAttribute('aria-expanded') === 'true';
+            if (isOpen) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        if (overlay) {
+            overlay.addEventListener('click', closeMenu);
+        }
+
+        links.forEach(function(link) {
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+                closeMenu();
+            }
+        });
+    }
+
+    // 2. Inicialización del Despiece y Visor Dinámico
     function initGarageBreakdown() {
         var breakdown = document.querySelector('.garage-breakdown');
         if (!breakdown) return;
@@ -16,6 +67,7 @@
         var zoneLabel = breakdown.querySelector('.garage-stage-indicator__zone strong');
         var activeStat = breakdown.querySelector('#garage-active-stat');
         var finishBtns = breakdown.querySelectorAll('.garage-finish-btn');
+        var tabsNav = breakdown.querySelector('.garage-breakdown-nav');
 
         var zoneNames = {
             'carroceria': 'Carrocería & Exterior',
@@ -45,11 +97,15 @@
                 h.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
 
-            // Actualizar pestañas superiores
+            // Actualizar pestañas superiores y centrar en móviles si tiene scroll
             tabs.forEach(function(tab) {
                 var isActive = tab.getAttribute('data-zone') === zoneId;
                 tab.classList.toggle('is-active', isActive);
                 tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                if (isActive && tabsNav && window.innerWidth <= 800) {
+                    var tabLeft = tab.offsetLeft - (tabsNav.clientWidth / 2) + (tab.clientWidth / 2);
+                    tabsNav.scrollTo({ left: Math.max(0, tabLeft), behavior: 'smooth' });
+                }
             });
 
             // Actualizar tarjetas de pasos y telemetría
@@ -66,7 +122,7 @@
             if (shouldScroll) {
                 var targetStep = breakdown.querySelector('.garage-breakdown-step[data-zone="' + zoneId + '"]');
                 if (targetStep) {
-                    var yOffset = -110;
+                    var yOffset = window.innerWidth <= 800 ? -80 : -110;
                     var y = targetStep.getBoundingClientRect().top + window.pageYOffset + yOffset;
                     window.scrollTo({ top: y, behavior: 'smooth' });
                 }
@@ -108,8 +164,8 @@
         if ('IntersectionObserver' in window) {
             var observerOptions = {
                 root: null,
-                rootMargin: '-25% 0px -35% 0px',
-                threshold: 0.25
+                rootMargin: window.innerWidth <= 800 ? '-20% 0px -30% 0px' : '-25% 0px -35% 0px',
+                threshold: 0.2
             };
 
             var observer = new IntersectionObserver(function(entries) {
@@ -127,9 +183,14 @@
         }
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initGarageBreakdown);
-    } else {
+    function init() {
+        initMobileMenu();
         initGarageBreakdown();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
     }
 })();

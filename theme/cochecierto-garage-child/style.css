@@ -1,8 +1,8 @@
 /*
 Theme Name: CocheCierto Garaje Child
 Template: twentytwentyfive
-Version: 0.4.1
-Description: Portada editorial inmersiva, despiece interactivo de alta precisión y catálogo de CocheCierto Garaje.
+Version: 0.4.2
+Description: Portada editorial inmersiva, despiece interactivo de alta precisión, navegación responsive táctil y catálogo de CocheCierto Garaje.
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
@@ -21,19 +21,34 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     --cc-body: 'Inter', Arial, sans-serif;
 }
 
-* { box-sizing: border-box; }
+/* 1. Base y Prevención de Desbordamiento Horizontal (Spec 010) */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: clip;
+    max-width: 100vw;
+}
+
+body.garage-menu-locked {
+    overflow: hidden !important;
+    height: 100vh;
+    touch-action: none;
+}
+
 .garage-site {
     background: var(--cc-paper);
     color: var(--cc-ink);
     font-family: var(--cc-body);
     font-size: 1.05rem;
     line-height: 1.6;
-    margin: 0;
+    -webkit-font-smoothing: antialiased;
 }
 .garage-site a { color: inherit; }
-.garage-site main { overflow: hidden; }
+.garage-site main { overflow-x: clip; }
 
-/* Ancho Panorámico Ampliado a 1400px (Spec 009) */
+/* Ancho Panorámico Ampliado a 1400px */
 .garage-shell {
     width: min(1400px, calc(100% - 56px));
     margin-inline: auto;
@@ -59,7 +74,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     background: currentColor;
 }
 
-/* Header Sticky Translúcido Persistente (Estilo Heliostat) */
+/* 2. Cabecera Sticky Translúcida Persistente (Estilo Heliostat) */
 .garage-header {
     background: rgba(7, 21, 33, 0.88);
     backdrop-filter: blur(14px);
@@ -70,6 +85,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     top: 0;
     z-index: 100;
     transition: background .25s ease, border-color .25s ease;
+    padding-top: env(safe-area-inset-top);
 }
 .garage-header__inner {
     align-items: center;
@@ -86,6 +102,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 .garage-logo:hover { transform: scale(1.02); }
 .garage-logo svg { display: block; height: auto; width: 100%; }
 
+/* Navegación Desktop */
 .garage-nav {
     align-items: center;
     display: flex;
@@ -112,6 +129,118 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 }
 .garage-nav__cta span { margin-left: 6px; }
 
+/* Botón Hamburguesa Móvil Accesible (Spec 010) */
+.garage-menu-toggle {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    display: none;
+    height: 48px;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+    width: 48px;
+    z-index: 160;
+    -webkit-tap-highlight-color: transparent;
+}
+.garage-menu-toggle__box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    width: 26px;
+}
+.garage-menu-toggle__line {
+    background: var(--cc-white);
+    border-radius: 2px;
+    display: block;
+    height: 2px;
+    transition: transform .25s ease, opacity .25s ease;
+    width: 100%;
+}
+.garage-menu-toggle.is-active .garage-menu-toggle__line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.garage-menu-toggle.is-active .garage-menu-toggle__line:nth-child(2) {
+    opacity: 0;
+}
+.garage-menu-toggle.is-active .garage-menu-toggle__line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Cajón de Navegación Móvil Desplegable (Drawer) */
+.garage-mobile-drawer {
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transition: opacity .3s ease;
+    z-index: 150;
+}
+.garage-mobile-drawer.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+.garage-mobile-drawer__overlay {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    inset: 0;
+    position: absolute;
+}
+.garage-mobile-drawer__content {
+    background: rgba(7, 21, 33, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    padding: calc(88px + env(safe-area-inset-top)) 28px 36px;
+    position: relative;
+    transform: translateY(-100%);
+    transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2;
+}
+.garage-mobile-drawer.is-open .garage-mobile-drawer__content {
+    transform: translateY(0);
+}
+.garage-mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.garage-mobile-link {
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--cc-white);
+    display: flex;
+    font-family: var(--cc-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    gap: 14px;
+    min-height: 52px;
+    padding: 10px 0;
+    text-decoration: none;
+    transition: color .2s;
+}
+.garage-mobile-link span {
+    color: var(--cc-orange);
+    font-size: .85rem;
+    font-weight: 800;
+}
+.garage-mobile-link:hover, .garage-mobile-link:active {
+    color: var(--cc-orange);
+}
+.garage-mobile-nav__actions {
+    margin-top: 20px;
+}
+.garage-mobile-cta {
+    width: 100%;
+    text-align: center;
+    padding: 16px;
+    font-size: 1.05rem;
+}
+
 /* Barra de progreso de lectura */
 .garage-progress {
     background: rgba(255, 255, 255, 0.15);
@@ -131,13 +260,14 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     will-change: transform;
 }
 
-/* Hero Panorámico */
+/* 3. Hero Panorámico y Blindaje Visual */
 .garage-hero {
     background: var(--cc-blue);
     color: var(--cc-white);
     min-height: 720px;
     padding: 65px 0 85px;
     position: relative;
+    overflow-x: clip;
 }
 .garage-hero__grid {
     display: grid;
@@ -147,7 +277,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 }
 .garage-hero__copy { position: relative; z-index: 2; }
 .garage-hero h1 {
-    font-size: clamp(3rem, 5.8vw, 5.4rem);
+    font-size: clamp(2.4rem, 5.5vw, 5.4rem);
     letter-spacing: -.065em;
     line-height: 1.02;
     margin: 22px 0;
@@ -158,7 +288,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 }
 .garage-hero__lead {
     color: #dceaf2;
-    font-size: 1.2rem;
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
     line-height: 1.65;
     max-width: 620px;
 }
@@ -167,6 +297,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     display: flex;
     gap: 24px;
     margin-top: 36px;
+    flex-wrap: wrap;
 }
 .garage-hero__text-action {
     color: #fff;
@@ -175,6 +306,9 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     font-weight: 800;
     text-decoration: none;
     transition: color .2s;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
 }
 .garage-hero__text-action:hover { color: var(--cc-orange); }
 
@@ -188,9 +322,12 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     font-weight: 800;
     gap: 12px;
     justify-content: center;
-    padding: 15px 24px;
+    min-height: 48px;
+    padding: 14px 24px;
     text-decoration: none;
     transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
 }
 .garage-button:hover {
     transform: translateY(-2px);
@@ -201,11 +338,18 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 .garage-button--dark { background: var(--cc-deep); color: var(--cc-white); }
 .garage-button--dark:hover { background: #000; }
 
-.garage-hero__visual { min-height: 500px; position: relative; }
+/* Contenedor Visual y Órbitas Recortadas */
+.garage-hero__visual {
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--cc-radius);
+}
 .garage-orbit {
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 50%;
     position: absolute;
+    pointer-events: none;
 }
 .garage-orbit--one { height: 480px; right: -30px; top: 10px; width: 480px; }
 .garage-orbit--two { height: 300px; right: 60px; top: 100px; width: 300px; }
@@ -261,6 +405,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     gap: 12px;
     padding: 12px 16px;
     position: absolute;
+    z-index: 3;
 }
 .garage-float strong, .garage-float small { display: block; }
 .garage-float strong { font-size: .82rem; }
@@ -291,7 +436,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 .garage-avatar--clara { background: #ffe1d4; color: var(--cc-orange-dark); }
 .garage-avatar--ciro { background: var(--cc-orange); color: var(--cc-white); height: 86px; width: 86px; font-size: 1.8rem; }
 
-/* --- SPEC 009: Despiece Interactivo con Visor Dinámico y Telemetría --- */
+/* 4. Despiece Interactivo con Ergonomía Táctil (Spec 010) */
 .garage-breakdown {
     background: #edf2f6;
     padding: 110px 0;
@@ -302,14 +447,18 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     display: flex;
     justify-content: space-between;
     margin-bottom: 36px;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 .garage-section h2 {
     color: var(--cc-blue);
-    font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+    font-size: clamp(2rem, 4vw, 3.6rem);
     letter-spacing: -.055em;
     line-height: 1.05;
     margin-bottom: 0;
 }
+
+/* Barra de Pestañas con Desplazamiento Suave e Inercia Táctil */
 .garage-breakdown-nav {
     display: flex;
     flex-wrap: wrap;
@@ -325,11 +474,13 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     cursor: pointer;
     display: inline-flex;
     font-family: var(--cc-display);
-    font-size: .86rem;
+    font-size: .88rem;
     font-weight: 700;
     gap: 8px;
-    padding: 10px 18px;
+    min-height: 48px;
+    padding: 10px 20px;
     transition: all .2s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 .garage-breakdown-tab:hover {
     border-color: var(--cc-orange);
@@ -373,6 +524,8 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     justify-content: space-between;
     margin-bottom: 18px;
     padding-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 .garage-stage-indicator {
     align-items: center;
@@ -388,7 +541,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 .garage-finish-toggle {
     align-items: center;
     display: flex;
-    gap: 6px;
+    gap: 8px;
     opacity: 0;
     pointer-events: none;
     transition: opacity .25s ease;
@@ -399,7 +552,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 }
 .garage-finish-toggle__label {
     color: var(--cc-muted);
-    font-size: .78rem;
+    font-size: .8rem;
     font-weight: 700;
     text-transform: uppercase;
 }
@@ -410,10 +563,12 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     color: var(--cc-ink);
     cursor: pointer;
     font-family: var(--cc-display);
-    font-size: .74rem;
+    font-size: .8rem;
     font-weight: 800;
-    padding: 4px 10px;
+    min-height: 36px;
+    padding: 6px 14px;
     transition: all .2s;
+    -webkit-tap-highlight-color: transparent;
 }
 .garage-finish-btn.is-active {
     background: var(--cc-orange);
@@ -569,7 +724,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     50% { opacity: 0.2; transform: scale(0.9); }
 }
 
-/* Hotspots */
+/* Hotspots con Área Táctil Ampliada a 48px (Spec 010 - WCAG 2.5.5) */
 .garage-hotspot {
     background: transparent;
     border: 0;
@@ -578,6 +733,18 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     position: absolute;
     transform: translate(-50%, -50%);
     z-index: 5;
+    -webkit-tap-highlight-color: transparent;
+}
+/* Zona invisible de toque de 48px para facilitar el toque táctil */
+.garage-hotspot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    z-index: 3;
 }
 .garage-hotspot__pulse {
     animation: cc-pulse 2s infinite cubic-bezier(.25, 0, .3, 1);
@@ -656,6 +823,8 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     justify-content: space-between;
     margin-top: 18px;
     padding-top: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 .garage-stage-stat__label { color: var(--cc-muted); font-size: .78rem; display: block; }
 .garage-stage-stat__val { color: var(--cc-blue); font-family: var(--cc-display); font-size: .92rem; font-weight: 800; }
@@ -708,7 +877,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 .garage-breakdown-step__title {
     color: var(--cc-blue);
     font-family: var(--cc-display);
-    font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+    font-size: clamp(1.35rem, 2.3vw, 1.85rem);
     letter-spacing: -.04em;
     line-height: 1.15;
     margin: 10px 0 14px;
@@ -749,7 +918,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     100% { transform: translate(-50%, -50%) scale(2.3); opacity: 0; }
 }
 
-/* Sección Momentos */
+/* 5. Sección Momentos */
 .garage-section--moments {
     background: var(--cc-deep);
     color: var(--cc-white);
@@ -773,6 +942,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     padding: 24px 0;
     text-decoration: none;
     transition: padding .2s, color .2s;
+    min-height: 52px;
 }
 .garage-moment-row:hover {
     color: var(--cc-orange);
@@ -789,7 +959,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 .garage-moment-row small { color: #c0d1db; font-size: .92rem; margin-top: 6px; }
 .garage-moment-arrow { font-size: 1.4rem; }
 
-/* Asistente */
+/* 6. Asistente y Confianza */
 .garage-section--assistant { background: #e9f1f5; padding: 100px 0; }
 .garage-assistant-card {
     align-items: center;
@@ -801,7 +971,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     grid-template-columns: 120px 1fr 160px;
     padding: 54px 60px;
 }
-.garage-assistant-card h2 { font-size: clamp(2rem, 3.8vw, 3.2rem); max-width: 680px; }
+.garage-assistant-card h2 { font-size: clamp(1.8rem, 3.8vw, 3.2rem); max-width: 680px; }
 .garage-assistant-card p:not(.garage-kicker) { color: var(--cc-muted); font-size: 1.05rem; line-height: 1.65; max-width: 700px; }
 .garage-assistant-card__portrait {
     align-items: center;
@@ -830,7 +1000,6 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     text-transform: uppercase;
 }
 
-/* Confianza */
 .garage-section--trust { padding: 100px 0; }
 .garage-trust-grid { display: grid; gap: 80px; grid-template-columns: 1fr 1fr; }
 .garage-trust-points { border-top: 1px solid var(--cc-line); }
@@ -839,7 +1008,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 .garage-trust-points strong { font-size: 1.1rem; }
 .garage-trust-points span { color: var(--cc-muted); font-size: .94rem; margin-top: 6px; }
 
-/* Subpáginas: Guías, Categorías y Productos (Congruencia Global) */
+/* 7. Subpáginas: Guías, Categorías y Catálogo */
 .garage-guide__hero, .garage-category__hero {
     background: var(--cc-blue);
     color: var(--cc-white);
@@ -847,7 +1016,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 }
 .garage-guide__hero h1, .garage-category__hero h1 {
     font-family: var(--cc-display);
-    font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+    font-size: clamp(2.4rem, 6vw, 5.2rem);
     letter-spacing: -.06em;
     line-height: 1.05;
     margin: 14px 0 22px;
@@ -868,7 +1037,7 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
 .garage-guide__body h2, .garage-category__content h2 {
     color: var(--cc-blue);
     font-family: var(--cc-display);
-    font-size: clamp(2.1rem, 4vw, 3.4rem);
+    font-size: clamp(1.9rem, 4vw, 3.4rem);
     letter-spacing: -.05em;
 }
 .garage-guide__body ul {
@@ -919,48 +1088,109 @@ Description: Portada editorial inmersiva, despiece interactivo de alta precisió
     padding: 26px 0;
 }
 
-/* Media Queries Responsives */
+/* 8. Media Queries Responsives Exhaustivas (Spec 010) */
 @media (max-width: 1060px) {
+    .garage-shell { width: min(100% - 40px, 920px); }
     .garage-breakdown__layout { display: block; }
-    .garage-breakdown__stage { margin-bottom: 36px; position: relative; top: 0; }
-    .garage-breakdown__car-display { height: 300px; }
+    .garage-breakdown__stage { margin-bottom: 40px; position: relative; top: 0; }
+    .garage-breakdown__car-display { height: 320px; }
     .garage-hero__grid { display: block; }
-    .garage-hero__visual { margin-top: 35px; min-height: 420px; }
-    .garage-assistant-card { display: block; padding: 36px 30px; }
+    .garage-hero__visual { margin-top: 40px; min-height: 440px; }
+    .garage-assistant-card { display: block; padding: 40px 32px; }
     .garage-assistant-card__portrait { margin-bottom: 25px; }
     .garage-assistant-card__signal {
         border-left: 0;
         border-top: 1px solid var(--cc-line);
         display: flex;
-        gap: 16px;
+        gap: 20px;
         margin-top: 30px;
         padding-top: 20px;
     }
+    .garage-trust-grid { gap: 40px; }
 }
 
 @media (max-width: 800px) {
-    .garage-shell { width: min(100% - 32px, 600px); }
+    .garage-shell { width: min(100% - 32px, 620px); }
     .garage-header__inner { min-height: 68px; }
     .garage-logo { width: 175px; }
-    .garage-nav > a:not(.garage-nav__cta) { display: none; }
-    .garage-nav__cta { font-size: .78rem; padding: 10px 14px; }
+    
+    /* Mostrar botón hamburguesa y ocultar menú tradicional */
+    .garage-nav { display: none; }
+    .garage-menu-toggle { display: flex; }
+
     .garage-progress { top: 68px; }
-    .garage-breakdown { padding: 75px 0; }
-    .garage-breakdown-step { padding: 28px 22px; }
+    .garage-hero { padding: 45px 0 65px; min-height: auto; }
+    .garage-hero__actions { flex-direction: column; align-items: stretch; gap: 14px; }
+    .garage-hero__actions .garage-button { width: 100%; }
+    .garage-hero__text-action { justify-content: center; }
+
+    /* Ajuste de tarjeta del coche y órbitas para 0% desborde */
+    .garage-hero__visual { min-height: 380px; margin-top: 30px; }
+    .garage-car-card {
+        left: 0;
+        right: 0;
+        top: 20px;
+        transform: none;
+        padding: 18px;
+    }
+    .garage-car-image { height: 210px; }
+    .garage-orbit--one { height: 320px; width: 320px; right: -60px; top: 20px; }
+    .garage-orbit--two { height: 220px; width: 220px; right: 20px; top: 70px; }
+    .garage-float--assistant { left: 4px; top: 4px; padding: 8px 12px; }
+    .garage-float--check { right: 4px; bottom: 8px; padding: 8px 12px; }
+
+    /* Despiece Móvil */
+    .garage-breakdown { padding: 65px 0; }
+    .garage-breakdown-nav {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin-inline: -16px;
+        padding-inline: 16px;
+    }
+    .garage-breakdown-nav::-webkit-scrollbar { display: none; }
+    .garage-breakdown-tab { flex-shrink: 0; }
+    .garage-breakdown__stage { padding: 20px; border-radius: 18px; }
+    .garage-breakdown__car-display { height: 250px; }
+    .garage-breakdown-step { padding: 26px 20px; }
+    .garage-spec-table { padding: 14px 16px; }
     .garage-spec-row { flex-direction: column; align-items: flex-start; gap: 4px; }
     .garage-spec-val { text-align: left; }
-    .garage-guide__body, .garage-category__content { display: block; }
-    .garage-guide__body aside, .garage-category__content aside { margin-top: 40px; }
+
+    /* Secciones secundarias */
+    .garage-section--moments, .garage-section--assistant, .garage-section--trust { padding: 65px 0; }
+    .garage-moment-row { grid-template-columns: 50px 1fr 24px; gap: 14px; padding: 18px 0; }
+    .garage-trust-grid { display: block; }
+    .garage-trust-points { margin-top: 30px; }
+    .garage-guide__hero, .garage-category__hero { padding: 75px 0 60px; }
+    .garage-guide__body, .garage-category__content { display: block; padding-bottom: 60px; padding-top: 50px; }
+    .garage-guide__body aside, .garage-category__content aside { margin-top: 36px; padding: 26px 20px; }
 }
 
-@media (max-width: 500px) {
-    .garage-breakdown-nav { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 6px; }
-    .garage-breakdown-tab { flex-shrink: 0; }
-    .garage-breakdown__car-display { height: 230px; }
-    .garage-moment-row { grid-template-columns: 50px 1fr 24px; }
+@media (max-width: 480px) {
+    .garage-shell { width: min(100% - 24px, 440px); }
+    .garage-breakdown__car-display { height: 220px; }
+    .garage-hud-box--oil { top: 8%; left: 4%; padding: 6px 8px; }
+    .garage-hud-box--temp { display: none; }
+    .garage-hud-box--tire { bottom: 8%; left: 18%; padding: 6px 8px; }
+    .garage-stage-stat__val { font-size: .84rem; }
+    .garage-moment-row strong { font-size: 1.05rem; }
+    .garage-moment-row small { font-size: .84rem; }
+}
+
+/* Safe areas para notch y barra de inicio inferior (iOS / Android) */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .garage-site {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .garage-hotspot__pulse, .garage-vis-layer--laca, .garage-v16-beacon__flash { animation: none; }
-    .garage-breakdown__car-img, .garage-breakdown-step, .garage-button { transition: none; transform: none !important; }
+    .garage-breakdown__car-img, .garage-breakdown-step, .garage-button, .garage-mobile-drawer__content {
+        transition: none !important;
+        transform: none !important;
+    }
 }

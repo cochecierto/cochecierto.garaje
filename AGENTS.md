@@ -26,6 +26,7 @@ Leer progresivamente:
 ## Subagentes
 
 - `COPY`: redacción, tono de voz, microcopy, estilo y calidad ortotipográfica en español (garantiza el uso de "Garaje", claridad y ausencia de erratas).
+- `FRONTEND`: arquitectura UI, diseño responsive, interacción táctil, accesibilidad y rendimiento 60fps.
 - `AMAZON`: productos, catálogo y afiliación de automoción.
 - Futuros especialistas: WordPress, catálogo-contenido, UX-conversión, SEO, legal-confianza, analítica, QA y DevOps-seguridad.
 
