@@ -320,15 +320,18 @@
 
         var ticking = false;
         function onScroll() {
-            var rect = heroSection.getBoundingClientRect();
+            var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
             var scrollDistance = heroSection.offsetHeight - window.innerHeight;
             if (scrollDistance <= 0) {
                 ticking = false;
                 return;
             }
 
-            var rawProgress = -rect.top / scrollDistance;
-            var progress = Math.min(Math.max(rawProgress, 0), 1);
+            // El progreso solo comienza cuando el usuario hace scroll real (> 4px)
+            var progress = 0;
+            if (scrollY > 4) {
+                progress = Math.min(Math.max((scrollY - 4) / (scrollDistance - 4), 0), 1);
+            }
 
             // 1. El video fluye proporcionalmente desde la acción de scroll
             if (video.duration && !isNaN(video.duration) && video.duration > 0) {
@@ -338,23 +341,30 @@
                 }
             }
 
-            // 2. Cuando comienza el scroll, el H1 desaparece (fade-out inmediato)
+            // 2. Al hacer scroll, el H1 desaparece inmediatamente (fade-out); en reposo se muestra al 100%
             if (titleGroup) {
-                var titleOpacity = Math.max(0, 1 - (progress * 3.4));
-                var titleOffset = -progress * 60;
-                titleGroup.style.opacity = titleOpacity.toFixed(3);
-                titleGroup.style.transform = 'translateY(' + titleOffset.toFixed(1) + 'px)';
-
-                if (titleOpacity <= 0.02) {
-                    titleGroup.style.pointerEvents = 'none';
-                    titleGroup.style.visibility = 'hidden';
-                } else {
-                    titleGroup.style.pointerEvents = 'auto';
+                if (progress === 0) {
+                    titleGroup.style.opacity = '1';
+                    titleGroup.style.transform = 'translateY(0)';
                     titleGroup.style.visibility = 'visible';
+                    titleGroup.style.pointerEvents = 'auto';
+                } else {
+                    var titleOpacity = Math.max(0, 1 - (progress * 4.2));
+                    var titleOffset = -progress * 50;
+                    titleGroup.style.opacity = titleOpacity.toFixed(3);
+                    titleGroup.style.transform = 'translateY(' + titleOffset.toFixed(1) + 'px)';
+
+                    if (titleOpacity <= 0.02) {
+                        titleGroup.style.pointerEvents = 'none';
+                        titleGroup.style.visibility = 'hidden';
+                    } else {
+                        titleGroup.style.pointerEvents = 'auto';
+                        titleGroup.style.visibility = 'visible';
+                    }
                 }
             }
 
-            // 3. SOLO se mantienen los CTA en la parte inferior
+            // 3. SOLO se mantienen los CTA fijos en la parte inferior
             if (actionsGroup) {
                 actionsGroup.style.opacity = '1';
                 actionsGroup.style.visibility = 'visible';
