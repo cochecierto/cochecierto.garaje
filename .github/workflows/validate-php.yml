@@ -19,4 +19,6 @@ jobs:
           find plugins theme -type f -name '*.php' -print0 | while IFS= read -r -d '' file; do
             php -l "$file"
           done
-
+      - name: Validate catalogue fixture JSON
+        shell: bash
+        run: jq empty tests/fixtures/catalogue-products.json

@@ -9,6 +9,7 @@
 - No se han añadido credenciales ni secretos.
 - `.env.example` contiene solo nombres de variables y ningún valor sensible.
 - El workflow de CI solo valida sintaxis PHP y no despliega remotamente.
+- El workflow valida también el JSON de prueba del catálogo.
 
 ## No ejecutado todavía
 
