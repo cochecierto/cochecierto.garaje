@@ -20,12 +20,16 @@ add_filter('template_include', static function (string $template): string {
         $category_template = get_stylesheet_directory() . '/garage-category.php';
         if (file_exists($category_template)) return $category_template;
     }
+    if ('productos' === $path) {
+        $products_template = get_stylesheet_directory() . '/garage-products.php';
+        if (file_exists($products_template)) return $products_template;
+    }
     return $template;
 });
 
 add_action('template_redirect', static function (): void {
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
-    if (str_starts_with($path, 'guias/') || str_starts_with($path, 'categorias/')) {
+    if (str_starts_with($path, 'guias/') || str_starts_with($path, 'categorias/') || 'productos' === $path) {
         global $wp_query;
         $wp_query->is_404 = false;
         status_header(200);
