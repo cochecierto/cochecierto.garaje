@@ -8,6 +8,7 @@
 - El agente `GARAJE` y `AMAZON` tienen alcance y límites explícitos.
 - No se han añadido credenciales ni secretos.
 - `.env.example` contiene solo nombres de variables y ningún valor sensible.
+- El workflow de CI solo valida sintaxis PHP y no despliega remotamente.
 
 ## No ejecutado todavía
 
