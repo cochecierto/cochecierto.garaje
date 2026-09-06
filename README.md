@@ -1,4 +1,4 @@
-# CocheCierto Garage
+# CocheCierto Garaje
 
 Plataforma WordPress independiente de recomendaciones útiles para cuidar, mantener, equipar y disfrutar el coche.
 
@@ -8,7 +8,7 @@ Plataforma WordPress independiente de recomendaciones útiles para cuidar, mante
 - Repositorio de referencia: https://github.com/inmobia360/coche.cierto
 - Despliegue objetivo: https://garaje.cochecierto.com
 
-El repositorio de referencia aporta contexto de marca, metodología y aprendizajes. No es una dependencia técnica: Garage mantiene su propio código, datos, credenciales, configuración y despliegue.
+El repositorio de referencia aporta contexto de marca, metodología y aprendizajes. No es una dependencia técnica: Garaje mantiene su propio código, datos, credenciales, configuración y despliegue.
 
 ## Método
 

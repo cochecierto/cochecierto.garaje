@@ -111,7 +111,7 @@ get_header();
     <section class="garage-hero garage-hero--panoramic" aria-labelledby="garage-hero-title">
         <div class="garage-shell garage-hero__grid">
             <div class="garage-hero__copy">
-                <p class="garage-kicker"><span></span> CocheCierto Garage · Plataforma Editorial</p>
+                <p class="garage-kicker"><span></span> CocheCierto Garaje · Plataforma Editorial</p>
                 <h1 id="garage-hero-title">Tu coche. Tus necesidades. <em>Decisiones con criterio.</em></h1>
                 <p class="garage-hero__lead">Explora cada área técnica de tu vehículo, comprende exactamente qué revisar y accede únicamente a las recomendaciones contrastadas, sin perderte en el ruido comercial.</p>
                 <div class="garage-hero__actions">
@@ -123,7 +123,7 @@ get_header();
                     </a>
                 </div>
             </div>
-            <div class="garage-hero__visual" aria-label="Coche insignia de CocheCierto Garage">
+            <div class="garage-hero__visual" aria-label="Coche insignia de CocheCierto Garaje">
                 <div class="garage-orbit garage-orbit--one"></div>
                 <div class="garage-orbit garage-orbit--two"></div>
                 <div class="garage-car-card garage-car-card--real">
@@ -131,7 +131,7 @@ get_header();
                         <span>Punto de partida</span>
                         <span class="garage-status">● 5 Zonas preparadas</span>
                     </div>
-                    <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>" alt="Coche insignia de CocheCierto Garage" class="garage-car-image" />
+                    <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>" alt="Coche insignia de CocheCierto Garaje" class="garage-car-image" />
                     <div class="garage-car-card__bottom">
                         <strong>Explorador técnico interactivo</strong>
                         <span>Desplaza hacia abajo para descomponer</span>

@@ -1,5 +1,5 @@
 /**
- * CocheCierto Garage — Despiece Interactivo y Scrollytelling
+ * CocheCierto Garaje — Despiece Interactivo y Scrollytelling
  * Spec 009: Visor Dinámico con Efectos de Zona y Telemetría
  */
 (function() {

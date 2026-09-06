@@ -5,7 +5,7 @@ get_header();
 <main class="garage-product">
     <?php while (have_posts()) : the_post(); ?>
         <article <?php post_class('garage-product__section'); ?>>
-            <p class="garage-product__label">CocheCierto Garage</p>
+            <p class="garage-product__label">CocheCierto Garaje</p>
             <h1><?php the_title(); ?></h1>
             <?php if (has_post_thumbnail()) : ?><figure><?php the_post_thumbnail('large'); ?></figure><?php endif; ?>
             <section aria-labelledby="garage-summary-title"><h2 id="garage-summary-title">Qué problema resuelve</h2><?php the_excerpt(); ?></section>

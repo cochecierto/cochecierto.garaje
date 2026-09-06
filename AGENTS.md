@@ -2,7 +2,7 @@
 
 ## Misión
 
-Coordinar el desarrollo de CocheCierto Garage como plataforma independiente de catálogo, recomendaciones editoriales, guías y comparativas de productos para automoción.
+Coordinar el desarrollo de CocheCierto Garaje como plataforma independiente de catálogo, recomendaciones editoriales, guías y comparativas de productos para automoción.
 
 ## Contexto obligatorio
 
@@ -25,6 +25,7 @@ Leer progresivamente:
 
 ## Subagentes
 
+- `COPY`: redacción, tono de voz, microcopy, estilo y calidad ortotipográfica en español (garantiza el uso de "Garaje", claridad y ausencia de erratas).
 - `AMAZON`: productos, catálogo y afiliación de automoción.
 - Futuros especialistas: WordPress, catálogo-contenido, UX-conversión, SEO, legal-confianza, analítica, QA y DevOps-seguridad.
 
