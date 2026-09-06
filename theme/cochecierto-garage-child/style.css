@@ -1,8 +1,8 @@
 /*
 Theme Name: CocheCierto Garaje Child
 Template: twentytwentyfive
-Version: 0.4.2
-Description: Portada editorial inmersiva, despiece interactivo de alta precisión, navegación responsive táctil y catálogo de CocheCierto Garaje.
+Version: 0.4.3
+Description: Portada editorial inmersiva, despiece interactivo, navegación Modo App móvil, soporte PWA instalable y catálogo de CocheCierto Garaje.
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
@@ -1187,10 +1187,122 @@ body.garage-menu-locked {
     }
 }
 
+/* ==========================================================================
+   Barra de Navegación Modo App (Bottom Bar - Spec 011)
+   ========================================================================== */
+.garage-app-bar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Espacio reservado al pie para que el contenido no quede oculto tras la barra */
+    body.garage-site {
+        padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+
+    .garage-app-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: calc(64px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        background: rgba(7, 21, 33, 0.94);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        z-index: 998;
+    }
+
+    .garage-app-bar__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #8899a6;
+        text-decoration: none;
+        background: none;
+        border: none;
+        padding: 6px 12px;
+        min-width: 54px;
+        position: relative;
+        cursor: pointer;
+        transition: color .2s ease, transform .15s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .garage-app-bar__item:active {
+        transform: scale(0.92);
+    }
+
+    .garage-app-bar__icon {
+        width: 22px;
+        height: 22px;
+        stroke: currentColor;
+        stroke-width: 2;
+        margin-bottom: 3px;
+        transition: stroke .2s ease, transform .2s ease;
+    }
+
+    .garage-app-bar__label {
+        font-family: var(--cc-display);
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+    }
+
+    .garage-app-bar__badge {
+        position: absolute;
+        top: 3px;
+        right: 12px;
+        background: var(--cc-orange);
+        color: #ffffff;
+        font-size: 0.62rem;
+        font-weight: 800;
+        line-height: 1;
+        padding: 2px 5px;
+        border-radius: 99px;
+        box-shadow: 0 0 8px rgba(252, 76, 2, 0.6);
+    }
+
+    .garage-app-bar__item.is-active {
+        color: var(--cc-orange);
+    }
+
+    .garage-app-bar__item.is-active .garage-app-bar__icon {
+        stroke: var(--cc-orange);
+        filter: drop-shadow(0 2px 8px rgba(252, 76, 2, 0.5));
+    }
+
+    .garage-pwa-install-btn {
+        display: inline-flex !important;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--cc-orange);
+        color: var(--cc-orange);
+        background: rgba(252, 76, 2, 0.08);
+        border-radius: 12px;
+        font-weight: 700;
+        padding: 12px 18px;
+        cursor: pointer;
+    }
+
+    .garage-pwa-install-btn:hover, .garage-pwa-install-btn:active {
+        background: var(--cc-orange);
+        color: #ffffff;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .garage-hotspot__pulse, .garage-vis-layer--laca, .garage-v16-beacon__flash { animation: none; }
-    .garage-breakdown__car-img, .garage-breakdown-step, .garage-button, .garage-mobile-drawer__content {
+    .garage-breakdown__car-img, .garage-breakdown-step, .garage-button, .garage-mobile-drawer__content, .garage-app-bar__item {
         transition: none !important;
         transform: none !important;
     }
 }
+

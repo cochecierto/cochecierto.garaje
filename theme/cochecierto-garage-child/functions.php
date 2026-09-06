@@ -2,10 +2,8 @@
 defined('ABSPATH') || exit;
 
 add_action('wp_enqueue_scripts', static function (): void {
-    wp_enqueue_style('cochecierto-garage-child', get_stylesheet_directory_uri() . '/style.css', [], '0.4.2');
-    if (is_front_page() || is_home()) {
-        wp_enqueue_script('garage-breakdown', get_stylesheet_directory_uri() . '/assets/js/garage-breakdown.js', [], '0.4.2', true);
-    }
+    wp_enqueue_style('cochecierto-garage-child', get_stylesheet_directory_uri() . '/style.css', [], '0.4.3');
+    wp_enqueue_script('garage-breakdown', get_stylesheet_directory_uri() . '/assets/js/garage-breakdown.js', [], '0.4.3', true);
 });
 
 add_filter('body_class', static function (array $classes): array {
@@ -32,6 +30,23 @@ add_filter('template_include', static function (string $template): string {
 
 add_action('template_redirect', static function (): void {
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+    if ('sw.js' === $path) {
+        $sw_file = get_stylesheet_directory() . '/sw.js';
+        if (file_exists($sw_file)) {
+            header('Content-Type: application/javascript; charset=utf-8');
+            header('Service-Worker-Allowed: /');
+            readfile($sw_file);
+            exit;
+        }
+    }
+    if ('manifest.json' === $path) {
+        $manifest_file = get_stylesheet_directory() . '/manifest.json';
+        if (file_exists($manifest_file)) {
+            header('Content-Type: application/manifest+json; charset=utf-8');
+            readfile($manifest_file);
+            exit;
+        }
+    }
     if (str_starts_with($path, 'guias/') || str_starts_with($path, 'categorias/') || 'productos' === $path) {
         global $wp_query;
         $wp_query->is_404 = false;

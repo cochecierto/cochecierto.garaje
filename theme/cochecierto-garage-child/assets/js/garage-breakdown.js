@@ -183,9 +183,109 @@
         }
     }
 
+    // 3. Inicialización de Barra de Navegación Modo App (Bottom Bar)
+    function initAppBar() {
+        var appBar = document.querySelector('.garage-app-bar');
+        if (!appBar) return;
+
+        var menuBtn = appBar.querySelector('.garage-app-menu-btn');
+        var toggleBtn = document.querySelector('.garage-menu-toggle');
+
+        if (menuBtn && toggleBtn) {
+            menuBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleBtn.click();
+            });
+        }
+
+        // Marcar pestaña activa según URL y sección
+        var currentPath = window.location.pathname;
+        var currentHash = window.location.hash;
+        var items = appBar.querySelectorAll('.garage-app-bar__item[data-app-tab]');
+
+        function updateActiveTab() {
+            var hash = window.location.hash;
+            items.forEach(function(item) {
+                var tab = item.getAttribute('data-app-tab');
+                var isMatch = false;
+
+                if (tab === 'productos' && currentPath.indexOf('productos') !== -1) {
+                    isMatch = true;
+                } else if (tab === 'despiece' && hash === '#garage-despiece') {
+                    isMatch = true;
+                } else if (tab === 'guias' && (hash === '#garage-momento' || currentPath.indexOf('guias') !== -1)) {
+                    isMatch = true;
+                } else if (tab === 'home' && (currentPath === '/' || currentPath === '') && !hash) {
+                    isMatch = true;
+                }
+
+                if (isMatch) {
+                    item.classList.add('is-active');
+                } else {
+                    item.classList.remove('is-active');
+                }
+            });
+        }
+
+        window.addEventListener('hashchange', updateActiveTab);
+        updateActiveTab();
+    }
+
+    // 4. Inicialización de PWA (Service Worker e Instalación)
+    function initPWA() {
+        // Registro de Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                var swPath = (window.location.origin ? window.location.origin : '') + '/sw.js';
+                navigator.serviceWorker.register(swPath).catch(function() {
+                    // Fallback a ruta de tema si sw.js en raíz no está en rewrite
+                    var childSw = document.querySelector('link[rel="manifest"]');
+                    if (childSw) {
+                        var themeSw = childSw.href.replace('manifest.json', 'sw.js');
+                        navigator.serviceWorker.register(themeSw).catch(function(e) {
+                            console.log('SW registration note:', e.message);
+                        });
+                    }
+                });
+            });
+        }
+
+        // Manejador de prompt de instalación
+        var deferredPrompt = null;
+        var installButtons = document.querySelectorAll('.garage-pwa-install-btn');
+
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButtons.forEach(function(btn) {
+                btn.style.display = 'inline-flex';
+            });
+        });
+
+        installButtons.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(function(choiceResult) {
+                        if (choiceResult.outcome === 'accepted') {
+                            installButtons.forEach(function(b) { b.style.display = 'none'; });
+                        }
+                        deferredPrompt = null;
+                    });
+                } else {
+                    // Si no hay prompt nativo (ej. iOS Safari)
+                    alert('Para instalar CocheCierto Garaje en tu pantalla de inicio:\n\n1. Pulsa el botón "Compartir" en tu navegador (icono cuadrado con flecha hacia arriba).\n2. Selecciona "Añadir a la pantalla de inicio".');
+                }
+            });
+        });
+    }
+
     function init() {
         initMobileMenu();
         initGarageBreakdown();
+        initAppBar();
+        initPWA();
     }
 
     if (document.readyState === 'loading') {
@@ -194,3 +294,4 @@
         init();
     }
 })();
+

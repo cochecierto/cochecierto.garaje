@@ -1,0 +1,50 @@
+﻿{
+   name: CocheCierto Garaje — Cuidado y Mantenimiento del Coche,
+  short_name: Garaje,
+  description: Plataforma de catálogo, recomendaciones editoriales, guías por momento y despiece interactivo de productos para automoción.,
+  start_url: /?source=pwa,
+  scope: /,
+  display: standalone,
+  background_color: #071521,
+  theme_color: #071521,
+  orientation: portrait-primary,
+  lang: es-ES,
+  icons: [
+    {
+      src: assets/brand/icon-192.png,
+      sizes: 192x192,
+      type: image/png,
+      purpose: any maskable
+    },
+    {
+      src: assets/brand/icon-512.png,
+      sizes: 512x512,
+      type: image/png,
+      purpose: any maskable
+    }
+  ],
+  categories: [auto, utilities, shopping],
+  shortcuts: [
+    {
+      name: Despiece del Coche,
+      short_name: Despiece,
+      description: Explorar partes y productos del vehículo,
+      url: /#garage-despiece,
+      icons: [{ src: assets/brand/icon-192.png, sizes: 192x192 }]
+    },
+    {
+      name: Catálogo de Productos,
+      short_name: Catálogo,
+      description: Consultar catálogo de mantenimiento,
+      url: /productos/,
+      icons: [{ src: assets/brand/icon-192.png, sizes: 192x192 }]
+    },
+    {
+      name: Guías por Momento,
+      short_name: Guías,
+      description: Comprobaciones según la vida de tu coche,
+      url: /#garage-momento,
+      icons: [{ src: assets/brand/icon-192.png, sizes: 192x192 }]
+    }
+  ]
+}
