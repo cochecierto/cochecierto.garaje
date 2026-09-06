@@ -6,6 +6,7 @@ $categories = [
     'mantenimiento' => ['title' => 'Motor y mantenimiento', 'intro' => 'Lo esencial para mantener el coche en buen estado y detectar a tiempo lo que conviene revisar.'],
     'limpieza-cuidado' => ['title' => 'Carrocería y cuidado', 'intro' => 'Productos y criterios para cuidar el exterior y conservar mejor cada superficie.'],
     'confort' => ['title' => 'Interior y confort', 'intro' => 'Soluciones sencillas para que el interior sea más cómodo, ordenado y fácil de mantener.'],
+    'neumaticos' => ['title' => 'Neumáticos', 'intro' => 'Herramientas y cuidados para revisar la presión, el desgaste y la preparación del coche antes de salir.'],
     'seguridad-emergencia' => ['title' => 'Neumáticos y seguridad', 'intro' => 'Elementos útiles para prevenir imprevistos y estar mejor preparado en carretera.'],
 ];
 $category = $categories[$slug] ?? ['title' => 'Categoría Garage', 'intro' => 'Recomendaciones seleccionadas para resolver necesidades concretas de tu coche.'];

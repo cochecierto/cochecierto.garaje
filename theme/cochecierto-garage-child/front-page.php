@@ -66,7 +66,7 @@ $breakdown_zones = [
         ],
         'highlight_badge' => 'Seguridad Activa',
         'cta_text' => 'Explorar productos de Neumáticos',
-        'url' => home_url('/categorias/seguridad-emergencia/'),
+        'url' => home_url('/categorias/neumaticos/'),
         'hotspot_top' => '68%',
         'hotspot_left' => '32%',
     ],

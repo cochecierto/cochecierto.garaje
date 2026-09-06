@@ -36,6 +36,7 @@ final class CocheCierto_Garage_Core {
             'Tecnología para el coche' => 'tecnologia-coche',
             'Viajes y organización' => 'viajes-organizacion',
             'Confort' => 'confort',
+            'Neumáticos' => 'neumaticos',
             'Accesorios' => 'accesorios',
             'Equipamiento' => 'equipamiento',
         ];
