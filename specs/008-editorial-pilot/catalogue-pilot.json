@@ -1,0 +1,53 @@
+[
+  {
+    "id": "prod_medidor_presion_piloto",
+    "slug": "medidor-presion-neumaticos",
+    "name": "Medidor de presión para neumáticos",
+    "category": "seguridad-emergencia",
+    "need": ["primeras 72 horas", "preparar un viaje", "neumáticos"],
+    "editorial_summary": "Una herramienta sencilla para comprobar la presión antes de circular o emprender un viaje.",
+    "recommended_for": ["conductores que quieren hacer comprobaciones básicas en casa"],
+    "benefits": ["permite comprobar una medida concreta", "ayuda a crear una rutina de revisión"],
+    "limitations": ["no diagnostica desgaste ni daños estructurales", "la lectura debe compararse con la recomendación del vehículo"],
+    "compatibility_checks": ["consultar la presión recomendada en el manual o etiqueta del vehículo", "comprobar el tipo de válvula y el rango de medición"],
+    "image_status": "pending",
+    "editorial_status": "draft",
+    "seo_status": "pending",
+    "last_reviewed_at": null,
+    "offers": []
+  },
+  {
+    "id": "prod_kit_limpieza_interior_piloto",
+    "slug": "kit-limpieza-interior-coche",
+    "name": "Kit básico de limpieza interior",
+    "category": "limpieza-cuidado",
+    "need": ["primeros 30 días", "interior", "cuidado"],
+    "editorial_summary": "Un conjunto de productos para mantener las superficies interiores limpias y organizadas.",
+    "recommended_for": ["personas que acaban de comprar un coche", "familias y conductores de uso diario"],
+    "benefits": ["concentra varias tareas de limpieza", "facilita establecer una rutina"],
+    "limitations": ["no todos los productos sirven para cuero, pantallas o superficies delicadas", "el resultado depende de la técnica y del material"],
+    "compatibility_checks": ["identificar los materiales del habitáculo", "leer instrucciones y probar en una zona poco visible"],
+    "image_status": "pending",
+    "editorial_status": "draft",
+    "seo_status": "pending",
+    "last_reviewed_at": null,
+    "offers": []
+  },
+  {
+    "id": "prod_linterna_emergencia_piloto",
+    "slug": "linterna-emergencia-coche",
+    "name": "Linterna compacta para el coche",
+    "category": "seguridad-emergencia",
+    "need": ["primeras 72 horas", "emergencia", "viajes"],
+    "editorial_summary": "Un elemento de apoyo para ver y organizar una incidencia cuando hay poca luz.",
+    "recommended_for": ["conductores que viajan de noche o por carretera"],
+    "benefits": ["ocupa poco espacio", "puede complementar un kit de emergencia"],
+    "limitations": ["no sustituye los elementos obligatorios o recomendados por la normativa", "requiere revisar batería o carga"],
+    "compatibility_checks": ["comprobar autonomía y sistema de carga", "guardar en un lugar accesible sin comprometer la seguridad"],
+    "image_status": "pending",
+    "editorial_status": "draft",
+    "seo_status": "pending",
+    "last_reviewed_at": null,
+    "offers": []
+  }
+]
