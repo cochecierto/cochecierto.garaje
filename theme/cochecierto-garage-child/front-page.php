@@ -107,71 +107,34 @@ get_header();
 <main class="garage-home">
     <div class="garage-progress" aria-hidden="true"><span></span></div>
 
-    <!-- Hero de bienvenida ampliado -->
-    <section class="garage-hero garage-hero--panoramic" aria-labelledby="garage-hero-title">
-        <div class="garage-shell garage-hero__grid">
-            <div class="garage-hero__copy">
-                <p class="garage-kicker"><span></span> CocheCierto Garaje · Plataforma Editorial</p>
-                <h1 id="garage-hero-title">Tu coche. Tus necesidades. <em>Decisiones con criterio.</em></h1>
-                <p class="garage-hero__lead">Explora cada área técnica de tu vehículo, comprende exactamente qué revisar y accede únicamente a las recomendaciones contrastadas, sin perderte en el ruido comercial.</p>
-                <div class="garage-hero__actions">
+    <!-- Hero Scrollytelling con video a fondo completo (Spec 010) -->
+    <section class="garage-hero garage-hero--scrolly" id="garageHeroSection" aria-labelledby="garage-hero-title">
+        <div class="garage-hero__sticky-wrapper">
+            <!-- Video de fondo a pantalla completa controlado por scroll -->
+            <div class="garage-hero__video-wrap" aria-hidden="true">
+                <video class="garage-hero-bg-video" 
+                       id="garageHeroVideo" 
+                       muted 
+                       playsinline 
+                       preload="auto">
+                    <source src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/video/cochecierto-presentacion.mp4'); ?>" type="video/mp4">
+                </video>
+                <div class="garage-hero__backdrop-overlay"></div>
+            </div>
+
+            <div class="garage-shell garage-hero__content">
+                <div class="garage-hero__title-group" id="garageHeroTitleGroup">
+                    <p class="garage-kicker"><span></span> CocheCierto Garaje · Plataforma Editorial</p>
+                    <h1 id="garage-hero-title">Tu coche. Tus necesidades. <em>Decisiones con criterio.</em></h1>
+                    <p class="garage-hero__lead">Explora cada área técnica de tu vehículo, comprende exactamente qué revisar y accede únicamente a las recomendaciones contrastadas, sin perderte en el ruido comercial.</p>
+                </div>
+                <div class="garage-hero__actions" id="garageHeroActions">
                     <a class="garage-button garage-button--orange" href="#garage-despiece">
                         Explorar despiece interactivo <span aria-hidden="true">↓</span>
                     </a>
                     <a class="garage-hero__text-action" href="#garage-momento">
                         Ver guías por etapa de posesión →
                     </a>
-                </div>
-            </div>
-            <div class="garage-hero__visual garage-hero__visual--heliostat" aria-label="Coche insignia y presentación de CocheCierto Garaje">
-                <div class="garage-orbit garage-orbit--one"></div>
-                <div class="garage-orbit garage-orbit--two"></div>
-
-                <!-- Tarjeta interactiva del coche con video de apertura estilo Heliostat -->
-                <div class="garage-car-card garage-car-card--heliostat" id="garageHeroCard">
-                    <div class="garage-car-card__top">
-                        <span class="garage-pill">Ingeniería & Cuidado</span>
-                        <span class="garage-status">● Sistema interactivo</span>
-                    </div>
-
-                    <!-- Escenario interactivo: Video de presentación + Coche insignia -->
-                    <div class="garage-heliostat-stage">
-                        <video class="garage-hero-video" 
-                               autoplay 
-                               loop 
-                               muted 
-                               playsinline 
-                               preload="auto"
-                               poster="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>">
-                            <source src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/video/cochecierto-presentacion.mp4'); ?>" type="video/mp4">
-                        </video>
-                        <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>" 
-                             alt="Coche insignia de CocheCierto Garaje" 
-                             class="garage-car-image garage-heliostat-car" />
-                        
-                        <div class="garage-heliostat-overlay">
-                            <span class="garage-heliostat-tag">Modo despiece</span>
-                        </div>
-                    </div>
-
-                    <div class="garage-car-card__bottom">
-                        <div>
-                            <strong>Despiece secuencial en scroll</strong>
-                            <span class="garage-car-card__hint">Desplaza para abrir y ver los componentes ↓</span>
-                        </div>
-                        <a href="#garage-despiece" class="garage-heliostat-open-btn" aria-label="Abrir despiece">
-                            Descomponer ↗
-                        </a>
-                    </div>
-                </div>
-
-                <div class="garage-float garage-float--assistant">
-                    <span class="garage-avatar garage-avatar--clara">C</span>
-                    <div><strong>Clara te orienta</strong><small>Sin complicaciones</small></div>
-                </div>
-                <div class="garage-float garage-float--check">
-                    <span>✓</span>
-                    <div><strong>Compatibilidad verificada</strong><small>Antes de comprar</small></div>
                 </div>
             </div>
         </div>

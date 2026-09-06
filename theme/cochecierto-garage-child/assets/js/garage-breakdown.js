@@ -287,40 +287,70 @@
         });
     }
 
-    // 5. Dinámica de Hero tipo Heliostat (Scroll Scrollytelling con Video)
+    // 5. Dinámica de Hero Scrollytelling (Video a Fondo Completo sincronizado con Scroll)
     function initHeliostatHero() {
-        var heroCard = document.getElementById('garageHeroCard');
-        var heroVideo = document.querySelector('.garage-hero-video');
-        var heroCar = document.querySelector('.garage-heliostat-car');
-        if (!heroCard || !heroVideo) return;
+        var heroSection = document.getElementById('garageHeroSection');
+        var video = document.getElementById('garageHeroVideo');
+        var titleGroup = document.getElementById('garageHeroTitleGroup');
+        var actionsGroup = document.getElementById('garageHeroActions');
+        if (!heroSection || !video) return;
+
+        // Asegurar que el video no se reproduzca solo
+        video.pause();
+        try { video.currentTime = 0; } catch (e) {}
+
+        video.addEventListener('loadedmetadata', function() {
+            video.pause();
+            try { video.currentTime = 0; } catch (e) {}
+            onScroll();
+        });
 
         var ticking = false;
         function onScroll() {
-            var scrollY = window.scrollY;
-            var maxScroll = 600;
-            var progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+            var rect = heroSection.getBoundingClientRect();
+            var scrollDistance = heroSection.offsetHeight - window.innerHeight;
+            if (scrollDistance <= 0) {
+                ticking = false;
+                return;
+            }
 
-            if (progress > 0.05) {
-                // Efecto de apertura/despiece secuencial en scroll
-                var scaleVal = 1 + (progress * 0.15);
-                var carTranslateY = progress * -25;
-                var videoOpacity = Math.max(0.4, 0.88 - (progress * 0.4));
+            var rawProgress = -rect.top / scrollDistance;
+            var progress = Math.min(Math.max(rawProgress, 0), 1);
 
-                heroVideo.style.transform = 'scale(' + scaleVal + ')';
-                heroVideo.style.opacity = videoOpacity;
-
-                if (heroCar) {
-                    heroCar.style.transform = 'translateY(' + carTranslateY + 'px) scale(' + (1 + progress * 0.08) + ')';
-                    heroCar.style.filter = 'drop-shadow(0 ' + (15 + progress * 20) + 'px 40px rgba(252, 76, 2, ' + (0.3 + progress * 0.4) + '))';
-                }
-            } else {
-                heroVideo.style.transform = 'none';
-                heroVideo.style.opacity = '0.88';
-                if (heroCar) {
-                    heroCar.style.transform = 'none';
-                    heroCar.style.filter = 'drop-shadow(0 15px 30px rgba(0,0,0,0.6))';
+            // Sincronizar fotograma exacto del video proporcional al desplazamiento
+            if (video.duration && !isNaN(video.duration) && video.duration > 0) {
+                var targetTime = progress * video.duration;
+                if (Math.abs(video.currentTime - targetTime) > 0.03) {
+                    video.currentTime = targetTime;
                 }
             }
+
+            // Desvanecimiento suave de los títulos al comenzar el scroll
+            if (titleGroup) {
+                var titleOpacity = Math.max(0, 1 - (progress * 2.5));
+                var titleOffset = -progress * 45;
+                titleGroup.style.opacity = titleOpacity.toFixed(3);
+                titleGroup.style.transform = 'translateY(' + titleOffset.toFixed(1) + 'px)';
+
+                if (titleOpacity <= 0.02) {
+                    titleGroup.style.pointerEvents = 'none';
+                    titleGroup.style.visibility = 'hidden';
+                } else {
+                    titleGroup.style.pointerEvents = 'auto';
+                    titleGroup.style.visibility = 'visible';
+                }
+            }
+
+            // Los botones de acción se mantienen siempre interactivos y visibles
+            if (actionsGroup) {
+                var actionScale = 1;
+                if (progress > 0.05 && progress < 0.95) {
+                    actionsGroup.classList.add('is-floating');
+                } else {
+                    actionsGroup.classList.remove('is-floating');
+                }
+            }
+
             ticking = false;
         }
 
@@ -330,6 +360,9 @@
                 ticking = true;
             }
         }, { passive: true });
+
+        // Ejecutar primer pase inicial
+        onScroll();
     }
 
     // 6. Inicialización de PWA (Service Worker e Instalación)

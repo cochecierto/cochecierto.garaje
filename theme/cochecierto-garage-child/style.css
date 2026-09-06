@@ -311,57 +311,145 @@ body.theme-light .garage-theme-toggle-btn {
     will-change: transform;
 }
 
-/* 3. Hero Panorámico y Blindaje Visual */
-.garage-hero {
+/* 3. Hero Panorámico con Video a Fondo Completo y Scrollytelling */
+.garage-hero--scrolly {
     background: var(--cc-blue);
     color: var(--cc-white);
-    min-height: 720px;
-    padding: 65px 0 85px;
     position: relative;
-    overflow-x: clip;
+    height: 220vh;
+    margin-top: -78px;
+    padding-top: 0;
 }
-.garage-hero__grid {
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
+
+.garage-hero__sticky-wrapper {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
     align-items: center;
-    gap: 60px;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--cc-blue);
 }
-.garage-hero__copy { position: relative; z-index: 2; }
+
+.garage-hero__video-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.garage-hero-bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transform: scale(1.02);
+    filter: saturate(1.08) contrast(1.04);
+}
+
+.garage-hero__backdrop-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(180deg, 
+        rgba(7, 21, 33, 0.75) 0%, 
+        rgba(7, 21, 33, 0.45) 40%, 
+        rgba(7, 21, 33, 0.70) 80%,
+        rgba(7, 21, 33, 0.95) 100%
+    );
+}
+
+html.theme-light .garage-hero__backdrop-overlay,
+body.theme-light .garage-hero__backdrop-overlay {
+    background: linear-gradient(180deg, 
+        rgba(7, 21, 33, 0.80) 0%, 
+        rgba(7, 21, 33, 0.50) 45%, 
+        rgba(7, 21, 33, 0.85) 100%
+    );
+}
+
+.garage-hero__content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 880px;
+    padding: calc(78px + 24px) 20px 40px;
+}
+
+.garage-hero__title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity .15s ease-out, transform .15s ease-out;
+    will-change: opacity, transform;
+}
+
 .garage-hero h1 {
-    font-size: clamp(2.4rem, 5.5vw, 5.4rem);
+    font-size: clamp(2.4rem, 5.5vw, 5.2rem);
     letter-spacing: -.065em;
-    line-height: 1.02;
-    margin: 22px 0;
+    line-height: 1.04;
+    margin: 20px 0 16px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
+
 .garage-hero h1 em {
     color: var(--cc-orange);
     font-style: normal;
 }
+
 .garage-hero__lead {
-    color: #dceaf2;
+    color: #e2eef5;
     font-size: clamp(1.05rem, 1.4vw, 1.25rem);
     line-height: 1.65;
-    max-width: 620px;
+    max-width: 660px;
+    margin: 0 auto;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 }
+
 .garage-hero__actions {
     align-items: center;
     display: flex;
-    gap: 24px;
-    margin-top: 36px;
+    gap: 20px;
+    margin-top: 32px;
     flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 4;
 }
+
 .garage-hero__text-action {
     color: #fff;
     font-family: var(--cc-display);
-    font-size: .88rem;
+    font-size: .92rem;
     font-weight: 800;
     text-decoration: none;
-    transition: color .2s;
+    transition: color .2s, transform .2s;
     min-height: 48px;
     display: inline-flex;
     align-items: center;
+    padding: 0 16px;
+    border-radius: 8px;
+    background: rgba(7, 21, 33, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
-.garage-hero__text-action:hover { color: var(--cc-orange); }
+.garage-hero__text-action:hover {
+    color: var(--cc-orange);
+    background: rgba(7, 21, 33, 0.65);
+    border-color: var(--cc-orange);
+}
 
 .garage-button {
     border: 0;
@@ -374,7 +462,7 @@ body.theme-light .garage-theme-toggle-btn {
     gap: 12px;
     justify-content: center;
     min-height: 48px;
-    padding: 14px 24px;
+    padding: 14px 28px;
     text-decoration: none;
     transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
     align-items: center;
@@ -382,167 +470,35 @@ body.theme-light .garage-theme-toggle-btn {
 }
 .garage-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
-.garage-button--orange { background: var(--cc-orange); color: var(--cc-white); }
+.garage-button--orange { 
+    background: var(--cc-orange); 
+    color: var(--cc-white); 
+    box-shadow: 0 6px 20px rgba(252, 76, 2, 0.35);
+}
 .garage-button--orange:hover { background: var(--cc-orange-dark); }
 .garage-button--dark { background: var(--cc-deep); color: var(--cc-white); }
 .garage-button--dark:hover { background: #000; }
 
-/* Contenedor Visual y Órbitas Recortadas */
-.garage-hero__visual {
-    min-height: 500px;
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--cc-radius);
-}
-.garage-orbit {
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 50%;
-    position: absolute;
-    pointer-events: none;
-}
-.garage-orbit--one { height: 480px; right: -30px; top: 10px; width: 480px; }
-.garage-orbit--two { height: 300px; right: 60px; top: 100px; width: 300px; }
-
-/* Tarjeta del coche con Video y Despiece Heliostat */
-.garage-hero__visual--heliostat {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.garage-car-card--heliostat {
-    background: #0d2235;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--cc-radius);
-    color: var(--cc-white);
-    padding: 24px;
-    width: 100%;
-    max-width: 580px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
-}
-
-html.theme-light .garage-car-card--heliostat,
-body.theme-light .garage-car-card--heliostat {
-    background: #ffffff;
-    border-color: #d8dfe6;
-    color: var(--cc-deep);
-    box-shadow: 0 16px 45px rgba(7, 34, 48, 0.12);
-}
-
-.garage-pill {
-    background: rgba(252, 76, 2, 0.15);
-    border: 1px solid rgba(252, 76, 2, 0.4);
-    border-radius: 99px;
-    color: var(--cc-orange);
-    font-size: .75rem;
-    font-weight: 800;
-    letter-spacing: .06em;
-    padding: 4px 12px;
-    text-transform: uppercase;
-}
-
-/* Escenario interactivo tipo Heliostat (video + coche) */
-.garage-heliostat-stage {
-    position: relative;
-    height: 310px;
-    width: 100%;
-    margin: 16px 0;
-    border-radius: 16px;
-    overflow: hidden;
-    background: #05131f;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.garage-hero-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 16px;
-    opacity: 0.88;
-    transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1), opacity .5s ease;
-}
-
-.garage-heliostat-car {
-    position: absolute;
-    width: 82%;
-    height: auto;
-    object-fit: contain;
-    z-index: 2;
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
-    transition: transform .5s ease, opacity .5s ease;
-    pointer-events: none;
-    opacity: 0.95;
-}
-
-.garage-heliostat-overlay {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    z-index: 3;
-}
-
-.garage-heliostat-tag {
-    background: rgba(7, 21, 33, 0.82);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(8px);
-    color: var(--cc-white);
-    font-size: .7rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 6px;
-}
-
-.garage-car-card__bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-    padding-top: 16px;
-    gap: 12px;
-}
-
-html.theme-light .garage-car-card__bottom,
-body.theme-light .garage-car-card__bottom {
-    border-color: #e5ebf0;
-}
-
-.garage-car-card__bottom strong {
-    display: block;
-    font-size: 1.05rem;
-    font-family: var(--cc-display);
-}
-
-.garage-car-card__hint {
-    display: block;
-    color: var(--cc-muted);
-    font-size: .8rem;
-    margin-top: 2px;
-}
-
-.garage-heliostat-open-btn {
-    background: var(--cc-orange);
-    color: var(--cc-white) !important;
-    text-decoration: none;
-    font-size: .85rem;
-    font-weight: 800;
-    padding: 10px 18px;
-    border-radius: 10px;
-    white-space: nowrap;
-    transition: background .2s ease, transform .2s ease;
-    display: inline-flex;
-    align-items: center;
-}
-.garage-heliostat-open-btn:hover {
-    background: var(--cc-orange-dark);
-    transform: translateY(-2px);
+@media (max-width: 768px) {
+    .garage-hero--scrolly {
+        height: 190vh;
+    }
+    .garage-hero__content {
+        padding: calc(78px + 16px) 16px 32px;
+    }
+    .garage-hero__actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 340px;
+        gap: 12px;
+    }
+    .garage-hero__actions .garage-button,
+    .garage-hero__actions .garage-hero__text-action {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 .garage-float {
