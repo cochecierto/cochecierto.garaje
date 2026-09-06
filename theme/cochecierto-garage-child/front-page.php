@@ -2,11 +2,11 @@
 defined('ABSPATH') || exit;
 
 $needs = [
-    ['label' => 'Carrocería', 'text' => 'Lavado, protección y pequeños defectos', 'icon' => '◌', 'url' => home_url('/categoria-garage/carroceria/')],
-    ['label' => 'Interior', 'text' => 'Cuidado, orden y confort', 'icon' => '⌂', 'url' => home_url('/categoria-garage/interior/')],
-    ['label' => 'Motor', 'text' => 'Mantenimiento y herramientas', 'icon' => '◎', 'url' => home_url('/categoria-garage/mantenimiento/')],
-    ['label' => 'Neumáticos', 'text' => 'Presión, viaje y seguridad', 'icon' => '◉', 'url' => home_url('/categoria-garage/seguridad-emergencia/')],
-    ['label' => 'Seguridad', 'text' => 'Prevención y emergencia', 'icon' => '✦', 'url' => home_url('/categoria-garage/seguridad-emergencia/')],
+    ['label' => 'Carrocería', 'text' => 'Lavado, protección y pequeños defectos', 'icon' => '◌', 'url' => home_url('/categorias/limpieza-cuidado/')],
+    ['label' => 'Interior', 'text' => 'Cuidado, orden y confort', 'icon' => '⌂', 'url' => home_url('/categorias/confort/')],
+    ['label' => 'Motor', 'text' => 'Mantenimiento y herramientas', 'icon' => '◎', 'url' => home_url('/categorias/mantenimiento/')],
+    ['label' => 'Neumáticos', 'text' => 'Presión, viaje y seguridad', 'icon' => '◉', 'url' => home_url('/categorias/seguridad-emergencia/')],
+    ['label' => 'Seguridad', 'text' => 'Prevención y emergencia', 'icon' => '✦', 'url' => home_url('/categorias/seguridad-emergencia/')],
 ];
 $moments = [
     ['label' => 'Primeras 72 horas', 'text' => 'Pon tu coche a punto desde el primer día.', 'url' => home_url('/guias/primeras-72-horas/')],
