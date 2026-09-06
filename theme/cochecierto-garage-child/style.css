@@ -93,67 +93,66 @@ body.garage-menu-locked {
     justify-content: space-between;
     min-height: 78px;
 }
-/* Brand Lockup oficial idéntico a cochecierto.com */
+/* Brand Lockup oficial: CocheCierto con Garaje debajo alineado a la izquierda */
 .brand-lockup, .site-brand {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 10px !important;
-    color: #f7f8f5 !important;
+    gap: 12px !important;
     text-decoration: none !important;
-    font-family: var(--cc-display) !important;
-    font-size: 24px !important;
-    font-weight: 800 !important;
-    letter-spacing: -0.04em !important;
     flex-shrink: 0;
-    line-height: 1;
     transition: transform .2s ease;
     border: none !important;
 }
 .brand-lockup:hover, .brand-lockup:focus, .brand-lockup:visited {
     text-decoration: none !important;
-    color: #f7f8f5 !important;
     border: none !important;
 }
 .brand-lockup:hover { transform: scale(1.02); }
 .brand-lockup .brand-symbol, .site-brand .brand-symbol {
-    width: 36px !important;
-    height: 36px !important;
+    width: 38px !important;
+    height: 38px !important;
     display: block;
     flex-shrink: 0;
 }
-.brand-lockup strong, .site-brand strong {
-    color: var(--cc-orange) !important;
+.brand-naming {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    line-height: 1;
+    text-decoration: none !important;
+}
+.brand-name {
+    font-family: var(--cc-display, 'Manrope', sans-serif);
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #f7f8f5;
+    line-height: 1.05;
+    display: block;
+    text-decoration: none !important;
+}
+.brand-name strong {
+    color: var(--cc-orange, #fc4c02) !important;
     font-style: normal;
     text-decoration: none !important;
 }
-.brand-text {
-    text-decoration: none !important;
-    display: inline-flex;
-    align-items: center;
-}
-.brand-badge-garaje {
-    display: inline-block;
-    background: rgba(252, 76, 2, 0.16);
-    border: 1px solid rgba(252, 76, 2, 0.4);
-    color: var(--cc-orange);
-    font-size: 13px;
+.brand-subname {
+    font-family: var(--cc-display, 'Manrope', sans-serif);
+    font-size: 13.5px;
     font-weight: 800;
-    letter-spacing: 0.04em;
-    padding: 3px 8px;
-    border-radius: 6px;
-    text-transform: uppercase;
-    vertical-align: middle;
-    margin-left: 4px;
+    color: var(--cc-orange, #fc4c02);
+    letter-spacing: -0.02em;
+    margin-top: 2px;
+    display: block;
+    text-align: left;
     text-decoration: none !important;
+    text-transform: none; /* Mayúscula y minúsculas: Garaje */
 }
 
-html.theme-light .brand-lockup,
-body.theme-light .brand-lockup,
-[data-theme="light"] .brand-lockup {
-    color: #072230 !important;
-}
-html.theme-light .brand-lockup:hover,
-body.theme-light .brand-lockup:hover {
+html.theme-light .brand-name,
+body.theme-light .brand-name,
+[data-theme="light"] .brand-name {
     color: #072230 !important;
 }
 
@@ -440,7 +439,7 @@ body.theme-light .garage-hero__backdrop-overlay {
 /* H1 arriba del todo del coche, sin interferir con la carrocería */
 .garage-hero__title-group {
     position: absolute;
-    top: calc(78px + 28px);
+    top: calc(78px + 6px);
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -461,29 +460,29 @@ body.theme-light .garage-hero__backdrop-overlay {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
     margin: 0;
-    line-height: 1.05;
+    line-height: 1.02;
 }
 
 .hero-title-main {
     display: block;
     color: #ffffff;
     font-family: var(--cc-display);
-    font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+    font-size: clamp(1.85rem, 3.8vw, 3.4rem);
     font-weight: 800;
     letter-spacing: -0.04em;
-    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
 }
 
 .hero-title-accent {
     display: block;
     color: var(--cc-orange, #fc4c02);
     font-family: var(--cc-display);
-    font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+    font-size: clamp(1.85rem, 3.8vw, 3.4rem);
     font-weight: 800;
     letter-spacing: -0.04em;
-    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.75);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
 
 /* CTAs en la parte inferior, por debajo de la rueda del coche */

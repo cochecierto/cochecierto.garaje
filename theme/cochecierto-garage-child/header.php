@@ -1,7 +1,7 @@
 <?php defined('ABSPATH') || exit; ?><!doctype html><html <?php language_attributes(); ?>><head><meta charset="<?php bloginfo('charset'); ?>"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#071521"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Garaje"><link rel="manifest" href="<?php echo esc_url(get_stylesheet_directory_uri() . '/manifest.json'); ?>"><link rel="apple-touch-icon" href="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/brand/icon-192.png'); ?>"><link rel="profile" href="https://gmpg.org/xfn/11"><?php wp_head(); ?></head><body <?php body_class(); ?>><?php wp_body_open(); ?>
 <header class="garage-header">
     <div class="garage-shell garage-header__inner">
-        <!-- Brand Lockup oficial idéntico a cochecierto.com -->
+        <!-- Brand Lockup oficial idéntico a cochecierto.com con Garaje en segunda línea -->
         <a class="brand-lockup" href="<?php echo esc_url(home_url('/')); ?>" aria-label="CocheCierto Garaje, inicio">
             <img class="brand-symbol" 
                  src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/brand/brand-symbol.svg'); ?>" 
@@ -9,7 +9,10 @@
                  width="36" 
                  height="36"
                  data-theme-uri="<?php echo esc_url(get_stylesheet_directory_uri()); ?>">
-            <span class="brand-text">Coche<strong>Cierto</strong> <span class="brand-badge-garaje">Garaje</span></span>
+            <span class="brand-naming">
+                <span class="brand-name">Coche<strong>Cierto</strong></span>
+                <span class="brand-subname">Garaje</span>
+            </span>
         </a>
 
         <!-- Navegación de escritorio: Despiece, Guía de Compra, Catálogo y CTA Explorar Coche -->
