@@ -14,5 +14,5 @@
 - [x] Actualizar versión en `functions.php`.
 - [x] Verificar sintaxis PHP con `php -l`.
 - [x] Regenerar archivos ZIP en `C:\Users\ernes\Documents\COCHECIERTO\Garaje_zip`.
-- [ ] Commit y push a GitHub (`cochecierto/cochecierto.garaje`).
-- [ ] Documentar en `walkthrough.md`.
+- [x] Commit y push a GitHub (`cochecierto/cochecierto.garaje`).
+- [x] Documentar en `walkthrough.md`.
