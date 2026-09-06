@@ -1,0 +1,13 @@
+/*
+Theme Name: CocheCierto Garage Child
+Template: twentytwentyfive
+Version: 0.1.0
+Description: Presentación inicial de fichas editoriales de CocheCierto Garage.
+*/
+:root { --garage-blue: #123b5d; --garage-teal: #168f8b; --garage-ink: #1d2935; --garage-paper: #f7f8f6; }
+.garage-product { color: var(--garage-ink); background: var(--garage-paper); }
+.garage-product__section { max-width: 72rem; margin-inline: auto; padding: 1.5rem; }
+.garage-product__label { color: var(--garage-teal); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.garage-product__cta { display: inline-block; padding: .75rem 1rem; color: #fff; background: var(--garage-blue); border-radius: .35rem; font-weight: 700; text-decoration: none; }
+.garage-product__notice { padding: 1rem; border-left: .25rem solid var(--garage-teal); background: #e8f4f2; }
+

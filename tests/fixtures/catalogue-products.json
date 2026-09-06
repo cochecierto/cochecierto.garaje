@@ -1,0 +1,19 @@
+[
+  {
+    "id": "prod_kit_emergencia_demo",
+    "slug": "kit-emergencia-demo",
+    "name": "Kit de emergencia para coche — ejemplo",
+    "category": "seguridad-emergencia",
+    "need": ["preparar una emergencia", "viajar"],
+    "editorial_summary": "Producto ficticio para probar la estructura editorial sin enlazar a un proveedor real.",
+    "recommended_for": ["conductores que viajan con frecuencia"],
+    "benefits": ["permite agrupar elementos básicos en una sola ficha"],
+    "limitations": ["no representa un producto disponible", "no sustituye revisar la normativa aplicable"],
+    "compatibility_checks": ["comprobar el contenido real antes de comprar", "revisar fechas de caducidad cuando corresponda"],
+    "image_status": "pending",
+    "editorial_status": "draft",
+    "seo_status": "pending",
+    "last_reviewed_at": "2026-09-06",
+    "offers": []
+  }
+]

@@ -1,0 +1,24 @@
+# Secretos y configuración local
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# WordPress generado y datos locales
+wp-content/uploads/
+wp-content/cache/
+*.sql
+*.sql.gz
+*.log
+
+# Dependencias y archivos del sistema
+node_modules/
+vendor/
+.DS_Store
+Thumbs.db
+
+# Backups locales
+backups/
+backup-*/
+
