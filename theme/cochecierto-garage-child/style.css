@@ -1,8 +1,8 @@
 /*
 Theme Name: CocheCierto Garaje Child
 Template: twentytwentyfive
-Version: 0.4.3
-Description: Portada editorial inmersiva, despiece interactivo, navegación Modo App móvil, soporte PWA instalable y catálogo de CocheCierto Garaje.
+Version: 0.4.4
+Description: Portada editorial inmersiva, video hero interactivo Heliostat, barra Modo App CocheCierto, selector dark/light y soporte PWA.
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
@@ -96,11 +96,62 @@ body.garage-menu-locked {
 .garage-logo {
     display: block;
     line-height: 0;
-    width: 215px;
+    max-width: 220px;
     transition: transform .2s ease;
 }
 .garage-logo:hover { transform: scale(1.02); }
-.garage-logo svg { display: block; height: auto; width: 100%; }
+.garage-logo__img {
+    display: block;
+    height: auto;
+    max-height: 48px;
+    width: auto;
+    max-width: 100%;
+}
+.garage-logo__img--light { display: none; }
+.garage-logo__img--dark { display: block; }
+
+html.theme-light .garage-logo__img--light,
+body.theme-light .garage-logo__img--light { display: block; }
+html.theme-light .garage-logo__img--dark,
+body.theme-light .garage-logo__img--dark { display: none; }
+
+/* Controles de cabecera: Toggle de tema y Menú móvil */
+.garage-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.garage-theme-toggle-btn {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+    color: var(--cc-white);
+    cursor: pointer;
+    display: flex;
+    font-size: 1.1rem;
+    height: 40px;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+    transition: background .2s ease, border-color .2s ease, transform .15s ease, color .2s ease;
+    width: 40px;
+}
+.garage-theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: scale(1.06);
+}
+.garage-theme-toggle-btn:active {
+    transform: scale(0.94);
+}
+
+html.theme-light .garage-theme-toggle-btn,
+body.theme-light .garage-theme-toggle-btn {
+    background: rgba(7, 21, 33, 0.06);
+    border-color: rgba(7, 21, 33, 0.15);
+    color: var(--cc-deep);
+}
 
 /* Navegación Desktop */
 .garage-nav {
@@ -354,45 +405,144 @@ body.garage-menu-locked {
 .garage-orbit--one { height: 480px; right: -30px; top: 10px; width: 480px; }
 .garage-orbit--two { height: 300px; right: 60px; top: 100px; width: 300px; }
 
-.garage-car-card {
-    background: #f7f8f5;
-    border: 1px solid rgba(255, 255, 255, 0.24);
-    border-radius: var(--cc-radius);
-    color: var(--cc-blue);
-    left: 20px;
-    padding: 24px;
-    position: absolute;
-    right: 0;
-    top: 60px;
-    transform: rotate(2deg);
-    box-shadow: 24px 28px 0 rgba(252, 76, 2, 0.16), 0 30px 80px rgba(0, 0, 0, 0.35);
-}
-.garage-car-card__top, .garage-car-card__bottom {
+/* Tarjeta del coche con Video y Despiece Heliostat */
+.garage-hero__visual--heliostat {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
 }
-.garage-car-card__top {
-    color: var(--cc-muted);
-    font-size: .78rem;
-    font-weight: 700;
-    letter-spacing: .05em;
+
+.garage-car-card--heliostat {
+    background: #0d2235;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--cc-radius);
+    color: var(--cc-white);
+    padding: 24px;
+    width: 100%;
+    max-width: 580px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+html.theme-light .garage-car-card--heliostat,
+body.theme-light .garage-car-card--heliostat {
+    background: #ffffff;
+    border-color: #d8dfe6;
+    color: var(--cc-deep);
+    box-shadow: 0 16px 45px rgba(7, 34, 48, 0.12);
+}
+
+.garage-pill {
+    background: rgba(252, 76, 2, 0.15);
+    border: 1px solid rgba(252, 76, 2, 0.4);
+    border-radius: 99px;
+    color: var(--cc-orange);
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    padding: 4px 12px;
     text-transform: uppercase;
 }
-.garage-status { color: #087f5b; font-weight: 800; }
+
+/* Escenario interactivo tipo Heliostat (video + coche) */
+.garage-heliostat-stage {
+    position: relative;
+    height: 310px;
+    width: 100%;
+    margin: 16px 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #05131f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.garage-hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    opacity: 0.88;
+    transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1), opacity .5s ease;
+}
+
+.garage-heliostat-car {
+    position: absolute;
+    width: 82%;
+    height: auto;
+    object-fit: contain;
+    z-index: 2;
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+    transition: transform .5s ease, opacity .5s ease;
+    pointer-events: none;
+    opacity: 0.95;
+}
+
+.garage-heliostat-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 3;
+}
+
+.garage-heliostat-tag {
+    background: rgba(7, 21, 33, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    color: var(--cc-white);
+    font-size: .7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
 .garage-car-card__bottom {
-    border-top: 1px solid var(--cc-line);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-top: 10px;
     padding-top: 16px;
+    gap: 12px;
 }
-.garage-car-card__bottom strong { font-size: 1.15rem; }
-.garage-car-card__bottom span { color: var(--cc-muted); font-size: .82rem; }
-.garage-car-image {
+
+html.theme-light .garage-car-card__bottom,
+body.theme-light .garage-car-card__bottom {
+    border-color: #e5ebf0;
+}
+
+.garage-car-card__bottom strong {
     display: block;
-    height: 290px;
-    margin: 10px auto;
-    object-fit: contain;
-    width: 100%;
+    font-size: 1.05rem;
+    font-family: var(--cc-display);
+}
+
+.garage-car-card__hint {
+    display: block;
+    color: var(--cc-muted);
+    font-size: .8rem;
+    margin-top: 2px;
+}
+
+.garage-heliostat-open-btn {
+    background: var(--cc-orange);
+    color: var(--cc-white) !important;
+    text-decoration: none;
+    font-size: .85rem;
+    font-weight: 800;
+    padding: 10px 18px;
+    border-radius: 10px;
+    white-space: nowrap;
+    transition: background .2s ease, transform .2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+.garage-heliostat-open-btn:hover {
+    background: var(--cc-orange-dark);
+    transform: translateY(-2px);
 }
 
 .garage-float {
@@ -1188,113 +1338,218 @@ body.garage-menu-locked {
 }
 
 /* ==========================================================================
-   Barra de Navegación Modo App (Bottom Bar - Spec 011)
+   Barra de Navegación Modo App (Mobile Bottom Nav - Arquitectura CocheCierto)
    ========================================================================== */
-.garage-app-bar {
+.mobile-bottom-nav {
     display: none;
 }
 
-@media (max-width: 768px) {
-    /* Espacio reservado al pie para que el contenido no quede oculto tras la barra */
+@media (max-width: 880px) {
+    /* Espacio reservado al pie para no tapar contenido */
     body.garage-site {
-        padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+        padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
     }
 
-    .garage-app-bar {
+    /* Ocultar botón de menú en header para evitar dos hamburguesas en móvil */
+    .garage-menu-toggle {
+        display: none !important;
+    }
+
+    .mobile-bottom-nav {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         position: fixed;
-        bottom: 0;
+        z-index: 250;
         left: 0;
         right: 0;
-        height: calc(64px + env(safe-area-inset-bottom, 0px));
-        padding-bottom: env(safe-area-inset-bottom, 0px);
+        bottom: 0;
+        width: 100%;
+        gap: 4px;
+        padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-bottom: 0;
+        border-radius: 16px 16px 0 0;
         background: rgba(7, 21, 33, 0.94);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.45);
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        z-index: 998;
+        box-shadow: 0 -10px 30px rgba(0, 10, 20, 0.35);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        transform: translateY(0);
+        transition: transform .22s ease;
+        will-change: transform;
     }
 
-    .garage-app-bar__item {
+    html.theme-light .mobile-bottom-nav,
+    body.theme-light .mobile-bottom-nav {
+        background: rgba(255, 255, 255, 0.94);
+        border-color: #d0e0d8;
+        box-shadow: 0 -10px 30px rgba(7, 34, 48, 0.08);
+    }
+
+    .mobile-bottom-nav.nav-hidden {
+        transform: translateY(110%);
+    }
+
+    .mobile-bottom-nav a,
+    .mobile-bottom-nav button {
+        min-width: 0;
+        min-height: 56px;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
+        gap: 3px;
+        padding: 7px 4px;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
         color: #8899a6;
+        font-family: var(--cc-display);
+        font-size: 11px;
+        font-weight: 750;
+        line-height: 1.15;
+        text-align: center;
         text-decoration: none;
-        background: none;
-        border: none;
-        padding: 6px 12px;
-        min-width: 54px;
-        position: relative;
         cursor: pointer;
-        transition: color .2s ease, transform .15s ease;
+        touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
+        transition: color .2s ease, background .2s ease, transform .15s ease;
     }
 
-    .garage-app-bar__item:active {
+    html.theme-light .mobile-bottom-nav a,
+    html.theme-light .mobile-bottom-nav button,
+    body.theme-light .mobile-bottom-nav a,
+    body.theme-light .mobile-bottom-nav button {
+        color: #526a75;
+    }
+
+    .mobile-bottom-nav a:hover,
+    .mobile-bottom-nav a:focus-visible,
+    .mobile-bottom-nav button:hover,
+    .mobile-bottom-nav button:focus-visible {
+        background: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+    }
+
+    html.theme-light .mobile-bottom-nav a:hover,
+    html.theme-light .mobile-bottom-nav button:hover,
+    body.theme-light .mobile-bottom-nav a:hover,
+    body.theme-light .mobile-bottom-nav button:hover {
+        background: #e8f0ec;
+        color: #072230;
+    }
+
+    .mobile-bottom-nav a:active,
+    .mobile-bottom-nav button:active {
         transform: scale(0.92);
     }
 
-    .garage-app-bar__icon {
+    .mobile-bottom-nav .nav-icon {
+        display: block;
+        width: 21px;
+        height: 21px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    /* Botón central naranja destacado de CocheCierto */
+    .mobile-bottom-nav .mobile-bottom-primary {
+        background: var(--cc-orange) !important;
+        color: #ffffff !important;
+        box-shadow: 0 5px 16px rgba(252, 76, 2, 0.35);
+        border-radius: 12px;
+    }
+
+    .mobile-bottom-nav .mobile-bottom-primary:hover,
+    .mobile-bottom-nav .mobile-bottom-primary:focus-visible {
+        background: var(--cc-orange-dark) !important;
+        color: #ffffff !important;
+    }
+
+    .mobile-bottom-nav .mobile-bottom-primary .nav-icon {
+        stroke: #ffffff;
+    }
+
+    /* Drawer móvil estructurado por grupos */
+    .garage-mobile-drawer__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 1.15rem;
+        font-family: var(--cc-display);
+        color: #ffffff;
+    }
+    html.theme-light .garage-mobile-drawer__head,
+    body.theme-light .garage-mobile-drawer__head {
+        color: #072230;
+        border-color: #e5ebf0;
+    }
+    .garage-mobile-drawer__close {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 22px;
+        height: 36px;
+        line-height: 1;
+        width: 36px;
+    }
+    html.theme-light .garage-mobile-drawer__close,
+    body.theme-light .garage-mobile-drawer__close {
+        color: #072230;
+        border-color: #d0e0d8;
+    }
+
+    .garage-mobile-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+
+    .garage-mobile-group__label {
+        color: var(--cc-orange);
+        font-size: 11px;
+        font-weight: 850;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .garage-mobile-link .nav-icon {
+        flex: 0 0 auto;
         width: 22px;
         height: 22px;
-        stroke: currentColor;
-        stroke-width: 2;
-        margin-bottom: 3px;
-        transition: stroke .2s ease, transform .2s ease;
-    }
-
-    .garage-app-bar__label {
-        font-family: var(--cc-display);
-        font-size: .68rem;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-    }
-
-    .garage-app-bar__badge {
-        position: absolute;
-        top: 3px;
-        right: 12px;
-        background: var(--cc-orange);
-        color: #ffffff;
-        font-size: 0.62rem;
-        font-weight: 800;
-        line-height: 1;
-        padding: 2px 5px;
-        border-radius: 99px;
-        box-shadow: 0 0 8px rgba(252, 76, 2, 0.6);
-    }
-
-    .garage-app-bar__item.is-active {
-        color: var(--cc-orange);
-    }
-
-    .garage-app-bar__item.is-active .garage-app-bar__icon {
         stroke: var(--cc-orange);
-        filter: drop-shadow(0 2px 8px rgba(252, 76, 2, 0.5));
+        stroke-width: 1.8;
+        fill: none;
     }
-
-    .garage-pwa-install-btn {
-        display: inline-flex !important;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        border: 1px solid var(--cc-orange);
-        color: var(--cc-orange);
-        background: rgba(252, 76, 2, 0.08);
-        border-radius: 12px;
-        font-weight: 700;
-        padding: 12px 18px;
-        cursor: pointer;
+    .garage-mobile-link span {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
     }
-
-    .garage-pwa-install-btn:hover, .garage-pwa-install-btn:active {
-        background: var(--cc-orange);
-        color: #ffffff;
+    .garage-mobile-link strong {
+        font-size: 0.98rem;
+        color: var(--cc-white);
+    }
+    html.theme-light .garage-mobile-link strong,
+    body.theme-light .garage-mobile-link strong {
+        color: #072230;
+    }
+    .garage-mobile-link small {
+        color: #8899a6;
+        font-size: 0.78rem;
+    }
+    html.theme-light .garage-mobile-link small,
+    body.theme-light .garage-mobile-link small {
+        color: #526a75;
     }
 }
 

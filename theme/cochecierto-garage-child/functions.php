@@ -2,8 +2,8 @@
 defined('ABSPATH') || exit;
 
 add_action('wp_enqueue_scripts', static function (): void {
-    wp_enqueue_style('cochecierto-garage-child', get_stylesheet_directory_uri() . '/style.css', [], '0.4.3');
-    wp_enqueue_script('garage-breakdown', get_stylesheet_directory_uri() . '/assets/js/garage-breakdown.js', [], '0.4.3', true);
+    wp_enqueue_style('cochecierto-garage-child', get_stylesheet_directory_uri() . '/style.css', [], '0.4.4');
+    wp_enqueue_script('garage-breakdown', get_stylesheet_directory_uri() . '/assets/js/garage-breakdown.js', [], '0.4.4', true);
 });
 
 add_filter('body_class', static function (array $classes): array {

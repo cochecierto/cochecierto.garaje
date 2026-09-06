@@ -123,20 +123,48 @@ get_header();
                     </a>
                 </div>
             </div>
-            <div class="garage-hero__visual" aria-label="Coche insignia de CocheCierto Garaje">
+            <div class="garage-hero__visual garage-hero__visual--heliostat" aria-label="Coche insignia y presentación de CocheCierto Garaje">
                 <div class="garage-orbit garage-orbit--one"></div>
                 <div class="garage-orbit garage-orbit--two"></div>
-                <div class="garage-car-card garage-car-card--real">
+
+                <!-- Tarjeta interactiva del coche con video de apertura estilo Heliostat -->
+                <div class="garage-car-card garage-car-card--heliostat" id="garageHeroCard">
                     <div class="garage-car-card__top">
-                        <span>Punto de partida</span>
-                        <span class="garage-status">● 5 Zonas preparadas</span>
+                        <span class="garage-pill">Ingeniería & Cuidado</span>
+                        <span class="garage-status">● Sistema interactivo</span>
                     </div>
-                    <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>" alt="Coche insignia de CocheCierto Garaje" class="garage-car-image" />
+
+                    <!-- Escenario interactivo: Video de presentación + Coche insignia -->
+                    <div class="garage-heliostat-stage">
+                        <video class="garage-hero-video" 
+                               autoplay 
+                               loop 
+                               muted 
+                               playsinline 
+                               preload="auto"
+                               poster="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>">
+                            <source src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/video/cochecierto-presentacion.mp4'); ?>" type="video/mp4">
+                        </video>
+                        <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>" 
+                             alt="Coche insignia de CocheCierto Garaje" 
+                             class="garage-car-image garage-heliostat-car" />
+                        
+                        <div class="garage-heliostat-overlay">
+                            <span class="garage-heliostat-tag">Modo despiece</span>
+                        </div>
+                    </div>
+
                     <div class="garage-car-card__bottom">
-                        <strong>Explorador técnico interactivo</strong>
-                        <span>Desplaza hacia abajo para descomponer</span>
+                        <div>
+                            <strong>Despiece secuencial en scroll</strong>
+                            <span class="garage-car-card__hint">Desplaza para abrir y ver los componentes ↓</span>
+                        </div>
+                        <a href="#garage-despiece" class="garage-heliostat-open-btn" aria-label="Abrir despiece">
+                            Descomponer ↗
+                        </a>
                     </div>
                 </div>
+
                 <div class="garage-float garage-float--assistant">
                     <span class="garage-avatar garage-avatar--clara">C</span>
                     <div><strong>Clara te orienta</strong><small>Sin complicaciones</small></div>
