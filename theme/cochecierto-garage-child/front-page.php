@@ -19,6 +19,7 @@ $moments = [
 get_header();
 ?>
 <main class="garage-home">
+ <div class="garage-progress" aria-hidden="true"><span></span></div>
     <section class="garage-hero garage-hero--funnel" aria-labelledby="garage-hero-title">
         <div class="garage-shell garage-hero__grid">
             <div class="garage-hero__copy">

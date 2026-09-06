@@ -31,3 +31,23 @@ add_action('template_redirect', static function (): void {
         status_header(200);
     }
 });
+
+add_action('wp_footer', static function (): void {
+    if (!is_front_page()) return;
+    ?>
+    <script>
+    (() => {
+      const bar = document.querySelector('.garage-progress span');
+      if (!bar) return;
+      let ticking = false;
+      const update = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+        ticking = false;
+      };
+      window.addEventListener('scroll', () => { if (!ticking) { window.requestAnimationFrame(update); ticking = true; } }, { passive: true });
+      update();
+    })();
+    </script>
+    <?php
+});
