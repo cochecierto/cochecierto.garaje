@@ -237,7 +237,18 @@
         function getPreferredTheme() {
             var saved = localStorage.getItem(STORAGE_KEY);
             if (saved === 'light' || saved === 'dark') return saved;
-            return 'dark'; // Por defecto Garaje es una experiencia nocturna/tecnológica
+            return 'dark';
+        }
+
+        function updateLogo(isLight) {
+            var symbols = document.querySelectorAll('.brand-lockup .brand-symbol');
+            symbols.forEach(function(img) {
+                var baseUri = img.getAttribute('data-theme-uri') || '';
+                var targetLogo = baseUri + '/assets/brand/' + (isLight ? 'brand-symbol-light.svg' : 'brand-symbol.svg');
+                if (img.getAttribute('src') !== targetLogo) {
+                    img.src = targetLogo;
+                }
+            });
         }
 
         function applyTheme(theme) {
@@ -248,6 +259,8 @@
                 document.body.classList.toggle('theme-light', isLight);
                 document.body.setAttribute('data-theme', theme);
             }
+
+            updateLogo(isLight);
 
             var toggleBtns = document.querySelectorAll('.garage-theme-toggle-btn');
             toggleBtns.forEach(function(btn) {
@@ -295,7 +308,7 @@
         var actionsGroup = document.getElementById('garageHeroActions');
         if (!heroSection || !video) return;
 
-        // Asegurar que el video no se reproduzca solo
+        // Asegurar que el video comience pausado en el fotograma 0
         video.pause();
         try { video.currentTime = 0; } catch (e) {}
 
@@ -317,7 +330,7 @@
             var rawProgress = -rect.top / scrollDistance;
             var progress = Math.min(Math.max(rawProgress, 0), 1);
 
-            // Sincronizar fotograma exacto del video proporcional al desplazamiento
+            // 1. El video fluye proporcionalmente desde la acción de scroll
             if (video.duration && !isNaN(video.duration) && video.duration > 0) {
                 var targetTime = progress * video.duration;
                 if (Math.abs(video.currentTime - targetTime) > 0.03) {
@@ -325,10 +338,10 @@
                 }
             }
 
-            // Desvanecimiento suave de los títulos al comenzar el scroll
+            // 2. Cuando comienza el scroll, el H1 desaparece (fade-out inmediato)
             if (titleGroup) {
-                var titleOpacity = Math.max(0, 1 - (progress * 2.5));
-                var titleOffset = -progress * 45;
+                var titleOpacity = Math.max(0, 1 - (progress * 3.4));
+                var titleOffset = -progress * 60;
                 titleGroup.style.opacity = titleOpacity.toFixed(3);
                 titleGroup.style.transform = 'translateY(' + titleOffset.toFixed(1) + 'px)';
 
@@ -341,14 +354,11 @@
                 }
             }
 
-            // Los botones de acción se mantienen siempre interactivos y visibles
+            // 3. SOLO se mantienen los CTA en la parte inferior
             if (actionsGroup) {
-                var actionScale = 1;
-                if (progress > 0.05 && progress < 0.95) {
-                    actionsGroup.classList.add('is-floating');
-                } else {
-                    actionsGroup.classList.remove('is-floating');
-                }
+                actionsGroup.style.opacity = '1';
+                actionsGroup.style.visibility = 'visible';
+                actionsGroup.style.pointerEvents = 'auto';
             }
 
             ticking = false;

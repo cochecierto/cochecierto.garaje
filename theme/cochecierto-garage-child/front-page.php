@@ -107,7 +107,7 @@ get_header();
 <main class="garage-home">
     <div class="garage-progress" aria-hidden="true"><span></span></div>
 
-    <!-- Hero Scrollytelling con video a fondo completo (Spec 010) -->
+    <!-- Hero Scrollytelling con video a fondo completo (Spec 010 / Imagen oficial) -->
     <section class="garage-hero garage-hero--scrolly" id="garageHeroSection" aria-labelledby="garage-hero-title">
         <div class="garage-hero__sticky-wrapper">
             <!-- Video de fondo a pantalla completa controlado por scroll -->
@@ -117,23 +117,30 @@ get_header();
                        muted 
                        playsinline 
                        preload="auto">
+                    <!-- URL oficial de WordPress solicitada por el usuario -->
+                    <source src="https://garaje.cochecierto.com/wp-content/uploads/2026/09/cochecierto_garaje.mp4" type="video/mp4">
+                    <!-- Fallback local del tema -->
                     <source src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/video/cochecierto-presentacion.mp4'); ?>" type="video/mp4">
                 </video>
                 <div class="garage-hero__backdrop-overlay"></div>
             </div>
 
-            <div class="garage-shell garage-hero__content">
+            <div class="garage-shell garage-hero__layout">
+                <!-- Títulos superiores según diseño de referencia -->
                 <div class="garage-hero__title-group" id="garageHeroTitleGroup">
-                    <p class="garage-kicker"><span></span> CocheCierto Garaje · Plataforma Editorial</p>
-                    <h1 id="garage-hero-title">Tu coche. Tus necesidades. <em>Decisiones con criterio.</em></h1>
-                    <p class="garage-hero__lead">Explora cada área técnica de tu vehículo, comprende exactamente qué revisar y accede únicamente a las recomendaciones contrastadas, sin perderte en el ruido comercial.</p>
+                    <h1 id="garage-hero-title">
+                        <span class="hero-title-main">Tu coche. Tus necesidades</span>
+                        <span class="hero-title-accent">Decisiones con criterio.</span>
+                    </h1>
                 </div>
+
+                <!-- CTA inferiores que se mantienen visibles durante el scroll -->
                 <div class="garage-hero__actions" id="garageHeroActions">
-                    <a class="garage-button garage-button--orange" href="#garage-despiece">
+                    <a class="garage-button garage-button--orange garage-hero__cta-primary" href="#garage-despiece">
                         Explorar despiece interactivo <span aria-hidden="true">↓</span>
                     </a>
-                    <a class="garage-hero__text-action" href="#garage-momento">
-                        Ver guías por etapa de posesión →
+                    <a class="garage-hero__cta-secondary" href="#garage-momento">
+                        Ver guías por etapa de posesión <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </div>
