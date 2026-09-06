@@ -13,6 +13,7 @@ defined('ABSPATH') || exit;
 final class CocheCierto_Garage_Core {
     public static function boot(): void {
         add_action('init', [self::class, 'register_catalogue']);
+        add_action('init', [self::class, 'seed_categories'], 20);
         add_action('init', [self::class, 'register_product_meta']);
         add_action('add_meta_boxes', [self::class, 'add_product_meta_box']);
         add_action('save_post_garage_product', [self::class, 'save_product_meta']);
