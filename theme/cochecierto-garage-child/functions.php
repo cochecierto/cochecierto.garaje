@@ -2,8 +2,14 @@
 defined('ABSPATH') || exit;
 
 add_action('wp_enqueue_scripts', static function (): void {
-    wp_enqueue_style('cochecierto-garage-child', get_stylesheet_directory_uri() . '/style.css', [], '0.4.4');
-    wp_enqueue_script('garage-breakdown', get_stylesheet_directory_uri() . '/assets/js/garage-breakdown.js', [], '0.4.4', true);
+    $css_file = get_stylesheet_directory() . '/style.css';
+    $js_file  = get_stylesheet_directory() . '/assets/js/garage-breakdown.js';
+
+    $css_ver = file_exists($css_file) ? (string) filemtime($css_file) : '0.5.0';
+    $js_ver  = file_exists($js_file) ? (string) filemtime($js_file) : '0.5.0';
+
+    wp_enqueue_style('cochecierto-garage-child', get_stylesheet_directory_uri() . '/style.css', [], $css_ver);
+    wp_enqueue_script('garage-breakdown', get_stylesheet_directory_uri() . '/assets/js/garage-breakdown.js', [], $js_ver, true);
 });
 
 add_filter('body_class', static function (array $classes): array {
