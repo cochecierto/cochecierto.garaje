@@ -14,16 +14,18 @@ add_filter('template_include', static function (string $template): string {
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
     if (str_starts_with($path, 'guias/')) {
         $guide_template = get_stylesheet_directory() . '/garage-guide.php';
-        if (file_exists($guide_template)) {
-            return $guide_template;
-        }
+        if (file_exists($guide_template)) return $guide_template;
+    }
+    if (str_starts_with($path, 'categorias/')) {
+        $category_template = get_stylesheet_directory() . '/garage-category.php';
+        if (file_exists($category_template)) return $category_template;
     }
     return $template;
 });
 
 add_action('template_redirect', static function (): void {
     $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
-    if (str_starts_with($path, 'guias/')) {
+    if (str_starts_with($path, 'guias/') || str_starts_with($path, 'categorias/')) {
         global $wp_query;
         $wp_query->is_404 = false;
         status_header(200);
