@@ -7,7 +7,7 @@ description: Diseñar, especificar, prototipar y revisar la landing inmersiva de
 
 ## Propósito
 
-Ayuda a construir una landing premium, útil y orientada a conversión para `garage.cochecierto.com`: una experiencia editorial de recomendaciones de productos para automoción, no un marketplace de vehículos ni un checkout propio.
+Ayuda a construir una landing premium, útil y orientada a conversión para `garaje.cochecierto.com`: una experiencia editorial de recomendaciones de productos para automoción, no un marketplace de vehículos ni un checkout propio.
 
 Antes de una iniciativa nueva, leer la documentación vigente del proyecto y la spec relacionada. Las decisiones del usuario prevalecen sobre esta skill, pero no amplían automáticamente los permisos de ejecución.
 

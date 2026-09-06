@@ -3,7 +3,7 @@
 ## Paquete
 
 - Directorio fuente: `plugins/cochecierto-garage-core/`
-- Dominio: `garage.cochecierto.com`
+- Dominio: `garaje.cochecierto.com`
 - Slug: `cochecierto-garage-core`
 - Archivo principal: `cochecierto-garage-core.php`
 

@@ -19,7 +19,7 @@
 
 ## Decisiones de producto del MVP
 
-- WordPress independiente en `garage.cochecierto.com`.
+- WordPress independiente en `garaje.cochecierto.com`.
 - Catálogo, categorías, fichas, guías, comparativas y búsqueda como experiencia principal.
 - Recomendador opcional, explicable y limitado a entre tres y siete resultados.
 - Amazon España como primer proveedor.

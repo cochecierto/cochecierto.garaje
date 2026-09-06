@@ -2,7 +2,7 @@
 
 ## Alcance
 
-CocheCierto Garage es una plataforma WordPress independiente de recomendación y afiliación de productos para automoción en `garage.cochecierto.com`. No tiene stock, logística, devoluciones ni checkout propio.
+CocheCierto Garage es una plataforma WordPress independiente de recomendación y afiliación de productos para automoción en `garaje.cochecierto.com`. No tiene stock, logística, devoluciones ni checkout propio.
 
 ## Capas
 

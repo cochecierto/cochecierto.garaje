@@ -6,7 +6,7 @@ Plataforma WordPress independiente de recomendaciones útiles para cuidar, mante
 
 - Repositorio oficial: https://github.com/cochecierto/cochecierto.garaje
 - Repositorio de referencia: https://github.com/inmobia360/coche.cierto
-- Despliegue objetivo: https://garage.cochecierto.com
+- Despliegue objetivo: https://garaje.cochecierto.com
 
 El repositorio de referencia aporta contexto de marca, metodología y aprendizajes. No es una dependencia técnica: Garage mantiene su propio código, datos, credenciales, configuración y despliegue.
 

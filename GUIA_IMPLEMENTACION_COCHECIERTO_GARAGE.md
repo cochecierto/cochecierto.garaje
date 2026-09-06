@@ -4,7 +4,7 @@
 **Versión:** 1.0  
 **Estado:** Base de trabajo para iniciar el proyecto  
 **Marca:** CocheCierto Garage  
-**URL objetivo:** `https://garage.cochecierto.com`  
+**URL objetivo:** `https://garaje.cochecierto.com`  
 **Repositorio objetivo:** `inmobia360/cochecierto-garage`  
 **Carpeta local:** `C:\Users\ernes\Documents\COCHECIERTO\CocheCierto_Garaje`
 
@@ -37,7 +37,7 @@ La experiencia principal será de catálogo y compra. El recomendador inteligent
 | Elemento | Decisión |
 |---|---|
 | Marca | CocheCierto Garage |
-| Subdominio | `garage.cochecierto.com` |
+| Subdominio | `garaje.cochecierto.com` |
 | Plataforma | WordPress independiente |
 | Proveedor inicial | Amazon España |
 | Modelo | Afiliación y recomendación editorial |
@@ -265,7 +265,7 @@ Estas páginas deben complementar las categorías, no duplicarlas sin valor.
 Configurar en Hostinger:
 
 ```text
-garage.cochecierto.com
+garaje.cochecierto.com
     ↓
 Instalación WordPress independiente
     ↓
@@ -907,7 +907,7 @@ newsletter_completed
 
 El MVP no se considerará terminado hasta que:
 
-- `https://garage.cochecierto.com` cargue con HTTPS.
+- `https://garaje.cochecierto.com` cargue con HTTPS.
 - La instalación sea independiente del sitio principal.
 - El usuario pueda navegar por categorías.
 - Existan fichas de producto funcionales.
@@ -1022,7 +1022,7 @@ La primera tarea del equipo no es instalar plugins. Es crear la constitución, l
 
 ## 21. Instrucción maestra para el equipo
 
-> Construid CocheCierto Garage como una plataforma WordPress independiente en `garage.cochecierto.com`, orientada a la recomendación y afiliación de productos para el automóvil. Utilizad el repositorio `inmobia360/coche.cierto` únicamente como fuente de contexto de marca, negocio, agentes y buenas prácticas. Mantened código, base de datos, configuración, credenciales, documentación operativa y despliegue separados. Aplicad el flujo SDD completo: Constitución → Spec → Clarificación → Plan → Tareas → Implementación → Validación → Cambio. No implementéis funcionalidades importantes sin una especificación aprobada. Amazon será el primer proveedor, pero la arquitectura debe permitir otros proveedores mediante adaptadores. La experiencia debe ser principalmente de tienda, catálogo, búsqueda, comparativas y guías; el recomendador será una función complementaria. Priorizad confianza, claridad, accesibilidad móvil, SEO útil, transparencia de afiliación, seguridad y trazabilidad.
+> Construid CocheCierto Garage como una plataforma WordPress independiente en `garaje.cochecierto.com`, orientada a la recomendación y afiliación de productos para el automóvil. Utilizad el repositorio `inmobia360/coche.cierto` únicamente como fuente de contexto de marca, negocio, agentes y buenas prácticas. Mantened código, base de datos, configuración, credenciales, documentación operativa y despliegue separados. Aplicad el flujo SDD completo: Constitución → Spec → Clarificación → Plan → Tareas → Implementación → Validación → Cambio. No implementéis funcionalidades importantes sin una especificación aprobada. Amazon será el primer proveedor, pero la arquitectura debe permitir otros proveedores mediante adaptadores. La experiencia debe ser principalmente de tienda, catálogo, búsqueda, comparativas y guías; el recomendador será una función complementaria. Priorizad confianza, claridad, accesibilidad móvil, SEO útil, transparencia de afiliación, seguridad y trazabilidad.
 
 ---
 

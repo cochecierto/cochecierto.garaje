@@ -4,7 +4,7 @@
 
 - Repositorio oficial: `cochecierto/cochecierto.garaje`.
 - Repositorio de referencia: `inmobia360/coche.cierto`.
-- Dominio: `garage.cochecierto.com`.
+- Dominio: `garaje.cochecierto.com`.
 - Agente principal: `GARAJE`.
 - Subagente inicial: `AMAZON`.
 

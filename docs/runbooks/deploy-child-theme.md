@@ -3,7 +3,7 @@
 ## Paquete
 
 - Directorio fuente: `theme/cochecierto-garage-child/`
-- Dominio: `garage.cochecierto.com`
+- Dominio: `garaje.cochecierto.com`
 - Slug: `cochecierto-garage-child`
 - Tema padre declarado: `twentytwentyfive`
 

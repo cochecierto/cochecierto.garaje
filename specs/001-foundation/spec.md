@@ -2,7 +2,7 @@
 
 ## Contexto
 
-Garage dispone de WordPress en `garage.cochecierto.com`, pero el repositorio oficial está vacío y aún no existe una base documental operativa propia.
+Garage dispone de WordPress en `garaje.cochecierto.com`, pero el repositorio oficial está vacío y aún no existe una base documental operativa propia.
 
 ## Problema
 
