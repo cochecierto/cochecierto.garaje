@@ -78,14 +78,27 @@
         var layers = breakdown.querySelectorAll('.garage-vis-layer');
         var finishBtns = breakdown.querySelectorAll('.garage-finish-btn');
         var carImg = breakdown.querySelector('.garage-breakdown__car-img');
+        var stage = breakdown.querySelector('.garage-breakdown__stage');
+        var zoneIndicator = breakdown.querySelector('.garage-stage-indicator__zone strong');
+        var statValElem = document.getElementById('garage-active-stat');
 
         function setActiveZone(zoneId, scrollIntoView) {
+            if (stage) {
+                stage.setAttribute('data-active-zone', zoneId);
+            }
+
             tabs.forEach(function(tab) {
                 var isActive = tab.getAttribute('data-zone') === zoneId;
                 tab.classList.toggle('is-active', isActive);
                 tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
-                if (isActive && window.innerWidth <= 800) {
-                    try { tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); } catch(e) {}
+                if (isActive) {
+                    var labelElem = tab.querySelector('.garage-breakdown-tab__label');
+                    if (zoneIndicator && labelElem) {
+                        zoneIndicator.textContent = labelElem.textContent;
+                    }
+                    if (window.innerWidth <= 800) {
+                        try { tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); } catch(e) {}
+                    }
                 }
             });
 
@@ -98,8 +111,14 @@
             steps.forEach(function(step) {
                 var isActive = step.getAttribute('data-zone') === zoneId;
                 step.classList.toggle('is-active', isActive);
-                if (isActive && scrollIntoView && window.innerWidth > 800) {
-                    try { step.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
+                if (isActive) {
+                    if (statValElem) {
+                        var statText = step.getAttribute('data-stat');
+                        if (statText) statValElem.textContent = statText;
+                    }
+                    if (scrollIntoView && window.innerWidth > 800) {
+                        try { step.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
+                    }
                 }
             });
 
@@ -113,12 +132,20 @@
                     carImg.style.filter = 'drop-shadow(0 15px 35px rgba(252, 76, 2, 0.35)) saturate(1.2)';
                 } else if (zoneId === 'motor') {
                     carImg.style.filter = 'drop-shadow(0 15px 35px rgba(0, 38, 62, 0.45)) contrast(1.1)';
+                } else if (zoneId === 'frenos') {
+                    carImg.style.filter = 'drop-shadow(0 15px 35px rgba(220, 53, 69, 0.45)) saturate(1.1)';
+                } else if (zoneId === 'electricidad') {
+                    carImg.style.filter = 'drop-shadow(0 15px 35px rgba(255, 193, 7, 0.45)) brightness(1.1)';
                 } else if (zoneId === 'seguridad') {
                     carImg.style.filter = 'drop-shadow(0 15px 35px rgba(252, 76, 2, 0.4)) brightness(1.05)';
                 } else {
                     carImg.style.filter = 'drop-shadow(0 15px 35px rgba(0, 0, 0, 0.3))';
                 }
             }
+
+            try {
+                localStorage.setItem('cc_garage_last_zone', zoneId);
+            } catch(e) {}
         }
 
         tabs.forEach(function(tab) {
@@ -429,6 +456,91 @@
         });
     }
 
+    // 7. Persistencia Ligera de Intenciones y Preferencias ("Garaje Pocket")
+    function initIntentPersistence() {
+        var intentCards = document.querySelectorAll('.garage-intent-card');
+        if (!intentCards.length) return;
+
+        intentCards.forEach(function(card) {
+            card.addEventListener('click', function() {
+                var titleElem = card.querySelector('.garage-intent-card__title');
+                var intentText = titleElem ? titleElem.textContent.trim() : '';
+                try {
+                    localStorage.setItem('cc_garage_intent', intentText);
+                    localStorage.setItem('cc_garage_intent_time', Date.now().toString());
+                } catch(e) {}
+            });
+        });
+
+        // Recordar última intención seleccionada
+        try {
+            var savedIntent = localStorage.getItem('cc_garage_intent');
+            if (savedIntent) {
+                intentCards.forEach(function(card) {
+                    var title = card.querySelector('.garage-intent-card__title');
+                    if (title && title.textContent.trim() === savedIntent) {
+                        card.style.borderColor = 'rgba(252, 76, 2, 0.45)';
+                    }
+                });
+            }
+        } catch(e) {}
+    }
+
+    // 8. Analítica y Medición de Conversión (Sección 12 - Mobile-First)
+    function initAnalyticsTracking() {
+        window.dataLayer = window.dataLayer || [];
+
+        function track(eventName, params) {
+            params = params || {};
+            params.event = eventName;
+            window.dataLayer.push(params);
+            try {
+                document.dispatchEvent(new CustomEvent(eventName, { detail: params }));
+            } catch(e) {}
+        }
+
+        // Clicks en Hero CTA
+        var heroCtas = document.querySelectorAll('.garage-hero__actions a');
+        heroCtas.forEach(function(cta) {
+            cta.addEventListener('click', function() {
+                track('garage_hero_cta_click', { text: cta.textContent.trim() });
+            });
+        });
+
+        // Selección de intención
+        var intentCards = document.querySelectorAll('.garage-intent-card');
+        intentCards.forEach(function(card) {
+            card.addEventListener('click', function() {
+                var title = card.querySelector('.garage-intent-card__title');
+                track('garage_intent_selected', { intent: title ? title.textContent.trim() : '' });
+            });
+        });
+
+        // Apertura de zona de despiece
+        var tabs = document.querySelectorAll('.garage-breakdown-tab');
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                track('garage_zone_opened', { zone: tab.getAttribute('data-zone') });
+            });
+        });
+
+        // Clic en enlace de afiliación externo
+        document.addEventListener('click', function(e) {
+            var affLink = e.target.closest('a[rel*="sponsored"]');
+            if (affLink) {
+                track('garage_affiliate_click', { url: affLink.href });
+            }
+        });
+
+        // Interacción con Clara
+        var claraLinks = document.querySelectorAll('a[href*="assistant"], .garage-assistant-card a');
+        claraLinks.forEach(function(l) {
+            l.addEventListener('click', function() {
+                track('garage_clara_opened');
+            });
+        });
+    }
+
     function init() {
         initTheme();
         initMobileMenu();
@@ -436,6 +548,8 @@
         initMobileBottomNav();
         initHeliostatHero();
         initPWA();
+        initIntentPersistence();
+        initAnalyticsTracking();
     }
 
     if (document.readyState === 'loading') {

@@ -75,9 +75,45 @@ $breakdown_zones = [
         'telemetry_stat' => 'Presión nominal: consultar adhesivo pilar B',
     ],
     [
+        'id' => 'frenos',
+        'tab_label' => 'Frenos',
+        'kicker' => '05 · Frenada & Control',
+        'title' => 'Pastillas, discos y líquido de frenos',
+        'desc' => 'La capacidad de detención no admite descuidos. Comprueba el grosor del ferodo sin desmontar la rueda, detecta vibraciones al pisar el pedal y renueva el líquido DOT4/DOT5.1 cada dos años.',
+        'specs' => [
+            ['label' => 'Espesor mínimo pastilla', 'value' => '3 mm (cambio urgente si baja de 2 mm)'],
+            ['label' => 'Punto de ebullición DOT', 'value' => 'DOT 4: sustitución cada 24 meses'],
+            ['label' => 'Síntoma de alabeo', 'value' => 'Vibración en volante al frenar a media velocidad'],
+        ],
+        'highlight_badge' => 'Seguridad Crítica',
+        'cta_text' => 'Ver guías y productos de Frenos',
+        'url' => home_url('/categorias/mantenimiento/'),
+        'hotspot_top' => '64%',
+        'hotspot_left' => '36%',
+        'telemetry_stat' => 'Grosor mínimo pastillas: 3 mm',
+    ],
+    [
+        'id' => 'electricidad',
+        'tab_label' => 'Batería',
+        'kicker' => '06 · Carga & Electricidad',
+        'title' => 'Batería 12V, alternador y arrancadores portátiles',
+        'desc' => 'La causa número uno de asistencia en carretera. Controla el voltaje en reposo (evita caídas por debajo de 12.2V), protege los bornes de sulfatación y lleva un arrancador auxiliar ultracompacto.',
+        'specs' => [
+            ['label' => 'Voltaje en reposo 100%', 'value' => '12.6V a 12.8V (alerta si < 12.2V)'],
+            ['label' => 'Tecnología recomendada', 'value' => 'AGM/EFB para coches con Start-Stop'],
+            ['label' => 'Equipo de rescate', 'value' => 'Arrancador litio booster con pinzas inteligentes'],
+        ],
+        'highlight_badge' => 'Carga & Asistencia',
+        'cta_text' => 'Ver productos de Batería',
+        'url' => home_url('/categorias/mantenimiento/'),
+        'hotspot_top' => '44%',
+        'hotspot_left' => '28%',
+        'telemetry_stat' => 'Tensión reposo: 12.6V nominal',
+    ],
+    [
         'id' => 'seguridad',
         'tab_label' => 'Seguridad',
-        'kicker' => '05 · Emergencia & Homologación',
+        'kicker' => '07 · Emergencia & Homologación',
         'title' => 'Baliza V16 conectada DGT 3.0 y señalización',
         'desc' => 'En caso de avería o detención en autopista, no salgas del vehículo. Coloca la baliza magnética en el techo: transmite la incidencia a la DGT 3.0 y emite destellos visibles a 1 km.',
         'specs' => [
@@ -116,7 +152,8 @@ get_header();
                        id="garageHeroVideo" 
                        muted 
                        playsinline 
-                       preload="auto">
+                       preload="metadata"
+                       poster="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>">
                     <!-- URL oficial de WordPress solicitada por el usuario -->
                     <source src="https://garaje.cochecierto.com/wp-content/uploads/2026/09/cochecierto_garaje.mp4" type="video/mp4">
                     <!-- Fallback local del tema -->
@@ -129,20 +166,60 @@ get_header();
                 <!-- Títulos superiores según diseño de referencia -->
                 <div class="garage-hero__title-group" id="garageHeroTitleGroup">
                     <h1 id="garage-hero-title">
-                        <span class="hero-title-main">Tu coche. Tus necesidades</span>
-                        <span class="hero-title-accent">Decisiones con criterio.</span>
+                        <span class="hero-title-main">Cuida mejor tu coche.</span>
+                        <span class="hero-title-accent">Elige solo lo que necesitas.</span>
                     </h1>
+                    <p class="garage-hero__subtitle">
+                        Guías claras, recomendaciones compatibles y productos útiles para cuidar, equipar y disfrutar tu coche.
+                    </p>
                 </div>
 
                 <!-- CTA inferiores que se mantienen visibles durante el scroll -->
                 <div class="garage-hero__actions" id="garageHeroActions">
                     <a class="garage-button garage-button--orange garage-hero__cta-primary" href="#garage-despiece">
-                        Explorar despiece interactivo <span aria-hidden="true">↓</span>
+                        Explorar el Garaje <span aria-hidden="true">↓</span>
                     </a>
                     <a class="garage-hero__cta-secondary" href="#garage-momento">
-                        Ver guías por etapa de posesión <span aria-hidden="true">→</span>
+                        Ver guías paso a paso <span aria-hidden="true">→</span>
                     </a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selector de intención inicial (Pantalla 1 - Flujo Mobile-First) -->
+    <section class="garage-section garage-intent-section" id="garage-intentos" aria-labelledby="garage-intent-title">
+        <div class="garage-shell">
+            <div class="garage-intent-header">
+                <p class="garage-kicker">Primer paso sin rodeos</p>
+                <h2 id="garage-intent-title">¿Qué necesitas hacer hoy?</h2>
+                <p class="garage-intent-desc">Elige una ruta directa y encuentra respuestas útiles sin registro previo.</p>
+            </div>
+            <div class="garage-intent-grid">
+                <a class="garage-intent-card" href="#garage-despiece">
+                    <div class="garage-intent-card__icon" aria-hidden="true">🚗</div>
+                    <div class="garage-intent-card__body">
+                        <strong class="garage-intent-card__title">Revisar y cuidar mi coche</strong>
+                        <p class="garage-intent-card__text">Encuentra qué comprobar y cuándo hacerlo en cada zona clave.</p>
+                    </div>
+                    <span class="garage-intent-card__arrow" aria-hidden="true">→</span>
+                </a>
+                <a class="garage-intent-card" href="<?php echo esc_url(home_url('/guias/primeras-72-horas/')); ?>">
+                    <div class="garage-intent-card__icon" aria-hidden="true">🔑</div>
+                    <div class="garage-intent-card__body">
+                        <strong class="garage-intent-card__title">Acabo de comprar un coche</strong>
+                        <p class="garage-intent-card__text">Empieza con una ruta clara para tus primeros días de posesión.</p>
+                    </div>
+                    <span class="garage-intent-card__arrow" aria-hidden="true">→</span>
+                </a>
+                <a class="garage-intent-card" href="<?php echo esc_url(home_url('/productos/')); ?>">
+                    <div class="garage-intent-card__icon" aria-hidden="true">🔍</div>
+                    <div class="garage-intent-card__body">
+                        <strong class="garage-intent-card__title">Buscar algo para mi coche</strong>
+                        <p class="garage-intent-card__text">Te ayudamos a encontrar un producto útil, contrastado y compatible.</p>
+                    </div>
+                    <span class="garage-intent-card__arrow" aria-hidden="true">→</span>
+                </a>
             </div>
         </div>
     </section>
@@ -228,7 +305,25 @@ get_header();
                                 </div>
                             </div>
 
-                            <!-- EFECTO 5: Baliza V16 estroboscópica en techo (Seguridad) -->
+                            <!-- EFECTO 5: Telemetría y estado de Frenos -->
+                            <div class="garage-vis-layer garage-vis-layer--frenos" aria-hidden="true">
+                                <div class="garage-hud-box garage-hud-box--brakes">
+                                    <span class="garage-hud-label">Sistema Frenado</span>
+                                    <strong class="garage-hud-val">Pastillas: 8 mm · Disco Óptimo</strong>
+                                    <small class="garage-hud-sub">● Líquido DOT 4: ebullición 260 °C</small>
+                                </div>
+                            </div>
+
+                            <!-- EFECTO 6: Voltímetro y carga Batería 12V -->
+                            <div class="garage-vis-layer garage-vis-layer--electricidad" aria-hidden="true">
+                                <div class="garage-hud-box garage-hud-box--battery">
+                                    <span class="garage-hud-label">Tensión Batería 12V</span>
+                                    <strong class="garage-hud-val">12.68 V · Estado SOH 94%</strong>
+                                    <small class="garage-hud-sub">● Alternador: 14.2V en marcha</small>
+                                </div>
+                            </div>
+
+                            <!-- EFECTO 7: Baliza V16 estroboscópica en techo (Seguridad) -->
                             <div class="garage-vis-layer garage-vis-layer--seguridad" aria-hidden="true">
                                 <div class="garage-v16-beacon">
                                     <span class="garage-v16-beacon__flash"></span>
@@ -271,7 +366,7 @@ get_header();
                                  id="paso-<?php echo esc_attr($zone['id']); ?>">
                             
                             <div class="garage-breakdown-step__header">
-                                <span class="garage-breakdown-step__index">0<?php echo esc_html($index + 1); ?> / 05</span>
+                                <span class="garage-breakdown-step__index">0<?php echo esc_html($index + 1); ?> / 07</span>
                                 <span class="garage-breakdown-step__badge"><?php echo esc_html($zone['highlight_badge']); ?></span>
                             </div>
 
@@ -327,22 +422,25 @@ get_header();
         </div>
     </section>
 
-    <!-- Asistente de Orientación Clara y Ciro -->
+    <!-- Asistente de Orientación Editorial Clara -->
     <section class="garage-section garage-section--assistant" aria-labelledby="garage-assistant-title">
         <div class="garage-shell garage-assistant-card">
             <div class="garage-assistant-card__portrait">
-                <span class="garage-avatar garage-avatar--ciro">C</span>
+                <span class="garage-avatar garage-avatar--clara" aria-label="Avatar de Clara">Clara</span>
             </div>
             <div>
-                <p class="garage-kicker">Orientación editorial independiente</p>
-                <h2 id="garage-assistant-title">¿Tienes una duda concreta con tu coche? Te orientamos.</h2>
-                <p>Primero identificamos la pieza o necesidad. Después te mostramos qué comprobar, qué medidas tomar y qué productos cuentan con compatibilidad contrastada, sin forzar ninguna compra.</p>
-                <a class="garage-button garage-button--dark" href="<?php echo esc_url(home_url('/productos/')); ?>">Consultar catálogo completo <span>↗</span></a>
+                <p class="garage-kicker">Acompañante editorial independiente</p>
+                <h2 id="garage-assistant-title">¿Tienes una duda concreta con tu coche? Clara te ayuda a identificar qué revisar antes de decidir.</h2>
+                <p>Sin lenguaje mecánico innecesario ni presión de compra. Primero identificamos qué síntoma o necesidad tienes, qué comprobaciones puedes hacer tú mismo y qué soluciones o productos contrastados encajan con tu vehículo.</p>
+                <div class="garage-assistant-card__actions">
+                    <a class="garage-button garage-button--orange" href="<?php echo esc_url(home_url('/guias/primeras-72-horas/')); ?>">Ver guías recomendadas <span>→</span></a>
+                    <a class="garage-button garage-button--dark" href="<?php echo esc_url(home_url('/productos/')); ?>">Consultar catálogo <span>↗</span></a>
+                </div>
             </div>
             <div class="garage-assistant-card__signal">
                 <span>01</span><span>zona</span>
-                <span>02</span><span>compatibilidad</span>
-                <span>03</span><span>decisión</span>
+                <span>02</span><span>comprobación</span>
+                <span>03</span><span>criterio</span>
             </div>
         </div>
     </section>
@@ -356,7 +454,7 @@ get_header();
             </div>
             <div class="garage-trust-points">
                 <p><strong>✓ Entiende antes de elegir</strong><span>Explicamos qué revisar y por qué puede importarte cada especificación.</span></p>
-                <p><strong>✓ Compatibilidad garantizada</strong><span>Te indicamos qué datos contrastar en tu vehículo antes de comprar.</span></p>
+                <p><strong>✓ Compatibilidad contrastada</strong><span>Te indicamos qué datos contrastar en tu vehículo antes de comprar.</span></p>
                 <p><strong>✓ Transparencia en afiliación</strong><span>Los enlaces a Amazon u otros distribuidores pueden generar una comisión sin coste adicional para ti.</span></p>
             </div>
         </div>

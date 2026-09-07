@@ -31,15 +31,14 @@ final class CocheCierto_Garage_Core {
 
     private static function seed_categories(): void {
         $categories = [
-            'Seguridad y emergencia' => 'seguridad-emergencia',
             'Mantenimiento' => 'mantenimiento',
             'Limpieza y cuidado' => 'limpieza-cuidado',
-            'Tecnología para el coche' => 'tecnologia-coche',
+            'Interior y confort' => 'interior-confort',
+            'Ruedas y neumáticos' => 'ruedas-neumaticos',
+            'Seguridad y emergencia' => 'seguridad-emergencia',
+            'Tecnología y conectividad' => 'tecnologia-conectividad',
             'Viajes y organización' => 'viajes-organizacion',
-            'Confort' => 'confort',
-            'Neumáticos' => 'neumaticos',
-            'Accesorios' => 'accesorios',
-            'Equipamiento' => 'equipamiento',
+            'Accesorios y equipamiento' => 'accesorios-equipamiento',
         ];
 
         foreach ($categories as $name => $slug) {
@@ -94,6 +93,7 @@ final class CocheCierto_Garage_Core {
 
     public static function register_product_meta(): void {
         $fields = [
+            'garage_priority' => 'string',
             'garage_benefit' => 'string',
             'garage_recommended_for' => 'string',
             'garage_limitations' => 'string',
@@ -134,6 +134,7 @@ final class CocheCierto_Garage_Core {
     public static function render_product_meta_box(WP_Post $post): void {
         wp_nonce_field('garage_product_details', 'garage_product_details_nonce');
         $fields = [
+            'garage_priority' => 'Prioridad editorial: imprescindible, recomendable, opcional',
             'garage_benefit' => 'Beneficio principal',
             'garage_recommended_for' => 'Recomendado para',
             'garage_limitations' => 'Limitaciones',
@@ -176,6 +177,7 @@ final class CocheCierto_Garage_Core {
         }
 
         $keys = [
+            'garage_priority',
             'garage_benefit',
             'garage_recommended_for',
             'garage_limitations',

@@ -85,13 +85,13 @@
             <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 20v-6h6v6"/></svg>
             <span>Inicio</span>
         </a>
+        <a href="<?php echo esc_url(home_url('/#garage-momento')); ?>" data-app-tab="guias">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
+            <span>Guías</span>
+        </a>
         <a class="mobile-bottom-primary" href="<?php echo esc_url(home_url('/#garage-despiece')); ?>" data-app-tab="despiece">
             <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
             <span>Despiece</span>
-        </a>
-        <a href="<?php echo esc_url(home_url('/#garage-momento')); ?>" data-app-tab="guias">
-            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
-            <span>Guía</span>
         </a>
         <a href="<?php echo esc_url(home_url('/productos/')); ?>" data-app-tab="catalogo">
             <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>

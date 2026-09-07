@@ -485,6 +485,17 @@ body.theme-light .garage-hero__backdrop-overlay {
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
 
+.garage-hero__subtitle {
+    margin: 12px auto 0;
+    color: rgba(255, 255, 255, 0.92);
+    font-family: var(--cc-body);
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    font-weight: 500;
+    max-width: 680px;
+    line-height: 1.45;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
 /* CTAs en la parte inferior, por debajo de la rueda del coche */
 .garage-hero__actions {
     position: absolute;
@@ -644,8 +655,190 @@ body.theme-light .garage-hero__backdrop-overlay {
     justify-content: center;
     width: 40px;
 }
-.garage-avatar--clara { background: #ffe1d4; color: var(--cc-orange-dark); }
+.garage-avatar--clara { 
+    background: linear-gradient(135deg, #fff2eb 0%, #ffe3d6 100%); 
+    color: var(--cc-orange); 
+    border: 2px solid rgba(252, 76, 2, 0.35);
+    box-shadow: 0 4px 16px rgba(252, 76, 2, 0.18);
+    font-family: var(--cc-display);
+    font-size: 1.15rem;
+    font-weight: 800;
+    height: 86px;
+    letter-spacing: -0.02em;
+    width: 86px;
+}
 .garage-avatar--ciro { background: var(--cc-orange); color: var(--cc-white); height: 86px; width: 86px; font-size: 1.8rem; }
+
+.garage-assistant-card__actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* ==========================================================================
+   3.1. Selector de Intención Inicial (Pantalla 1 - Flujo Mobile-First)
+   ========================================================================== */
+.garage-intent-section {
+    background: #06111a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 56px 0 60px;
+    position: relative;
+    z-index: 10;
+}
+
+html.theme-light .garage-intent-section,
+body.theme-light .garage-intent-section {
+    background: #f0f4f8;
+    border-bottom: 1px solid var(--cc-line);
+}
+
+.garage-intent-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 36px;
+}
+
+.garage-intent-header h2 {
+    color: var(--cc-white);
+    font-family: var(--cc-display);
+    font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 6px 0 10px;
+}
+
+html.theme-light .garage-intent-header h2,
+body.theme-light .garage-intent-header h2 {
+    color: var(--cc-deep);
+}
+
+.garage-intent-desc {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.98rem;
+    margin: 0;
+}
+
+html.theme-light .garage-intent-desc,
+body.theme-light .garage-intent-desc {
+    color: var(--cc-muted);
+}
+
+.garage-intent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.garage-intent-card {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    display: flex;
+    gap: 16px;
+    padding: 22px 20px;
+    text-decoration: none !important;
+    transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html.theme-light .garage-intent-card,
+body.theme-light .garage-intent-card {
+    background: #ffffff;
+    border-color: var(--cc-line);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.garage-intent-card:hover,
+.garage-intent-card:focus-visible {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--cc-orange);
+    box-shadow: 0 8px 24px rgba(252, 76, 2, 0.18);
+    transform: translateY(-3px);
+}
+
+html.theme-light .garage-intent-card:hover,
+html.theme-light .garage-intent-card:focus-visible,
+body.theme-light .garage-intent-card:hover,
+body.theme-light .garage-intent-card:focus-visible {
+    background: #ffffff;
+    border-color: var(--cc-orange);
+    box-shadow: 0 10px 24px rgba(252, 76, 2, 0.12);
+}
+
+.garage-intent-card__icon {
+    align-items: center;
+    background: rgba(252, 76, 2, 0.12);
+    border: 1px solid rgba(252, 76, 2, 0.25);
+    border-radius: 12px;
+    display: flex;
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    height: 52px;
+    justify-content: center;
+    width: 52px;
+}
+
+.garage-intent-card__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.garage-intent-card__title {
+    color: #ffffff;
+    display: block;
+    font-family: var(--cc-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+html.theme-light .garage-intent-card__title,
+body.theme-light .garage-intent-card__title {
+    color: var(--cc-deep);
+}
+
+.garage-intent-card__text {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.86rem;
+    line-height: 1.4;
+    margin: 4px 0 0;
+}
+
+html.theme-light .garage-intent-card__text,
+body.theme-light .garage-intent-card__text {
+    color: var(--cc-muted);
+}
+
+.garage-intent-card__arrow {
+    color: var(--cc-orange);
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    transition: transform .2s ease;
+}
+
+.garage-intent-card:hover .garage-intent-card__arrow {
+    transform: translateX(4px);
+}
+
+@media (max-width: 880px) {
+    .garage-intent-section {
+        padding: 40px 0 44px;
+    }
+    .garage-intent-header {
+        margin-bottom: 24px;
+        text-align: left;
+    }
+    .garage-intent-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .garage-intent-card {
+        padding: 16px 18px;
+    }
+}
 
 /* 4. Despiece Interactivo con Ergonomía Táctil (Spec 010) */
 .garage-breakdown {
@@ -821,6 +1014,12 @@ body.theme-light .garage-hero__backdrop-overlay {
 .garage-breakdown__stage[data-active-zone="neumaticos"] .garage-breakdown__car-img {
     transform: scale(1.18) translate(5%, -6%);
 }
+.garage-breakdown__stage[data-active-zone="frenos"] .garage-breakdown__car-img {
+    transform: scale(1.16) translate(4%, -4%);
+}
+.garage-breakdown__stage[data-active-zone="electricidad"] .garage-breakdown__car-img {
+    transform: scale(1.14) translate(6%, 1%);
+}
 .garage-breakdown__stage[data-active-zone="seguridad"] .garage-breakdown__car-img {
     transform: scale(1.08) translate(1%, 2%);
 }
@@ -895,7 +1094,19 @@ body.theme-light .garage-hero__backdrop-overlay {
 }
 .garage-hud-box--tire { bottom: 15%; left: 32%; }
 
-/* Capa 5: Baliza V16 activa */
+/* Capa 5: HUD Frenos */
+.garage-breakdown__stage[data-active-zone="frenos"] .garage-vis-layer--frenos {
+    opacity: 1;
+}
+.garage-hud-box--brakes { bottom: 18%; left: 34%; }
+
+/* Capa 6: HUD Batería / Electricidad */
+.garage-breakdown__stage[data-active-zone="electricidad"] .garage-vis-layer--electricidad {
+    opacity: 1;
+}
+.garage-hud-box--battery { top: 22%; left: 14%; }
+
+/* Capa 7: Baliza V16 activa (Seguridad) */
 .garage-breakdown__stage[data-active-zone="seguridad"] .garage-vis-layer--seguridad {
     opacity: 1;
 }
@@ -1418,7 +1629,7 @@ body.theme-light .garage-hero__backdrop-overlay {
 
     .mobile-bottom-nav {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
         position: fixed;
         z-index: 250;
         left: 0;
@@ -1621,4 +1832,711 @@ body.theme-light .garage-hero__backdrop-overlay {
         transform: none !important;
     }
 }
+
+/* ==========================================================================
+   5. Ficha Editorial de Producto (Mobile-First / CocheCierto Garaje)
+   ========================================================================== */
+.garage-product-view {
+    padding: 36px 0 80px;
+    background: var(--cc-paper);
+}
+
+.garage-product-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: var(--cc-muted);
+    margin-bottom: 24px;
+}
+.garage-product-breadcrumb a {
+    color: var(--cc-muted);
+    text-decoration: none;
+    transition: color .2s;
+}
+.garage-product-breadcrumb a:hover {
+    color: var(--cc-orange);
+}
+
+.garage-product-hero__header {
+    margin-bottom: 28px;
+}
+
+.garage-product-priority-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.garage-priority-badge {
+    border-radius: 20px;
+    font-family: var(--cc-display);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    text-transform: uppercase;
+}
+.garage-badge--must {
+    background: #ffe3e3;
+    color: #c92a2a;
+    border: 1px solid #ffa8a8;
+}
+.garage-badge--rec {
+    background: #e6fcf5;
+    color: #087f5b;
+    border: 1px solid #96f2d7;
+}
+.garage-badge--opt {
+    background: #f1f3f5;
+    color: #495057;
+    border: 1px solid #ced4da;
+}
+
+.garage-priority-hint {
+    color: var(--cc-muted);
+    font-size: 0.84rem;
+}
+
+.garage-product-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--cc-deep);
+    margin: 0 0 10px;
+}
+
+.garage-product-for {
+    color: var(--cc-muted);
+    font-size: 0.95rem;
+    margin: 0;
+}
+.garage-product-for strong {
+    color: var(--cc-deep);
+}
+
+.garage-product-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.garage-product-media {
+    position: sticky;
+    top: 96px;
+}
+
+.garage-product-figure {
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    border-radius: 16px;
+    margin: 0 0 20px;
+    overflow: hidden;
+    padding: 24px;
+    text-align: center;
+}
+.garage-product-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-height: 280px;
+}
+
+.garage-product-checkout-box {
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.garage-checkout-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 0.88rem;
+}
+.garage-price-tag {
+    font-family: var(--cc-display);
+    font-weight: 800;
+    color: var(--cc-deep);
+    font-size: 1.1rem;
+}
+
+.garage-button--full {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 15px;
+    font-size: 1rem;
+}
+
+.garage-affiliate-disclosure {
+    margin-top: 14px;
+    border-top: 1px solid var(--cc-line);
+    padding-top: 12px;
+}
+.garage-affiliate-disclosure p {
+    font-size: 0.76rem;
+    color: var(--cc-muted);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.garage-editorial-block {
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    padding: 28px;
+}
+.garage-editorial-block__title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--cc-deep);
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.garage-editorial-block--check {
+    border-left: 4px solid var(--cc-orange);
+}
+.garage-editorial-block--warning {
+    border-left: 4px solid #f59f00;
+}
+.garage-compatibility-note {
+    background: #fff9db;
+    border: 1px solid #ffe066;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: #795548;
+    margin-top: 14px;
+}
+.garage-lead-benefit {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--cc-deep);
+    line-height: 1.5;
+}
+
+.garage-product-retention {
+    background: #f8f9fa;
+    border: 1px dashed var(--cc-line);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+}
+.garage-retention-sub {
+    font-size: 0.86rem;
+    color: var(--cc-muted);
+    margin: 4px 0 14px;
+}
+
+/* ==========================================================================
+   6. Checklist Interactivo de Guías ("Garaje Pocket")
+   ========================================================================== */
+.garage-guide-view {
+    background: var(--cc-paper);
+    padding: 36px 0 80px;
+}
+
+.garage-guide-hero {
+    max-width: 820px;
+    margin-bottom: 32px;
+}
+.garage-guide-hero h1 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--cc-deep);
+    line-height: 1.15;
+    margin: 8px 0 14px;
+}
+.garage-guide-intro {
+    font-size: 1.1rem;
+    color: var(--cc-muted);
+    line-height: 1.5;
+}
+
+.garage-guide-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 36px;
+    align-items: start;
+}
+
+.garage-checklist-card {
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.garage-checklist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.garage-checklist-badge {
+    background: #eef2f6;
+    border-radius: 6px;
+    color: var(--cc-muted);
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    text-transform: uppercase;
+}
+.garage-checklist-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--cc-deep);
+    margin: 6px 0 0;
+}
+.garage-checklist-counter {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 20px;
+    color: #166534;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 14px;
+}
+
+.garage-progress-bar-wrap {
+    background: #e9ecef;
+    border-radius: 6px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 26px;
+}
+.garage-progress-bar-fill {
+    background: var(--cc-orange);
+    height: 100%;
+    transition: width .3s ease;
+}
+
+.garage-checklist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.garage-check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    background: #fdfdfd;
+    border: 1px solid var(--cc-line);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all .2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.garage-check-row:hover {
+    border-color: var(--cc-orange);
+    background: #fffaf7;
+}
+.garage-check-row.is-done {
+    background: #f0fdf4;
+    border-color: #86efac;
+}
+
+.garage-check-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.garage-check-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--cc-line);
+    border-radius: 6px;
+    background: var(--cc-white);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all .2s;
+}
+.garage-check-input:checked + .garage-check-box {
+    background: #16a34a;
+    border-color: #16a34a;
+}
+.garage-check-input:checked + .garage-check-box::after {
+    content: '✓';
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+.garage-check-label {
+    display: block;
+    color: var(--cc-deep);
+    font-size: 1rem;
+    font-weight: 700;
+}
+.garage-check-row.is-done .garage-check-label {
+    text-decoration: line-through;
+    color: #4b5563;
+}
+.garage-check-desc {
+    color: var(--cc-muted);
+    font-size: 0.88rem;
+    margin: 4px 0 0;
+    line-height: 1.45;
+}
+
+.garage-checklist-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--cc-line);
+    margin-top: 22px;
+    padding-top: 16px;
+    font-size: 0.82rem;
+}
+.garage-checklist-save-hint {
+    color: #16a34a;
+    font-weight: 600;
+}
+.garage-checklist-reset-btn {
+    background: none;
+    border: none;
+    color: var(--cc-muted);
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.82rem;
+}
+.garage-checklist-reset-btn:hover {
+    color: #c92a2a;
+}
+
+.garage-guide-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.garage-guide-next-box,
+.garage-guide-clara-box {
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    border-radius: 16px;
+    padding: 24px;
+}
+.garage-guide-clara-box {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+.garage-guide-clara-box strong {
+    display: block;
+    color: var(--cc-deep);
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+.garage-guide-clara-box p {
+    font-size: 0.85rem;
+    color: var(--cc-muted);
+    line-height: 1.4;
+    margin: 0 0 10px;
+}
+.garage-link-inline {
+    color: var(--cc-orange);
+    font-weight: 700;
+    font-size: 0.86rem;
+    text-decoration: none;
+}
+
+@media (max-width: 880px) {
+    .garage-product-layout,
+    .garage-guide-layout {
+        grid-template-columns: 1fr;
+    }
+    .garage-product-media {
+        position: static;
+    }
+    .garage-checklist-card {
+        padding: 20px 16px;
+    }
+    .garage-check-row {
+        padding: 12px 14px;
+    }
+}
+
+/* ==========================================================================
+   7. Catálogo Comercial: 8 Categorías y Cuadrícula Editorial
+   ========================================================================== */
+.garage-catalog-view,
+.garage-category-view {
+    background: var(--cc-paper);
+    padding-bottom: 80px;
+}
+
+.garage-catalog-hero {
+    background: #06111a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--cc-white);
+    padding: 48px 0 54px;
+    position: relative;
+}
+html.theme-light .garage-catalog-hero,
+body.theme-light .garage-catalog-hero {
+    background: #ffffff;
+    border-bottom: 1px solid var(--cc-line);
+    color: var(--cc-deep);
+}
+
+.garage-catalog-hero h1 {
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    font-weight: 800;
+    line-height: 1.12;
+    margin: 8px 0 14px;
+    color: inherit;
+}
+.garage-catalog-hero__desc {
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 1.08rem;
+    max-width: 720px;
+    line-height: 1.5;
+    margin: 0;
+}
+html.theme-light .garage-catalog-hero__desc,
+body.theme-light .garage-catalog-hero__desc {
+    color: var(--cc-muted);
+}
+
+/* Rejilla de las 8 Categorías de Compra */
+.garage-category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.garage-category-tile {
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    text-decoration: none !important;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+}
+.garage-category-tile:hover {
+    border-color: var(--cc-orange);
+    box-shadow: 0 10px 26px rgba(252, 76, 2, 0.12);
+    transform: translateY(-3px);
+}
+.garage-category-tile__icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+.garage-category-tile__name {
+    color: var(--cc-deep);
+    font-size: 1.05rem;
+    font-family: var(--cc-display);
+    font-weight: 800;
+    line-height: 1.25;
+    display: block;
+}
+.garage-category-tile__desc {
+    color: var(--cc-muted);
+    font-size: 0.84rem;
+    line-height: 1.4;
+    margin: 6px 0 16px;
+    flex: 1;
+}
+.garage-category-tile__arrow {
+    color: var(--cc-orange);
+    font-weight: 800;
+    font-size: 1.1rem;
+    align-self: flex-end;
+    transition: transform .2s;
+}
+.garage-category-tile:hover .garage-category-tile__arrow {
+    transform: translateX(4px);
+}
+
+/* Cuadrícula de Productos */
+.garage-products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.garage-product-card {
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.garage-product-card:hover {
+    border-color: var(--cc-orange);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    transform: translateY(-3px);
+}
+.garage-product-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 18px 0;
+}
+.garage-product-card__price {
+    font-family: var(--cc-display);
+    font-weight: 800;
+    color: var(--cc-deep);
+    font-size: 0.95rem;
+}
+.garage-product-card__thumb-link {
+    display: block;
+    padding: 16px;
+    text-align: center;
+    background: #fafbfc;
+    margin: 12px 16px 0;
+    border-radius: 12px;
+}
+.garage-product-card__img {
+    max-height: 180px;
+    width: auto;
+    object-fit: contain;
+    margin: 0 auto;
+}
+.garage-product-card__placeholder {
+    font-size: 3rem;
+    padding: 30px 0;
+    color: var(--cc-muted);
+}
+.garage-product-card__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 18px;
+}
+.garage-product-card__title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0 0 8px;
+}
+.garage-product-card__title a {
+    color: var(--cc-deep);
+    text-decoration: none;
+    transition: color .2s;
+}
+.garage-product-card__title a:hover {
+    color: var(--cc-orange);
+}
+.garage-product-card__benefit {
+    color: var(--cc-muted);
+    font-size: 0.86rem;
+    line-height: 1.45;
+    margin: 0 0 16px;
+    flex: 1;
+}
+.garage-product-card__actions {
+    margin-top: auto;
+}
+
+.garage-catalog-empty {
+    background: var(--cc-white);
+    border: 1px dashed var(--cc-line);
+    border-radius: 16px;
+    padding: 44px 30px;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+}
+.garage-catalog-empty h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--cc-deep);
+    margin: 8px 0 12px;
+}
+.garage-catalog-empty p {
+    color: var(--cc-muted);
+    font-size: 0.95rem;
+    margin: 0 0 24px;
+}
+.garage-catalog-empty__actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.garage-trust-hint {
+    color: var(--cc-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.garage-pagination {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+.garage-pagination .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 14px;
+    margin: 0 4px;
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    border-radius: 8px;
+    color: var(--cc-deep);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+    transition: all .2s;
+}
+.garage-pagination .page-numbers.current,
+.garage-pagination .page-numbers:hover {
+    background: var(--cc-orange);
+    border-color: var(--cc-orange);
+    color: #fff;
+}
+
+@media (max-width: 1080px) {
+    .garage-category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .garage-products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .garage-category-grid {
+        grid-template-columns: 1fr;
+    }
+    .garage-products-grid {
+        grid-template-columns: 1fr;
+    }
+    .garage-product-card__thumb-link {
+        margin: 8px 10px 0;
+    }
+}
+
+
 
