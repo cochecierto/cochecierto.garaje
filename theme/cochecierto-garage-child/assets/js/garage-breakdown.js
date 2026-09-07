@@ -22,9 +22,13 @@
                 toggleBtn.setAttribute('aria-expanded', 'true');
                 toggleBtn.classList.add('is-active');
             }
+            drawer.removeAttribute('inert');
             drawer.setAttribute('aria-hidden', 'false');
             drawer.classList.add('is-open');
             document.body.classList.add('garage-menu-locked');
+            if (closeBtn) {
+                setTimeout(function() { closeBtn.focus(); }, 100);
+            }
         }
 
         function closeMenu() {
@@ -34,9 +38,14 @@
                 toggleBtn.classList.remove('is-active');
             }
             drawer.setAttribute('aria-hidden', 'true');
+            drawer.setAttribute('inert', '');
             drawer.classList.remove('is-open');
             document.body.classList.remove('garage-menu-locked');
         }
+
+        // Estado inicial accesible del drawer cerrado
+        drawer.setAttribute('aria-hidden', 'true');
+        drawer.setAttribute('inert', '');
 
         openBtns.forEach(function(b) {
             b.addEventListener('click', function(e) {
@@ -63,6 +72,7 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
                 closeMenu();
+                if (toggleBtn) toggleBtn.focus();
             }
         });
     }

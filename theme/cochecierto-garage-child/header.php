@@ -15,12 +15,12 @@
             </span>
         </a>
 
-        <!-- Navegación de escritorio: Despiece, Guía de Compra, Catálogo y CTA Explorar Coche -->
+        <!-- Navegación de escritorio homogénea: Despiece, Guías, Catálogo -->
         <nav class="garage-nav" aria-label="Navegación principal">
             <a href="<?php echo esc_url(home_url('/#garage-despiece')); ?>">Despiece</a>
-            <a href="<?php echo esc_url(home_url('/#garage-momento')); ?>">Guía de Compra</a>
+            <a href="<?php echo esc_url(home_url('/#garage-momento')); ?>">Guías</a>
             <a href="<?php echo esc_url(home_url('/productos/')); ?>">Catálogo</a>
-            <a class="garage-nav__cta" href="<?php echo esc_url(home_url('/#garage-despiece')); ?>">Explorar Coche <span>↓</span></a>
+            <a class="garage-nav__cta" href="<?php echo esc_url(home_url('/#garage-despiece')); ?>">Ver Despiece <span>↓</span></a>
         </nav>
 
         <div class="garage-header__actions">
@@ -60,7 +60,7 @@
                     </a>
                     <a href="<?php echo esc_url(home_url('/#garage-momento')); ?>" class="garage-mobile-link">
                         <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
-                        <span><strong>Guía de Compra</strong><small>Criterios y etapas clave</small></span>
+                        <span><strong>Guías</strong><small>Criterios y etapas clave</small></span>
                     </a>
                     <a href="<?php echo esc_url(home_url('/productos/')); ?>" class="garage-mobile-link">
                         <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
@@ -72,7 +72,7 @@
                         📲 Instalar Garaje en tu móvil
                     </button>
                     <a href="<?php echo esc_url(home_url('/#garage-despiece')); ?>" class="garage-button garage-button--orange garage-mobile-cta">
-                        Explorar Coche <span>↓</span>
+                        Ver Despiece <span>↓</span>
                     </a>
                 </div>
             </nav>

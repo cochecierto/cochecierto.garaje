@@ -394,6 +394,12 @@ get_header();
                 </div>
 
             </div>
+
+            <!-- Advertencia técnica de rigor y seguridad (Principio 5) -->
+            <div class="garage-breakdown-disclaimer">
+                <span class="garage-breakdown-disclaimer__icon" aria-hidden="true">ℹ️</span>
+                <p><strong>Nota técnica de referencia:</strong> Las cifras y especificaciones técnicas mostradas (presiones de inflado, voltajes de batería, espesores de pastilla y normas DOT) son valores medios representativos para turismos estándar. Cada vehículo tiene tolerancias específicas. Comprueba siempre el manual oficial del fabricante o el adhesivo de homologación en el pilar B de tu coche antes de intervenir o comprar.</p>
+            </div>
         </div>
     </section>
 
@@ -411,7 +417,7 @@ get_header();
                 <?php foreach ($moments as $index => $moment) : ?>
                     <a class="garage-moment-row" href="<?php echo esc_url($moment['url']); ?>">
                         <span class="garage-moment-index">0<?php echo esc_html($index + 1); ?></span>
-                        <span>
+                        <span class="garage-moment-body">
                             <strong><?php echo esc_html($moment['label']); ?></strong>
                             <small><?php echo esc_html($moment['text']); ?></small>
                         </span>
@@ -422,19 +428,19 @@ get_header();
         </div>
     </section>
 
-    <!-- Asistente de Orientación Editorial Clara -->
+    <!-- Criterio Editorial y Guía de Garaje Clara -->
     <section class="garage-section garage-section--assistant" aria-labelledby="garage-assistant-title">
         <div class="garage-shell garage-assistant-card">
             <div class="garage-assistant-card__portrait">
                 <span class="garage-avatar garage-avatar--clara" aria-label="Avatar de Clara">Clara</span>
             </div>
             <div>
-                <p class="garage-kicker">Acompañante editorial independiente</p>
-                <h2 id="garage-assistant-title">¿Tienes una duda concreta con tu coche? Clara te ayuda a identificar qué revisar antes de decidir.</h2>
-                <p>Sin lenguaje mecánico innecesario ni presión de compra. Primero identificamos qué síntoma o necesidad tienes, qué comprobaciones puedes hacer tú mismo y qué soluciones o productos contrastados encajan con tu vehículo.</p>
+                <p class="garage-kicker">Criterio editorial independiente</p>
+                <h2 id="garage-assistant-title">¿Tienes una duda con tu coche? El criterio editorial de Clara te orienta antes de gastar.</h2>
+                <p>Sin lenguaje mecánico innecesario ni presión comercial. Diseñamos nuestras rutas de comprobación para que identifiques el síntoma exacto, compruebes qué puedes solucionar tú mismo y elijas únicamente repuestos o accesorios compatibles y necesarios.</p>
                 <div class="garage-assistant-card__actions">
-                    <a class="garage-button garage-button--orange" href="<?php echo esc_url(home_url('/guias/primeras-72-horas/')); ?>">Ver guías recomendadas <span>→</span></a>
-                    <a class="garage-button garage-button--dark" href="<?php echo esc_url(home_url('/productos/')); ?>">Consultar catálogo <span>↗</span></a>
+                    <a class="garage-button garage-button--orange" href="<?php echo esc_url(home_url('/guias/primeras-72-horas/')); ?>">Explorar guías paso a paso <span>→</span></a>
+                    <a class="garage-button garage-button--dark" href="<?php echo esc_url(home_url('/productos/')); ?>">Ver catálogo de productos <span>↗</span></a>
                 </div>
             </div>
             <div class="garage-assistant-card__signal">
