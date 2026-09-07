@@ -910,44 +910,66 @@ body.theme-light .garage-intent-card__text {
 }
 .garage-breakdown__stage-wrap { position: relative; }
 
-/* Escenario Sticky */
+/* Escenario Sticky Flotante Libre (Consola Viva HUD) */
 .garage-breakdown__stage {
-    background: var(--cc-white);
-    border: 1px solid var(--cc-line);
-    border-radius: var(--cc-radius);
-    box-shadow: 0 24px 60px rgba(0, 38, 62, .08);
-    padding: 30px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
     position: sticky;
-    top: 96px;
-    transition: border-color .3s ease;
+    top: 125px;
+    z-index: 20;
+    transition: all .35s ease;
 }
 
-/* Header del Visor Visual */
-.garage-breakdown__stage-header {
-    align-items: center;
-    border-bottom: 1px solid var(--cc-line);
+/* Barra superior de control flotante (Píldoras tipo isla) */
+.garage-stage-controls-floating {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 18px;
-    padding-bottom: 14px;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-.garage-stage-indicator {
     align-items: center;
-    display: flex;
-    gap: 8px;
-    font-size: .86rem;
+    margin-bottom: 20px;
+    gap: 12px;
 }
-.garage-stage-indicator__dot { color: #087f5b; font-size: 1.1rem; }
-.garage-stage-indicator__zone { color: var(--cc-muted); }
-.garage-stage-indicator__zone strong { color: var(--cc-blue); }
+
+.garage-stage-indicator-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(7, 21, 33, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 30px;
+    padding: 7px 16px;
+    font-size: .86rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+.garage-stage-indicator__dot { color: #00d084; font-size: 1.1rem; line-height: 1; }
+.garage-stage-indicator__zone { color: rgba(255, 255, 255, 0.75); }
+.garage-stage-indicator__zone strong { color: #ffffff; font-weight: 800; font-family: var(--cc-display); }
+
+html.theme-light .garage-stage-indicator-pill,
+body.theme-light .garage-stage-indicator-pill {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(7, 21, 33, 0.12);
+    box-shadow: 0 4px 16px rgba(7, 21, 33, 0.06);
+}
+html.theme-light .garage-stage-indicator__zone,
+body.theme-light .garage-stage-indicator__zone { color: var(--cc-muted); }
+html.theme-light .garage-stage-indicator__zone strong,
+body.theme-light .garage-stage-indicator__zone strong { color: var(--cc-deep); }
 
 /* Selector de acabado de pintura (Brillo / Mate) */
 .garage-finish-toggle {
-    align-items: center;
     display: flex;
-    gap: 8px;
+    gap: 6px;
+    background: rgba(7, 21, 33, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 30px;
+    padding: 4px;
     opacity: 0;
     pointer-events: none;
     transition: opacity .25s ease;
@@ -956,40 +978,76 @@ body.theme-light .garage-intent-card__text {
     opacity: 1;
     pointer-events: auto;
 }
-.garage-finish-toggle__label {
-    color: var(--cc-muted);
-    font-size: .8rem;
-    font-weight: 700;
-    text-transform: uppercase;
+html.theme-light .garage-finish-toggle,
+body.theme-light .garage-finish-toggle {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(7, 21, 33, 0.12);
 }
+
 .garage-finish-btn {
-    background: #f0f4f7;
-    border: 1px solid var(--cc-line);
+    background: transparent;
+    border: 0;
     border-radius: 20px;
-    color: var(--cc-ink);
+    color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     font-family: var(--cc-display);
     font-size: .8rem;
     font-weight: 800;
-    min-height: 36px;
-    padding: 6px 14px;
+    min-height: 30px;
+    padding: 4px 14px;
     transition: all .2s;
     -webkit-tap-highlight-color: transparent;
 }
+html.theme-light .garage-finish-btn,
+body.theme-light .garage-finish-btn {
+    color: var(--cc-muted);
+}
 .garage-finish-btn.is-active {
     background: var(--cc-orange);
-    border-color: var(--cc-orange);
-    color: var(--cc-white);
+    color: var(--cc-white) !important;
+    box-shadow: 0 2px 10px rgba(252, 76, 2, 0.4);
 }
 
-/* Car Display & Dynamic Layers */
+/* Contenedor del Coche Flotante 3D (Sin marco cuadrado) */
 .garage-breakdown__car-display {
-    background: radial-gradient(ellipse at center, #fbfcfe 0%, #e2ebf2 100%);
-    border-radius: 18px;
-    height: 380px;
-    overflow: hidden;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    height: 400px;
+    overflow: visible;
     position: relative;
     width: 100%;
+}
+
+/* Halo de luz ambiente detrás del coche */
+.garage-car-ambient-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -46%);
+    width: 90%;
+    height: 75%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(252, 76, 2, 0.12) 0%, rgba(0, 38, 62, 0.05) 50%, transparent 75%);
+    pointer-events: none;
+    z-index: 1;
+    transition: background .4s ease;
+}
+
+/* Sombra realista de contacto con el suelo */
+.garage-car-ground-shadow {
+    position: absolute;
+    bottom: 28px;
+    left: 8%;
+    right: 8%;
+    height: 38px;
+    background: radial-gradient(ellipse at center, rgba(7, 21, 33, 0.38) 0%, rgba(7, 21, 33, 0.12) 55%, transparent 75%);
+    border-radius: 50%;
+    filter: blur(6px);
+    pointer-events: none;
+    z-index: 1;
+    transform: scale(1);
+    transition: transform .45s cubic-bezier(.25, 1, .5, 1);
 }
 .garage-breakdown__car-img {
     display: block;
@@ -1238,21 +1296,90 @@ body.theme-light .garage-intent-card__text {
     transform: translateX(-50%) translateY(0);
 }
 
-.garage-breakdown__stage-footer {
-    align-items: center;
-    border-top: 1px solid var(--cc-line);
-    color: var(--cc-muted);
+/* Consola Viva HUD: equilibra la columna izquierda y acompaña el scroll */
+.garage-hud-console-card {
+    background: rgba(14, 30, 44, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-top: 24px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    transition: all .25s ease;
+}
+
+html.theme-light .garage-hud-console-card,
+body.theme-light .garage-hud-console-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(7, 21, 33, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 38, 62, 0.08);
+}
+
+.garage-hud-console__header {
     display: flex;
-    font-size: .84rem;
     justify-content: space-between;
-    margin-top: 18px;
-    padding-top: 16px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
     flex-wrap: wrap;
     gap: 8px;
 }
-.garage-stage-stat__label { color: var(--cc-muted); font-size: .78rem; display: block; }
-.garage-stage-stat__val { color: var(--cc-blue); font-family: var(--cc-display); font-size: .92rem; font-weight: 800; }
-.garage-breakdown__live-badge { color: #087f5b; font-weight: 800; }
+
+html.theme-light .garage-hud-console__header,
+body.theme-light .garage-hud-console__header {
+    border-color: rgba(7, 21, 33, 0.08);
+}
+
+.garage-stage-stat__label {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: .78rem;
+    display: block;
+    margin-bottom: 2px;
+}
+html.theme-light .garage-stage-stat__label,
+body.theme-light .garage-stage-stat__label {
+    color: var(--cc-muted);
+}
+
+.garage-stage-stat__val {
+    color: #ffffff;
+    font-family: var(--cc-display);
+    font-size: 1.02rem;
+    font-weight: 800;
+}
+html.theme-light .garage-stage-stat__val,
+body.theme-light .garage-stage-stat__val {
+    color: var(--cc-deep);
+}
+
+.garage-breakdown__live-badge {
+    color: #00d084;
+    font-weight: 800;
+    font-size: .82rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.garage-hud-console__hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: .84rem;
+    line-height: 1.4;
+}
+html.theme-light .garage-hud-console__hint,
+body.theme-light .garage-hud-console__hint {
+    color: var(--cc-muted);
+}
+
+.garage-hud-console__hint-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
 
 /* Tarjetas de Despiece Scrollytelling */
 .garage-breakdown__steps {
@@ -1576,8 +1703,8 @@ body.theme-light .garage-intent-card__text {
     }
     .garage-breakdown-nav::-webkit-scrollbar { display: none; }
     .garage-breakdown-tab { flex-shrink: 0; }
-    .garage-breakdown__stage { padding: 20px; border-radius: 18px; }
-    .garage-breakdown__car-display { height: 250px; }
+    .garage-breakdown__stage { padding: 0; border-radius: 0; background: transparent; }
+    .garage-breakdown__car-display { height: 260px; }
     .garage-breakdown-step { padding: 26px 20px; }
     .garage-spec-table { padding: 14px 16px; }
     .garage-spec-row { flex-direction: column; align-items: flex-start; gap: 4px; }

@@ -250,31 +250,36 @@ get_header();
             <!-- Rejilla Panorámica: Escenario Visual (Izquierda) + Tarjetas de Despiece (Derecha) -->
             <div class="garage-breakdown__layout">
                 
-                <!-- Columna Izquierda: Visor Visual Sticky con Efectos Dinámicos -->
+                <!-- Columna Izquierda: Consola Visual Sticky con Coche Flotante 3D y Telemetría Viva -->
                 <div class="garage-breakdown__stage-wrap">
                     <div class="garage-breakdown__stage" data-active-zone="carroceria" data-finish="brillo">
                         
-                        <!-- Barra de control del visor visual -->
-                        <div class="garage-breakdown__stage-header">
-                            <div class="garage-stage-indicator">
+                        <!-- Barra superior flotante de control de zona y acabados -->
+                        <div class="garage-stage-controls-floating">
+                            <div class="garage-stage-indicator-pill">
                                 <span class="garage-stage-indicator__dot">●</span>
-                                <span class="garage-stage-indicator__zone">Zona activa: <strong>Carrocería</strong></span>
+                                <span class="garage-stage-indicator__zone">Zona: <strong id="garage-current-zone-name">Carrocería</strong></span>
                             </div>
-                            <!-- Selector interactivo de acabado para Carrocería -->
+                            <!-- Selector interactivo de acabado de pintura -->
                             <div class="garage-finish-toggle" aria-label="Selector de acabado de pintura">
-                                <span class="garage-finish-toggle__label">Acabado:</span>
                                 <button type="button" class="garage-finish-btn is-active" data-finish-val="brillo">Brillo</button>
                                 <button type="button" class="garage-finish-btn" data-finish-val="mate">Mate</button>
                             </div>
                         </div>
 
-                        <!-- Pantalla interactiva del coche con capas dinámicas -->
+                        <!-- Coche 3D flotando libremente sin caja contenedora -->
                         <div class="garage-breakdown__car-display">
                             
-                            <!-- Imagen base del coche insignia -->
+                            <!-- Halo de luz radial de fondo para acentuar el coche libre -->
+                            <div class="garage-car-ambient-glow" aria-hidden="true"></div>
+
+                            <!-- Imagen base del coche insignia con recorte transparente -->
                             <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>" 
                                  alt="Diagrama interactivo del coche CocheCierto" 
                                  class="garage-breakdown__car-img" />
+
+                            <!-- Sombra realista de contacto con el suelo bajo las ruedas -->
+                            <div class="garage-car-ground-shadow" aria-hidden="true"></div>
 
                             <!-- EFECTO 1: Reflejo y brillo de laca (Carrocería) -->
                             <div class="garage-vis-layer garage-vis-layer--laca" aria-hidden="true"></div>
@@ -331,7 +336,7 @@ get_header();
                                 </div>
                             </div>
 
-                            <!-- Hotspots interactivos con pulsación -->
+                            <!-- Hotspots interactivos con pulsación libre sobre el coche -->
                             <?php foreach ($breakdown_zones as $index => $zone) : ?>
                                 <button type="button" 
                                         class="garage-hotspot garage-hotspot--<?php echo esc_attr($zone['id']); ?> <?php echo $index === 0 ? 'is-active' : ''; ?>" 
@@ -346,14 +351,21 @@ get_header();
                             <?php endforeach; ?>
                         </div>
 
-                        <!-- Pie del visor con telemetría técnica de la zona activa -->
-                        <div class="garage-breakdown__stage-footer">
-                            <div class="garage-stage-stat">
-                                <span class="garage-stage-stat__label">Dato técnico clave:</span>
-                                <strong class="garage-stage-stat__val" id="garage-active-stat">Espesor medio laca: 115–135 µm</strong>
+                        <!-- Consola Viva HUD: equilibra la columna izquierda y acompaña el scroll del embudo -->
+                        <div class="garage-hud-console-card">
+                            <div class="garage-hud-console__header">
+                                <div class="garage-stage-stat">
+                                    <span class="garage-stage-stat__label">Dato técnico en tiempo real</span>
+                                    <strong class="garage-stage-stat__val" id="garage-active-stat">Espesor medio laca: 115–135 µm</strong>
+                                </div>
+                                <span class="garage-breakdown__live-badge">● Sensor Activo</span>
                             </div>
-                            <span class="garage-breakdown__live-badge">● Inspección en tiempo real</span>
+                            <div class="garage-hud-console__hint">
+                                <span class="garage-hud-console__hint-icon" aria-hidden="true">🔍</span>
+                                <span id="garage-hud-zone-hint">Desplaza o toca cada punto para inspeccionar síntomas y tolerancias.</span>
+                            </div>
                         </div>
+
                     </div>
                 </div>
 

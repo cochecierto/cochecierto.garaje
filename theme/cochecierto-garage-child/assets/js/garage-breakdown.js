@@ -126,6 +126,19 @@
                         var statText = step.getAttribute('data-stat');
                         if (statText) statValElem.textContent = statText;
                     }
+                    var hintElem = document.getElementById('garage-hud-zone-hint');
+                    if (hintElem) {
+                        var hints = {
+                            'carroceria': 'Comprobando espesor de barniz y protección contra radiación UV y lluvia ácida.',
+                            'interior': 'Inspeccionando materiales plásticos, cueros y ergonomía del habitáculo.',
+                            'motor': 'Monitoreando nivel y viscosidad del lubricante, refrigerante y circuito.',
+                            'neumaticos': 'Verificando profundidad de rodadura, hombros de desgaste y presión en frío.',
+                            'frenos': 'Analizando espesor remanente de ferodo en pastillas y punto de ebullición DOT.',
+                            'electricidad': 'Comprobando tensión en circuito abierto (SOH), bornes y capacidad de arranque.',
+                            'seguridad': 'Verificando homologación oficial DGT 3.0, geolocalización y señalización.'
+                        };
+                        if (hints[zoneId]) hintElem.textContent = hints[zoneId];
+                    }
                     if (scrollIntoView && window.innerWidth > 800) {
                         try { step.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
                     }
