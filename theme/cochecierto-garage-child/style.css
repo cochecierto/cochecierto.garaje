@@ -1385,7 +1385,8 @@ body.theme-light .garage-hud-console__hint {
 .garage-breakdown__steps {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 28px;
+    scroll-snap-type: y proximity;
 }
 .garage-breakdown-step {
     background: var(--cc-white);
@@ -1394,6 +1395,7 @@ body.theme-light .garage-hud-console__hint {
     opacity: .65;
     padding: 38px;
     position: relative;
+    scroll-snap-align: center;
     transition: all .3s ease;
 }
 .garage-breakdown-step.is-active {
@@ -1413,7 +1415,10 @@ body.theme-light .garage-hud-console__hint {
     font-family: var(--cc-display);
     font-size: 1.35rem;
     font-weight: 800;
+    transform-origin: left center;
+    transition: transform .3s ease;
 }
+.garage-breakdown-step.is-active .garage-breakdown-step__index { transform: scale(1.28); }
 .garage-breakdown-step__badge {
     background: #fff2ec;
     border-radius: 6px;
@@ -2893,6 +2898,5 @@ body.theme-light .garage-breakdown-disclaimer {
     border-color: rgba(7, 21, 33, 0.08);
     color: var(--cc-muted);
 }
-
 
 

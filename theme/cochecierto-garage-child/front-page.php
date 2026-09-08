@@ -70,8 +70,8 @@ $breakdown_zones = [
         'highlight_badge' => 'Seguridad Activa',
         'cta_text' => 'Ver productos de Neumáticos',
         'url' => home_url('/categorias/neumaticos/'),
-        'hotspot_top' => '68%',
-        'hotspot_left' => '32%',
+        'hotspot_top' => '72%',
+        'hotspot_left' => '28%',
         'telemetry_stat' => 'Presión nominal: consultar adhesivo pilar B',
     ],
     [
@@ -254,19 +254,6 @@ get_header();
                 <div class="garage-breakdown__stage-wrap">
                     <div class="garage-breakdown__stage" data-active-zone="carroceria" data-finish="brillo">
                         
-                        <!-- Barra superior flotante de control de zona y acabados -->
-                        <div class="garage-stage-controls-floating">
-                            <div class="garage-stage-indicator-pill">
-                                <span class="garage-stage-indicator__dot">●</span>
-                                <span class="garage-stage-indicator__zone">Zona: <strong id="garage-current-zone-name">Carrocería</strong></span>
-                            </div>
-                            <!-- Selector interactivo de acabado de pintura -->
-                            <div class="garage-finish-toggle" aria-label="Selector de acabado de pintura">
-                                <button type="button" class="garage-finish-btn is-active" data-finish-val="brillo">Brillo</button>
-                                <button type="button" class="garage-finish-btn" data-finish-val="mate">Mate</button>
-                            </div>
-                        </div>
-
                         <!-- Coche 3D flotando libremente sin caja contenedora -->
                         <div class="garage-breakdown__car-display">
                             
@@ -349,21 +336,6 @@ get_header();
                                     <span class="garage-hotspot__tooltip"><?php echo esc_html($zone['tab_label']); ?></span>
                                 </button>
                             <?php endforeach; ?>
-                        </div>
-
-                        <!-- Consola Viva HUD: equilibra la columna izquierda y acompaña el scroll del embudo -->
-                        <div class="garage-hud-console-card">
-                            <div class="garage-hud-console__header">
-                                <div class="garage-stage-stat">
-                                    <span class="garage-stage-stat__label">Dato técnico en tiempo real</span>
-                                    <strong class="garage-stage-stat__val" id="garage-active-stat">Espesor medio laca: 115–135 µm</strong>
-                                </div>
-                                <span class="garage-breakdown__live-badge">● Sensor Activo</span>
-                            </div>
-                            <div class="garage-hud-console__hint">
-                                <span class="garage-hud-console__hint-icon" aria-hidden="true">🔍</span>
-                                <span id="garage-hud-zone-hint">Desplaza o toca cada punto para inspeccionar síntomas y tolerancias.</span>
-                            </div>
                         </div>
 
                     </div>
