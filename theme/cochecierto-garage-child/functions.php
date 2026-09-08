@@ -2,7 +2,7 @@
 defined('ABSPATH') || exit;
 
 add_action('wp_head', static function (): void {
-    $icon = get_stylesheet_directory_uri() . '/assets/brand/logo-garage-icon-dark-transparent.png';
+    $icon = get_stylesheet_directory_uri() . '/assets/brand/icon-192.png';
     echo '<link rel="icon" type="image/png" sizes="192x192" href="' . esc_url($icon) . '">';
     echo '<link rel="apple-touch-icon" href="' . esc_url($icon) . '">';
 }, 5);
