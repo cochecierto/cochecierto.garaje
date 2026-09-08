@@ -154,8 +154,8 @@ get_header();
                        playsinline 
                        preload="metadata"
                        poster="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>">
-                    <!-- URL oficial de WordPress solicitada por el usuario -->
-                    <source src="https://garaje.cochecierto.com/wp-content/uploads/2026/09/cochecierto_garaje.mp4" type="video/mp4">
+                    <!-- Secuencia oficial recortada: el último fotograma es el estado desmontado final. -->
+                    <source src="https://garaje.cochecierto.com/wp-content/uploads/2026/09/CocheCierto_Hero.mp4" type="video/mp4">
                     <!-- Fallback local del tema -->
                     <source src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/video/cochecierto-presentacion.mp4'); ?>" type="video/mp4">
                 </video>

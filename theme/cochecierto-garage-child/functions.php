@@ -1,6 +1,12 @@
 <?php
 defined('ABSPATH') || exit;
 
+add_action('wp_head', static function (): void {
+    $icon = get_stylesheet_directory_uri() . '/assets/brand/logo-garage-icon-dark-transparent.png';
+    echo '<link rel="icon" type="image/png" sizes="192x192" href="' . esc_url($icon) . '">';
+    echo '<link rel="apple-touch-icon" href="' . esc_url($icon) . '">';
+}, 5);
+
 add_action('wp_enqueue_scripts', static function (): void {
     $css_file = get_stylesheet_directory() . '/style.css';
     $js_file  = get_stylesheet_directory() . '/assets/js/garage-breakdown.js';

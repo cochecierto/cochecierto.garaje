@@ -385,7 +385,9 @@
 
             // 1. El video fluye proporcionalmente desde la acción de scroll
             if (video.duration && !isNaN(video.duration) && video.duration > 0) {
-                var targetTime = progress * video.duration;
+                // El último frame es un estado visual estable: evitamos pedir la duración
+                // exacta para que el navegador no salte a una pantalla negra de cierre.
+                var targetTime = progress >= 0.999 ? Math.max(0, video.duration - 0.04) : progress * video.duration;
                 if (Math.abs(video.currentTime - targetTime) > 0.03) {
                     video.currentTime = targetTime;
                 }
