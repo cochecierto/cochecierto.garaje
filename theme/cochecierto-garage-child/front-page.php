@@ -152,8 +152,7 @@ get_header();
                        id="garageHeroVideo" 
                        muted 
                        playsinline 
-                       preload="metadata"
-                       poster="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.webp'); ?>">
+                       preload="auto">
                     <!-- Secuencia oficial de vídeo Hero CocheCierto Garaje -->
                     <source src="https://garaje.cochecierto.com/wp-content/uploads/2026/09/magnific_1.-eliminar-todos-los-tex_If5YX9otvE.mp4" type="video/mp4">
                 </video>
@@ -339,40 +338,56 @@ get_header();
                     </div>
                 </div>
 
-                <!-- Columna Derecha: Tarjetas de Despiece Scrollytelling -->
-                <div class="garage-breakdown__steps">
-                    <?php foreach ($breakdown_zones as $index => $zone) : ?>
-                        <article class="garage-breakdown-step <?php echo $index === 0 ? 'is-active' : ''; ?>" 
-                                 data-zone="<?php echo esc_attr($zone['id']); ?>" 
-                                 data-stat="<?php echo esc_attr($zone['telemetry_stat']); ?>"
-                                 id="paso-<?php echo esc_attr($zone['id']); ?>">
-                            
-                            <div class="garage-breakdown-step__header">
-                                <span class="garage-breakdown-step__index">0<?php echo esc_html($index + 1); ?> / 07</span>
-                                <span class="garage-breakdown-step__badge"><?php echo esc_html($zone['highlight_badge']); ?></span>
-                            </div>
+                <!-- Columna Derecha: Tarjetas de Despiece Scrollytelling y Carrusel Vertical -->
+                <div class="garage-breakdown__steps-wrapper">
+                    <div class="garage-breakdown__steps">
+                        <?php foreach ($breakdown_zones as $index => $zone) : ?>
+                            <article class="garage-breakdown-step <?php echo $index === 0 ? 'is-active' : ''; ?>" 
+                                     data-zone="<?php echo esc_attr($zone['id']); ?>" 
+                                     data-stat="<?php echo esc_attr($zone['telemetry_stat']); ?>"
+                                     data-index="<?php echo esc_attr($index); ?>"
+                                     id="paso-<?php echo esc_attr($zone['id']); ?>">
+                                
+                                <div class="garage-breakdown-step__header">
+                                    <span class="garage-breakdown-step__index">0<?php echo esc_html($index + 1); ?> / 07</span>
+                                    <span class="garage-breakdown-step__badge"><?php echo esc_html($zone['highlight_badge']); ?></span>
+                                </div>
 
-                            <p class="garage-kicker"><?php echo esc_html($zone['kicker']); ?></p>
-                            <h3 class="garage-breakdown-step__title"><?php echo esc_html($zone['title']); ?></h3>
-                            <p class="garage-breakdown-step__desc"><?php echo esc_html($zone['desc']); ?></p>
+                                <p class="garage-kicker"><?php echo esc_html($zone['kicker']); ?></p>
+                                <h3 class="garage-breakdown-step__title"><?php echo esc_html($zone['title']); ?></h3>
+                                <p class="garage-breakdown-step__desc"><?php echo esc_html($zone['desc']); ?></p>
 
-                            <!-- Micro-especificaciones técnicas tipo Heliostat -->
-                            <div class="garage-spec-table" aria-label="Especificaciones de <?php echo esc_attr($zone['tab_label']); ?>">
-                                <?php foreach ($zone['specs'] as $spec) : ?>
-                                    <div class="garage-spec-row">
-                                        <span class="garage-spec-label"><?php echo esc_html($spec['label']); ?></span>
-                                        <strong class="garage-spec-val"><?php echo esc_html($spec['value']); ?></strong>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
+                                <!-- Micro-especificaciones técnicas tipo Heliostat -->
+                                <div class="garage-spec-table" aria-label="Especificaciones de <?php echo esc_attr($zone['tab_label']); ?>">
+                                    <?php foreach ($zone['specs'] as $spec) : ?>
+                                        <div class="garage-spec-row">
+                                            <span class="garage-spec-label"><?php echo esc_html($spec['label']); ?></span>
+                                            <strong class="garage-spec-val"><?php echo esc_html($spec['value']); ?></strong>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
 
-                            <div class="garage-breakdown-step__actions">
-                                <a href="<?php echo esc_url($zone['url']); ?>" class="garage-button garage-button--orange">
-                                    <?php echo esc_html($zone['cta_text']); ?> <span>↗</span>
-                                </a>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
+                                <div class="garage-breakdown-step__actions">
+                                    <a href="<?php echo esc_url($zone['url']); ?>" class="garage-button garage-button--orange">
+                                        <?php echo esc_html($zone['cta_text']); ?> <span>↗</span>
+                                    </a>
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <!-- Controles de navegación del carrusel accesibles -->
+                    <div class="garage-step-carousel-controls" aria-label="Navegación de partes">
+                        <button type="button" class="garage-step-nav-btn garage-step-nav-btn--prev" aria-label="Zona anterior">
+                            <span aria-hidden="true">←</span> Anterior
+                        </button>
+                        <div class="garage-step-carousel-indicator">
+                            <span class="garage-step-curr" id="garage-step-active-index">01</span> / <span>07</span>
+                        </div>
+                        <button type="button" class="garage-step-nav-btn garage-step-nav-btn--next" aria-label="Siguiente zona">
+                            Siguiente <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
                 </div>
 
             </div>

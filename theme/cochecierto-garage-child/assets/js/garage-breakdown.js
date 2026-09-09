@@ -77,7 +77,7 @@
         });
     }
 
-    // 2. Inicialización del Despiece y Visor Dinámico
+    // 2. Inicialización del Despiece y Visor Dinámico (Scrollytelling Fijo & Carrusel Vertical)
     function initGarageBreakdown() {
         var breakdown = document.querySelector('.garage-breakdown');
         if (!breakdown) return;
@@ -91,8 +91,19 @@
         var stage = breakdown.querySelector('.garage-breakdown__stage');
         var zoneIndicator = breakdown.querySelector('.garage-stage-indicator__zone strong');
         var statValElem = document.getElementById('garage-active-stat');
+        var stepCurrIndexElem = document.getElementById('garage-step-active-index');
+        var prevBtn = breakdown.querySelector('.garage-step-nav-btn--prev');
+        var nextBtn = breakdown.querySelector('.garage-step-nav-btn--next');
 
-        function setActiveZone(zoneId, scrollIntoView) {
+        var zoneIds = ['carroceria', 'interior', 'motor', 'neumaticos', 'frenos', 'electricidad', 'seguridad'];
+        var currentZoneId = 'carroceria';
+        var isManualNavigating = false;
+
+        function setActiveZone(zoneId, shouldScroll) {
+            currentZoneId = zoneId;
+            var activeIndex = zoneIds.indexOf(zoneId);
+            if (activeIndex === -1) activeIndex = 0;
+
             if (stage) {
                 stage.setAttribute('data-active-zone', zoneId);
             }
@@ -106,7 +117,7 @@
                     if (zoneIndicator && labelElem) {
                         zoneIndicator.textContent = labelElem.textContent;
                     }
-                    if (window.innerWidth <= 800) {
+                    if (window.innerWidth <= 900) {
                         try { tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); } catch(e) {}
                     }
                 }
@@ -118,10 +129,10 @@
                 hotspot.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
 
-            steps.forEach(function(step) {
-                var isActive = step.getAttribute('data-zone') === zoneId;
-                step.classList.toggle('is-active', isActive);
-                if (isActive) {
+            steps.forEach(function(step, idx) {
+                step.classList.remove('is-active', 'is-prev', 'is-next');
+                if (idx === activeIndex) {
+                    step.classList.add('is-active');
                     if (statValElem) {
                         var statText = step.getAttribute('data-stat');
                         if (statText) statValElem.textContent = statText;
@@ -139,11 +150,16 @@
                         };
                         if (hints[zoneId]) hintElem.textContent = hints[zoneId];
                     }
-                    if (scrollIntoView && window.innerWidth > 800) {
-                        try { step.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
-                    }
+                } else if (idx < activeIndex) {
+                    step.classList.add('is-prev');
+                } else {
+                    step.classList.add('is-next');
                 }
             });
+
+            if (stepCurrIndexElem) {
+                stepCurrIndexElem.textContent = '0' + (activeIndex + 1);
+            }
 
             layers.forEach(function(layer) {
                 var isTarget = layer.classList.contains('garage-vis-layer--' + zoneId);
@@ -166,10 +182,38 @@
                 }
             }
 
+            if (shouldScroll && window.innerWidth > 900) {
+                var totalScrollable = breakdown.offsetHeight - window.innerHeight;
+                if (totalScrollable > 0) {
+                    isManualNavigating = true;
+                    var targetScroll = breakdown.offsetTop + (activeIndex / (zoneIds.length - 1)) * totalScrollable;
+                    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+                    setTimeout(function() { isManualNavigating = false; }, 600);
+                }
+            }
+
             try {
                 localStorage.setItem('cc_garage_last_zone', zoneId);
             } catch(e) {}
         }
+
+        function onBreakdownScroll() {
+            if (window.innerWidth <= 900 || isManualNavigating) return;
+            var rect = breakdown.getBoundingClientRect();
+            var totalScrollable = breakdown.offsetHeight - window.innerHeight;
+            if (totalScrollable <= 0) return;
+
+            var scrolled = -rect.top;
+            if (scrolled >= 0 && scrolled <= totalScrollable) {
+                var progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
+                var targetIdx = Math.min(Math.floor(progress * zoneIds.length), zoneIds.length - 1);
+                if (zoneIds[targetIdx] !== currentZoneId) {
+                    setActiveZone(zoneIds[targetIdx], false);
+                }
+            }
+        }
+
+        window.addEventListener('scroll', onBreakdownScroll, { passive: true });
 
         tabs.forEach(function(tab) {
             tab.addEventListener('click', function(e) {
@@ -187,6 +231,26 @@
             });
         });
 
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var curIdx = zoneIds.indexOf(currentZoneId);
+                if (curIdx > 0) {
+                    setActiveZone(zoneIds[curIdx - 1], true);
+                }
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var curIdx = zoneIds.indexOf(currentZoneId);
+                if (curIdx < zoneIds.length - 1) {
+                    setActiveZone(zoneIds[curIdx + 1], true);
+                }
+            });
+        }
+
         finishBtns.forEach(function(btn) {
             btn.addEventListener('click', function() {
                 finishBtns.forEach(function(b) { b.classList.remove('is-active'); });
@@ -198,27 +262,6 @@
                 }
             });
         });
-
-        if ('IntersectionObserver' in window) {
-            var observerOptions = {
-                root: null,
-                rootMargin: window.innerWidth <= 800 ? '-20% 0px -30% 0px' : '-25% 0px -35% 0px',
-                threshold: 0.2
-            };
-
-            var observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        var zone = entry.target.getAttribute('data-zone');
-                        setActiveZone(zone, false);
-                    }
-                });
-            }, observerOptions);
-
-            steps.forEach(function(step) {
-                observer.observe(step);
-            });
-        }
     }
 
     // 3. Barra Móvil Modo App alineada con CocheCierto (Auto-hide on scroll)
@@ -358,15 +401,20 @@
         var actionsGroup = document.getElementById('garageHeroActions');
         if (!heroSection || !video) return;
 
-        // Asegurar que el video comience pausado en el fotograma 0
+        // Asegurar que el video comience pausado en el fotograma 0 y se pinte de inmediato
         video.pause();
-        try { video.currentTime = 0; } catch (e) {}
-
-        video.addEventListener('loadedmetadata', function() {
+        function paintInitialFrame() {
             video.pause();
-            try { video.currentTime = 0; } catch (e) {}
+            try { 
+                if (video.currentTime === 0) video.currentTime = 0.001; 
+            } catch (e) {}
             onScroll();
-        });
+        }
+
+        video.addEventListener('loadedmetadata', paintInitialFrame);
+        video.addEventListener('loadeddata', paintInitialFrame);
+        video.addEventListener('canplay', paintInitialFrame);
+        paintInitialFrame();
 
         var ticking = false;
         function onScroll() {

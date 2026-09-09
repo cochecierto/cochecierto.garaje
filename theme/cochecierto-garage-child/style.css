@@ -1,7 +1,7 @@
 /*
 Theme Name: CocheCierto Garaje Child
 Template: twentytwentyfive
-Version: 0.6.4
+Version: 0.6.5
 Description: Portada editorial inmersiva, video hero scrollytelling en alta definición, barra Modo App CocheCierto, selector dark/light y soporte PWA.
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
@@ -1395,28 +1395,70 @@ body.theme-light .garage-hud-console__hint {
     flex-shrink: 0;
 }
 
-/* Tarjetas de Despiece Scrollytelling */
+/* Tarjetas de Despiece Scrollytelling y Carrusel Vertical */
+.garage-breakdown__steps-wrapper {
+    position: relative;
+    width: 100%;
+}
 .garage-breakdown__steps {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    scroll-snap-type: y proximity;
+    position: relative;
+    width: 100%;
 }
 .garage-breakdown-step {
     background: var(--cc-white);
     border: 1px solid var(--cc-line);
     border-radius: var(--cc-radius);
-    opacity: .65;
-    padding: 38px;
-    position: relative;
-    scroll-snap-align: center;
-    transition: all .3s ease;
+    padding: 34px;
+    box-shadow: 0 10px 30px rgba(0, 38, 62, 0.04);
 }
 .garage-breakdown-step.is-active {
     border-color: var(--cc-orange);
     box-shadow: 0 20px 50px rgba(252, 76, 2, .12);
-    opacity: 1;
-    transform: translateY(-3px);
+}
+
+/* Barra de controles del carrusel */
+.garage-step-carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 38, 62, 0.05);
+}
+.garage-step-nav-btn {
+    background: transparent;
+    border: 1px solid var(--cc-line);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-family: var(--cc-display);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--cc-blue);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all .2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.garage-step-nav-btn:hover,
+.garage-step-nav-btn:active {
+    border-color: var(--cc-orange);
+    color: var(--cc-orange);
+    background: #fff6f2;
+}
+.garage-step-carousel-indicator {
+    font-family: var(--cc-display);
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--cc-muted);
+}
+.garage-step-curr {
+    color: var(--cc-orange);
+    font-size: 1.05rem;
 }
 .garage-breakdown-step__header {
     align-items: center;
@@ -1658,19 +1700,156 @@ body.theme-light .garage-hud-console__hint {
     padding: 26px 0;
 }
 
-/* 8. Media Queries Responsives Exhaustivas (Spec 010) */
-@media (max-width: 1060px) and (min-width: 901px) {
+/* 8. Media Queries Responsives Exhaustivas y Scrollytelling Fijo (Spec 010) */
+@media (min-width: 901px) {
+    .garage-breakdown {
+        height: 350vh;
+        position: relative;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .garage-breakdown > .garage-shell {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 75px;
+        height: calc(100vh - 85px);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 15px;
+        box-sizing: border-box;
+    }
+    .garage-breakdown .garage-section__heading {
+        margin-bottom: 16px;
+        flex-shrink: 0;
+    }
     .garage-breakdown__layout {
-        gap: 32px;
-        grid-template-columns: 1.1fr 0.9fr;
+        flex: 1;
+        margin-top: 0;
+        min-height: 0;
+        align-items: center;
+        display: grid;
+        gap: 44px;
+        grid-template-columns: 1.12fr 0.88fr;
+    }
+    .garage-breakdown__stage-wrap {
+        height: auto;
+        align-self: center;
+    }
+    .garage-breakdown__stage {
+        position: relative;
+        top: 0;
+    }
+    .garage-breakdown__steps-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 0;
+    }
+    .garage-breakdown__steps {
+        position: relative;
+        height: 470px;
+        overflow: hidden;
+        display: block;
+        border-radius: var(--cc-radius);
+    }
+    .garage-breakdown-step {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(50px);
+        transition: opacity .4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform .4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    visibility .4s;
+        pointer-events: none;
+    }
+    .garage-breakdown-step.is-active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+        z-index: 2;
+    }
+    .garage-breakdown-step.is-prev {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-50px);
+        pointer-events: none;
+    }
+    .garage-breakdown-disclaimer {
+        display: none;
     }
 }
 
 @media (max-width: 900px) {
     .garage-shell { width: min(100% - 32px, 920px); }
-    .garage-breakdown__layout { display: block; }
-    .garage-breakdown__stage { margin-bottom: 40px; position: relative; top: 0; }
-    .garage-breakdown__car-display { height: 320px; }
+    .garage-breakdown {
+        height: auto !important;
+        padding: 40px 0;
+    }
+    .garage-breakdown > .garage-shell {
+        position: static !important;
+        height: auto !important;
+        display: block !important;
+    }
+    .garage-breakdown__layout {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .garage-breakdown__stage-wrap {
+        width: 100%;
+    }
+    .garage-breakdown__stage {
+        position: relative;
+        top: 0;
+        margin-bottom: 0;
+    }
+    .garage-breakdown__car-display {
+        height: 250px;
+    }
+    .garage-breakdown__steps-wrapper {
+        width: 100%;
+    }
+    .garage-breakdown__steps {
+        position: relative;
+        min-height: 480px;
+        display: block;
+    }
+    .garage-breakdown-step {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.97);
+        transition: opacity .3s ease, transform .3s ease, visibility .3s;
+        pointer-events: none;
+        padding: 24px 18px;
+    }
+    .garage-breakdown-step.is-active {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+        pointer-events: auto;
+        position: relative;
+    }
+    .garage-breakdown-nav {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+        gap: 8px;
+        padding-bottom: 8px;
+    }
+    .garage-breakdown-tab {
+        flex-shrink: 0;
+    }
     .garage-hero__grid { display: block; }
     .garage-hero__visual { margin-top: 40px; min-height: 440px; }
     .garage-assistant-card { display: block; padding: 40px 32px; }
