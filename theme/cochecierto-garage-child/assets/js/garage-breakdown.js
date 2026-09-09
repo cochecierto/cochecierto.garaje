@@ -393,7 +393,7 @@
         });
     }
 
-    // 5. Dinámica de Hero Scrollytelling (Video a Fondo Completo sincronizado con Scroll)
+    // 5. Dinámica de Hero Scrollytelling (Video a Fondo Completo sincronizado con Scroll e Interpolación LERP Suave)
     function initHeliostatHero() {
         var heroSection = document.getElementById('garageHeroSection');
         var video = document.getElementById('garageHeroVideo');
@@ -408,7 +408,7 @@
             try { 
                 if (video.currentTime === 0) video.currentTime = 0.001; 
             } catch (e) {}
-            onScroll();
+            calcScrollTarget();
         }
 
         video.addEventListener('loadedmetadata', paintInitialFrame);
@@ -416,41 +416,74 @@
         video.addEventListener('canplay', paintInitialFrame);
         paintInitialFrame();
 
-        var ticking = false;
-        function onScroll() {
+        var targetProgress = 0;
+        var currentProgress = 0;
+        var targetTime = 0;
+        var currentTime = 0;
+        var isLoopRunning = false;
+
+        function calcScrollTarget() {
             var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
             var scrollDistance = heroSection.offsetHeight - window.innerHeight;
-            if (scrollDistance <= 0) {
-                ticking = false;
-                return;
+            if (scrollDistance <= 0) return;
+
+            if (scrollY <= 4) {
+                targetProgress = 0;
+            } else {
+                targetProgress = Math.min(Math.max((scrollY - 4) / (scrollDistance - 4), 0), 1);
             }
 
-            // El progreso solo comienza cuando el usuario hace scroll real (> 4px)
-            var progress = 0;
-            if (scrollY > 4) {
-                progress = Math.min(Math.max((scrollY - 4) / (scrollDistance - 4), 0), 1);
-            }
-
-            // 1. El video fluye proporcionalmente desde la acción de scroll
             if (video.duration && !isNaN(video.duration) && video.duration > 0) {
-                // El último frame es un estado visual estable: evitamos pedir la duración
-                // exacta para que el navegador no salte a una pantalla negra de cierre.
-                var targetTime = progress >= 0.999 ? Math.max(0, video.duration - 0.04) : progress * video.duration;
-                if (Math.abs(video.currentTime - targetTime) > 0.03) {
-                    video.currentTime = targetTime;
+                targetTime = targetProgress >= 0.999 ? Math.max(0, video.duration - 0.04) : targetProgress * video.duration;
+            }
+
+            if (!isLoopRunning) {
+                isLoopRunning = true;
+                window.requestAnimationFrame(renderLoop);
+            }
+        }
+
+        function renderLoop() {
+            // Factor de suavizado LERP (0.12 = respuesta ágil pero con amortiguación sedosa)
+            var lerpFactor = 0.12;
+            var diff = targetTime - currentTime;
+
+            if (Math.abs(diff) > 0.001) {
+                currentTime += diff * lerpFactor;
+            } else {
+                currentTime = targetTime;
+            }
+
+            // Aplicar tiempo al video respetando si el hardware aún está decodificando (seeking)
+            if (video.duration && !isNaN(video.duration) && video.duration > 0) {
+                if (!video.seeking && Math.abs(video.currentTime - currentTime) > 0.015) {
+                    try {
+                        if (typeof video.fastSeek === 'function') {
+                            video.fastSeek(currentTime);
+                        } else {
+                            video.currentTime = currentTime;
+                        }
+                    } catch (err) {}
                 }
             }
 
-            // 2. Al hacer scroll, el H1 desaparece inmediatamente (fade-out); en reposo se muestra al 100%
+            // Suavizado del fade-out del título H1
+            var progressDiff = targetProgress - currentProgress;
+            if (Math.abs(progressDiff) > 0.001) {
+                currentProgress += progressDiff * lerpFactor;
+            } else {
+                currentProgress = targetProgress;
+            }
+
             if (titleGroup) {
-                if (progress === 0) {
+                if (currentProgress <= 0.002) {
                     titleGroup.style.opacity = '1';
                     titleGroup.style.transform = 'translateY(0)';
                     titleGroup.style.visibility = 'visible';
                     titleGroup.style.pointerEvents = 'auto';
                 } else {
-                    var titleOpacity = Math.max(0, 1 - (progress * 4.2));
-                    var titleOffset = -progress * 50;
+                    var titleOpacity = Math.max(0, 1 - (currentProgress * 4.2));
+                    var titleOffset = -currentProgress * 50;
                     titleGroup.style.opacity = titleOpacity.toFixed(3);
                     titleGroup.style.transform = 'translateY(' + titleOffset.toFixed(1) + 'px)';
 
@@ -464,25 +497,25 @@
                 }
             }
 
-            // 3. SOLO se mantienen los CTA fijos en la parte inferior
             if (actionsGroup) {
                 actionsGroup.style.opacity = '1';
                 actionsGroup.style.visibility = 'visible';
                 actionsGroup.style.pointerEvents = 'auto';
             }
 
-            ticking = false;
+            // Continuar el bucle mientras haya diferencia o mientras el video esté en seeking
+            if (Math.abs(targetTime - currentTime) > 0.002 || Math.abs(targetProgress - currentProgress) > 0.002 || video.seeking) {
+                window.requestAnimationFrame(renderLoop);
+            } else {
+                isLoopRunning = false;
+            }
         }
 
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(onScroll);
-                ticking = true;
-            }
-        }, { passive: true });
+        window.addEventListener('scroll', calcScrollTarget, { passive: true });
+        window.addEventListener('resize', calcScrollTarget, { passive: true });
 
-        // Ejecutar primer pase inicial
-        onScroll();
+        // Ejecutar pase inicial
+        calcScrollTarget();
     }
 
     // 6. Inicialización de PWA (Service Worker e Instalación)
