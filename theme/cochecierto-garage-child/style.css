@@ -1,7 +1,7 @@
 /*
 Theme Name: CocheCierto Garaje Child
 Template: twentytwentyfive
-Version: 0.6.2
+Version: 0.6.3
 Description: Portada editorial inmersiva, video hero scrollytelling en alta definición, barra Modo App CocheCierto, selector dark/light y soporte PWA.
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
@@ -438,16 +438,16 @@ body.theme-light .garage-hero__backdrop-overlay {
     z-index: 3;
 }
 
-/* Bloque de títulos posicionado en la zona izquierda del Hero */
+/* Bloque de títulos posicionado en la zona izquierda del Hero, cercano al vehículo */
 .garage-hero__title-group {
     position: absolute;
-    top: clamp(120px, 22vh, 220px);
-    left: 0;
+    top: clamp(140px, 24vh, 230px);
+    left: clamp(60px, 8vw, 140px);
     right: auto;
     margin: 0;
     width: 100%;
-    max-width: 580px;
-    padding: 0 20px;
+    max-width: 500px;
+    padding: 0 10px;
     text-align: left;
     display: flex;
     flex-direction: column;
