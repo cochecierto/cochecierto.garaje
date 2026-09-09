@@ -155,9 +155,7 @@ get_header();
                        preload="metadata"
                        poster="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>">
                     <!-- Secuencia oficial de vídeo Hero CocheCierto Garaje -->
-                    <source src="https://garaje.cochecierto.com/wp-content/uploads/2026/09/magnific_modifica-cocheciertogaraj_tCKW2xJmZJ.mp4" type="video/mp4">
-                    <!-- Fallback secundario -->
-                    <source src="https://garaje.cochecierto.com/wp-content/uploads/2026/09/cochecierto_garaje.mp4" type="video/mp4">
+                    <source src="https://garaje.cochecierto.com/wp-content/uploads/2026/09/magnific_1.-eliminar-todos-los-tex_If5YX9otvE.mp4" type="video/mp4">
                 </video>
                 <div class="garage-hero__backdrop-overlay"></div>
             </div>
