@@ -1,7 +1,7 @@
 /*
 Theme Name: CocheCierto Garaje Child
 Template: twentytwentyfive
-Version: 0.6.1
+Version: 0.6.2
 Description: Portada editorial inmersiva, video hero scrollytelling en alta definición, barra Modo App CocheCierto, selector dark/light y soporte PWA.
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
@@ -438,20 +438,20 @@ body.theme-light .garage-hero__backdrop-overlay {
     z-index: 3;
 }
 
-/* H1 arriba del todo del coche, sin interferir con la carrocería */
+/* Bloque de títulos posicionado en la zona izquierda del Hero */
 .garage-hero__title-group {
     position: absolute;
-    top: calc(78px + 6px);
+    top: clamp(120px, 22vh, 220px);
     left: 0;
-    right: 0;
-    margin: 0 auto;
+    right: auto;
+    margin: 0;
     width: 100%;
-    max-width: 960px;
+    max-width: 580px;
     padding: 0 20px;
-    text-align: center;
+    text-align: left;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     pointer-events: auto;
     transition: opacity .2s ease-out, transform .2s ease-out;
     will-change: opacity, transform;
@@ -461,41 +461,45 @@ body.theme-light .garage-hero__backdrop-overlay {
 #garage-hero-title {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 2px;
+    align-items: flex-start;
+    gap: 4px;
     margin: 0;
-    line-height: 1.02;
+    line-height: 1.05;
+    text-align: left;
 }
 
 .hero-title-main {
     display: block;
     color: #ffffff;
     font-family: var(--cc-display);
-    font-size: clamp(1.85rem, 3.8vw, 3.4rem);
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
     font-weight: 800;
     letter-spacing: -0.04em;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
+    text-align: left;
 }
 
 .hero-title-accent {
     display: block;
     color: var(--cc-orange, #fc4c02);
     font-family: var(--cc-display);
-    font-size: clamp(1.85rem, 3.8vw, 3.4rem);
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
     font-weight: 800;
     letter-spacing: -0.04em;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
+    text-align: left;
 }
 
 .garage-hero__subtitle {
-    margin: 12px auto 0;
+    margin: 16px 0 0;
     color: rgba(255, 255, 255, 0.92);
     font-family: var(--cc-body);
-    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
     font-weight: 500;
-    max-width: 680px;
-    line-height: 1.45;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    max-width: 520px;
+    line-height: 1.5;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    text-align: left;
 }
 
 /* CTAs en la parte inferior, por debajo de la rueda del coche */
@@ -598,7 +602,12 @@ body.theme-light .garage-hero__backdrop-overlay {
     }
     .garage-hero__title-group {
         top: calc(78px + 16px);
+        left: 0;
+        right: 0;
+        max-width: 100%;
         padding: 0 16px;
+        text-align: left;
+        align-items: flex-start;
     }
     .hero-title-main, .hero-title-accent {
         font-size: clamp(1.8rem, 6.5vw, 2.6rem);

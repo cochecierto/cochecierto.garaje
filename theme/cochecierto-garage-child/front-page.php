@@ -153,7 +153,7 @@ get_header();
                        muted 
                        playsinline 
                        preload="metadata"
-                       poster="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.png'); ?>">
+                       poster="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/vehicles/coche-insignia-orange-transparent.webp'); ?>">
                     <!-- Secuencia oficial de vídeo Hero CocheCierto Garaje -->
                     <source src="https://garaje.cochecierto.com/wp-content/uploads/2026/09/magnific_1.-eliminar-todos-los-tex_If5YX9otvE.mp4" type="video/mp4">
                 </video>
