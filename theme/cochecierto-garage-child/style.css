@@ -1,7 +1,7 @@
 /*
 Theme Name: CocheCierto Garaje Child
 Template: twentytwentyfive
-Version: 0.6.3
+Version: 0.6.4
 Description: Portada editorial inmersiva, video hero scrollytelling en alta definición, barra Modo App CocheCierto, selector dark/light y soporte PWA.
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
@@ -909,25 +909,30 @@ body.theme-light .garage-intent-card__text {
 }
 .garage-breakdown-tab__index { color: var(--cc-orange); font-weight: 800; }
 
-/* Rejilla Panorámica: Escenario Izquierda + Tarjetas Derecha */
+/* Rejilla Panorámica: Escenario Izquierda Sticky + Carrusel Vertical Tarjetas Derecha */
 .garage-breakdown__layout {
     display: grid;
-    gap: 56px;
-    grid-template-columns: 1.12fr 0.88fr;
+    gap: 52px;
+    grid-template-columns: 1.15fr 0.85fr;
     margin-top: 45px;
-    align-items: start;
+    align-items: stretch;
 }
-.garage-breakdown__stage-wrap { position: relative; }
+.garage-breakdown__stage-wrap {
+    position: relative;
+    height: 100%;
+    align-self: stretch;
+}
 
-/* Escenario Sticky Flotante Libre (Consola Viva HUD) */
+/* Escenario Sticky Flotante Libre: Coche fijo a la izquierda mientras suben las tarjetas */
 .garage-breakdown__stage {
     background: transparent;
     border: none;
     border-radius: 0;
     box-shadow: none;
     padding: 0;
+    position: -webkit-sticky;
     position: sticky;
-    top: 125px;
+    top: 115px;
     z-index: 20;
     transition: all .35s ease;
 }
@@ -1161,7 +1166,7 @@ body.theme-light .garage-finish-btn {
 .garage-breakdown__stage[data-active-zone="neumaticos"] .garage-vis-layer--neumaticos {
     opacity: 1;
 }
-.garage-hud-box--tire { bottom: 15%; left: 32%; }
+.garage-hud-box--tire { bottom: 18%; left: 8%; }
 
 /* Capa 5: HUD Frenos */
 .garage-breakdown__stage[data-active-zone="frenos"] .garage-vis-layer--frenos {
@@ -1654,8 +1659,15 @@ body.theme-light .garage-hud-console__hint {
 }
 
 /* 8. Media Queries Responsives Exhaustivas (Spec 010) */
-@media (max-width: 1060px) {
-    .garage-shell { width: min(100% - 40px, 920px); }
+@media (max-width: 1060px) and (min-width: 901px) {
+    .garage-breakdown__layout {
+        gap: 32px;
+        grid-template-columns: 1.1fr 0.9fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .garage-shell { width: min(100% - 32px, 920px); }
     .garage-breakdown__layout { display: block; }
     .garage-breakdown__stage { margin-bottom: 40px; position: relative; top: 0; }
     .garage-breakdown__car-display { height: 320px; }

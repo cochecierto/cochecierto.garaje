@@ -70,8 +70,8 @@ $breakdown_zones = [
         'highlight_badge' => 'Seguridad Activa',
         'cta_text' => 'Ver productos de Neumáticos',
         'url' => home_url('/categorias/neumaticos/'),
-        'hotspot_top' => '72%',
-        'hotspot_left' => '28%',
+        'hotspot_top' => '64%',
+        'hotspot_left' => '14%',
         'telemetry_stat' => 'Presión nominal: consultar adhesivo pilar B',
     ],
     [
