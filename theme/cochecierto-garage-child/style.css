@@ -1510,7 +1510,7 @@ body.theme-light .garage-hud-console__hint {
     font-weight: 800;
     gap: 8px;
     letter-spacing: .02em;
-    max-width: 62%;
+    max-width: 52%;
     padding: 8px 12px;
     text-decoration: none;
     transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
@@ -1528,7 +1528,7 @@ body.theme-light .garage-hud-console__hint {
 }
 @media (max-width: 520px) {
     .garage-breakdown-step__header { align-items: flex-start; gap: 10px; }
-    .garage-breakdown-step__purchase-cta { font-size: .65rem; max-width: 58%; padding: 7px 9px; white-space: normal; }
+    .garage-breakdown-step__purchase-cta { font-size: .7rem; max-width: 42%; padding: 7px 11px; white-space: nowrap; }
 }
 .garage-breakdown-step__title {
     color: var(--cc-blue);

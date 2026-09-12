@@ -142,9 +142,6 @@ $breakdown_guidance = [
 ];
 $breakdown_zones = array_map(function ($zone) use ($breakdown_guidance) { return array_merge($zone, $breakdown_guidance[$zone['id']] ?? []); }, $breakdown_zones);
 
-// Entrada única al flujo de compra/valoración, compartida por todas las zonas.
-$purchase_session_url = 'https://cochecierto.com/valorador/?intent=buy';
-
 $moments = [
     ['label' => 'Primeras 72 horas', 'text' => 'Pon tu coche a punto desde el primer día con comprobaciones clave.', 'url' => home_url('/guias/primeras-72-horas/')],
     ['label' => 'Primeros 30 días', 'text' => 'Conoce el estado real y prepara una base sencilla para usarlo con tranquilidad.', 'url' => home_url('/guias/primeros-30-dias/')],
@@ -372,8 +369,8 @@ get_header();
                                 
                                 <div class="garage-breakdown-step__header">
                                     <span class="garage-breakdown-step__index">0<?php echo esc_html($index + 1); ?> / 07</span>
-                                    <a class="garage-breakdown-step__purchase-cta" href="<?php echo esc_url($purchase_session_url); ?>" aria-label="Iniciar sesión de compra desde <?php echo esc_attr($zone['tab_label']); ?>">
-                                        <span>Iniciar sesión de compra</span><span aria-hidden="true">→</span>
+                                    <a class="garage-breakdown-step__purchase-cta" href="<?php echo esc_url($zone['url']); ?>" aria-label="Comprar productos de <?php echo esc_attr($zone['tab_label']); ?>">
+                                        <span>Comprar</span><span aria-hidden="true">→</span>
                                     </a>
                                 </div>
 
