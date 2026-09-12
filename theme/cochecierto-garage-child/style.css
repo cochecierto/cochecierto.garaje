@@ -1760,10 +1760,11 @@ body.theme-light .garage-hud-console__hint {
         justify-content: center;
         min-width: 0;
         min-height: 0;
+        height: min(560px, calc(100vh - 245px));
     }
     .garage-breakdown__steps {
         position: relative;
-        height: min(560px, calc(100vh - 245px));
+        height: 100%;
         min-height: 360px;
         overflow: hidden;
         display: block;
