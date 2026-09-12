@@ -130,6 +130,18 @@ $breakdown_zones = [
     ],
 ];
 
+// Editorial guidance shared by all zones; merged into the canonical zone data.
+$breakdown_guidance = [
+    'carroceria' => ['what_to_check' => 'Pintura, cristales, juntas, faros y signos de corrosión.', 'why_it_matters' => 'La carrocería protege la estructura y ayuda a detectar daños o filtraciones.', 'how_to_check' => 'Revisa con luz natural cambios de tono, grietas, humedad y óxido.', 'alerts' => ['Óxido que aumenta', 'Grietas en el parabrisas', 'Faros opacos', 'Pintura levantada tras un golpe'], 'diy' => ['Lavar con productos neutros', 'Comprobar visualmente cristales, juntas y faros'], 'professional' => 'Hay corrosión estructural, grietas en el campo de visión o daños tras un golpe.', 'orientative' => 'El espesor de la laca depende de la pieza y del vehículo.'],
+    'interior' => ['what_to_check' => 'Cinturones, testigos, moquetas, tapicería, mandos y olores.', 'why_it_matters' => 'El habitáculo combina confort y elementos de seguridad.', 'how_to_check' => 'Prueba cinturones y mandos con el vehículo detenido y revisa la moqueta.', 'alerts' => ['Olor persistente a humedad', 'Testigo del airbag', 'Cinturón que no bloquea correctamente', 'Moqueta húmeda'], 'diy' => ['Limpiar sin saturar elementos eléctricos', 'Comprobar cierres, cinturones y mandos'], 'professional' => 'Aparece un testigo de airbag, hay humedad recurrente o falla un anclaje.', 'orientative' => 'La frecuencia de higiene depende del uso y del material.'],
+    'motor' => ['what_to_check' => 'Niveles, fugas, manguitos, correas, ruidos, humo y testigos.', 'why_it_matters' => 'Una fuga o un cambio de temperatura puede anticipar una avería.', 'how_to_check' => 'Con el motor frío y en plano, revisa niveles y observa el suelo.', 'alerts' => ['Pérdida de aceite o refrigerante', 'Humo', 'Ruidos nuevos', 'Temperatura elevada', 'Testigo de motor encendido'], 'diy' => ['Comprobar niveles según el manual', 'Observar fugas sin tocar piezas calientes'], 'professional' => 'Hay humo, sobrecalentamiento, pérdida de líquido o un testigo persistente.', 'orientative' => 'Aceite, temperatura y voltaje dependen de motor y fabricante.'],
+    'neumaticos' => ['what_to_check' => 'Presión, desgaste, profundidad, grietas, deformaciones y válvulas.', 'why_it_matters' => 'Los neumáticos son el único contacto del vehículo con el asfalto.', 'how_to_check' => 'Mide en frío y compara con la etiqueta del pilar de la puerta.', 'alerts' => ['Desgaste irregular', 'Grietas o deformaciones', 'Vibraciones', 'Pérdida frecuente de presión', 'Dibujo insuficiente'], 'diy' => ['Medir la presión en frío', 'Inspeccionar la banda y los hombros'], 'professional' => 'Hay deformaciones, vibraciones, pérdida frecuente o dudas sobre el desgaste.', 'orientative' => 'La presión correcta es la indicada por el fabricante.'],
+    'frenos' => ['what_to_check' => 'Pastillas, discos, líquido, fugas, ruidos, vibraciones y pedal.', 'why_it_matters' => 'El estado de los frenos afecta a la distancia de detención y al control.', 'how_to_check' => 'Observa el conjunto sin desmontar y prueba el pedal en una zona segura.', 'alerts' => ['Chirridos persistentes', 'Vibraciones', 'Pedal esponjoso', 'Tirones', 'Testigo de frenos'], 'diy' => ['Observar desgaste y fugas visibles', 'Comprobar el nivel según el manual'], 'professional' => 'Hay pérdida de líquido, pedal esponjoso, vibraciones fuertes o dudas sobre espesores.', 'orientative' => 'Espesores, líquido y frecuencia dependen del sistema instalado.'],
+    'electricidad' => ['what_to_check' => 'Arranque, luces, bornes, testigos y fallos eléctricos intermitentes.', 'why_it_matters' => 'Una batería débil puede inmovilizar el vehículo y ocultar fallos de carga.', 'how_to_check' => 'Observa el arranque y las luces; mide solo con equipo y siguiendo el manual.', 'alerts' => ['Arranque lento', 'Luces débiles', 'Testigo de batería', 'Fallos eléctricos intermitentes'], 'diy' => ['Mantener bornes limpios', 'Comprobar luces y compatibilidad de un arrancador'], 'professional' => 'Falla el arranque, se enciende el testigo o hay fallos repetidos.', 'orientative' => 'El voltaje varía con temperatura, carga y tecnología AGM/EFB.'],
+    'seguridad' => ['what_to_check' => 'Baliza V16 homologada y conectada, chaleco, cinturones, anclajes y testigos.', 'why_it_matters' => 'El equipamiento y los sistemas de retención reducen el riesgo en una avería.', 'how_to_check' => 'Consulta la fuente oficial y verifica la homologación vigente.', 'alerts' => ['Baliza no homologada o sin conectividad exigida', 'Elementos de emergencia ausentes', 'Cinturones o anclajes defectuosos', 'Testigos de seguridad encendidos'], 'diy' => ['Guardar la baliza accesible desde el asiento del conductor', 'Revisar batería y estado del chaleco'], 'professional' => 'Falla un cinturón, anclaje o sistema de seguridad; en una avería sigue las instrucciones oficiales.', 'orientative' => 'La normativa puede cambiar: consulta la información oficial antes de comprar.'],
+];
+$breakdown_zones = array_map(function ($zone) use ($breakdown_guidance) { return array_merge($zone, $breakdown_guidance[$zone['id']] ?? []); }, $breakdown_zones);
+
 $moments = [
     ['label' => 'Primeras 72 horas', 'text' => 'Pon tu coche a punto desde el primer día con comprobaciones clave.', 'url' => home_url('/guias/primeras-72-horas/')],
     ['label' => 'Primeros 30 días', 'text' => 'Conoce el estado real y prepara una base sencilla para usarlo con tranquilidad.', 'url' => home_url('/guias/primeros-30-dias/')],
@@ -228,14 +240,18 @@ get_header();
             <div class="garage-section__heading">
                 <div>
                     <p class="garage-kicker">Explorador de ingeniería por partes</p>
-                    <h2 id="garage-breakdown-title">Despiece del coche: qué cuidar en cada zona.</h2>
+                        <h2 id="garage-breakdown-title">Qué revisar en cada parte de tu coche</h2>
+                        <p class="garage-section__subheading">Consulta qué comprobar, con qué frecuencia hacerlo y cuándo conviene acudir a un profesional.</p>
                 </div>
                 <div class="garage-breakdown-nav" role="tablist" aria-label="Zonas del vehículo">
                     <?php foreach ($breakdown_zones as $index => $zone) : ?>
                         <button type="button" 
                                 class="garage-breakdown-tab <?php echo $index === 0 ? 'is-active' : ''; ?>" 
+                                id="tab-<?php echo esc_attr($zone['id']); ?>"
                                 data-zone="<?php echo esc_attr($zone['id']); ?>" 
                                 role="tab" 
+                                aria-controls="paso-<?php echo esc_attr($zone['id']); ?>"
+                                tabindex="<?php echo $index === 0 ? '0' : '-1'; ?>"
                                 aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>">
                             <span class="garage-breakdown-tab__index">0<?php echo esc_html($index + 1); ?></span>
                             <span class="garage-breakdown-tab__label"><?php echo esc_html($zone['tab_label']); ?></span>
@@ -346,7 +362,10 @@ get_header();
                                      data-zone="<?php echo esc_attr($zone['id']); ?>" 
                                      data-stat="<?php echo esc_attr($zone['telemetry_stat']); ?>"
                                      data-index="<?php echo esc_attr($index); ?>"
-                                     id="paso-<?php echo esc_attr($zone['id']); ?>">
+                                     id="paso-<?php echo esc_attr($zone['id']); ?>"
+                                     role="tabpanel"
+                                     aria-labelledby="tab-<?php echo esc_attr($zone['id']); ?>"
+                                     aria-hidden="<?php echo $index === 0 ? 'false' : 'true'; ?>">
                                 
                                 <div class="garage-breakdown-step__header">
                                     <span class="garage-breakdown-step__index">0<?php echo esc_html($index + 1); ?> / 07</span>
@@ -356,6 +375,16 @@ get_header();
                                 <p class="garage-kicker"><?php echo esc_html($zone['kicker']); ?></p>
                                 <h3 class="garage-breakdown-step__title"><?php echo esc_html($zone['title']); ?></h3>
                                 <p class="garage-breakdown-step__desc"><?php echo esc_html($zone['desc']); ?></p>
+
+                                <div class="garage-breakdown-guidance">
+                                    <p><strong>Qué revisar:</strong> <?php echo esc_html($zone['what_to_check']); ?></p>
+                                    <p><strong>Por qué importa:</strong> <?php echo esc_html($zone['why_it_matters']); ?></p>
+                                    <p><strong>Cómo comprobarlo:</strong> <?php echo esc_html($zone['how_to_check']); ?></p>
+                                    <div><strong>Señales de alerta</strong><ul><?php foreach ($zone['alerts'] as $alert) : ?><li><?php echo esc_html($alert); ?></li><?php endforeach; ?></ul></div>
+                                    <div><strong>Puedes hacerlo tú</strong><ul><?php foreach ($zone['diy'] as $item) : ?><li><?php echo esc_html($item); ?></li><?php endforeach; ?></ul></div>
+                                    <p><strong>Acude a un taller si:</strong> <?php echo esc_html($zone['professional']); ?></p>
+                                    <?php if ($zone['id'] === 'seguridad') : ?><p class="garage-breakdown-source"><strong>Seguridad vial:</strong> información orientativa revisada el 12/09/2026. Consulta la <a href="https://www.dgt.es/muevete-con-seguridad/seguridad-vial/elementos-de-seguridad/" target="_blank" rel="noopener">fuente oficial de la DGT</a> y la lista de dispositivos homologados antes de comprar.</p><?php endif; ?>
+                                </div>
 
                                 <!-- Micro-especificaciones técnicas tipo Heliostat -->
                                 <div class="garage-spec-table" aria-label="Especificaciones de <?php echo esc_attr($zone['tab_label']); ?>">
@@ -368,9 +397,10 @@ get_header();
                                 </div>
 
                                 <div class="garage-breakdown-step__actions">
-                                    <a href="<?php echo esc_url($zone['url']); ?>" class="garage-button garage-button--orange">
-                                        <?php echo esc_html($zone['cta_text']); ?> <span>↗</span>
+                                    <a href="<?php echo esc_url($zone['url']); ?>" class="garage-button garage-button--orange" rel="sponsored noopener">
+                                        Ver productos compatibles de <?php echo esc_html($zone['tab_label']); ?> <span>↗</span>
                                     </a>
+                                    <small>Comprueba medidas, homologación y compatibilidad antes de comprar.</small>
                                 </div>
                             </article>
                         <?php endforeach; ?>
@@ -392,10 +422,17 @@ get_header();
 
             </div>
 
+            <div class="garage-breakdown-checklist" aria-label="Checklist alternativo de zonas">
+                <strong>Checklist rápido</strong>
+                <div class="garage-breakdown-checklist__items">
+                    <?php foreach ($breakdown_zones as $zone) : ?><button type="button" data-zone="<?php echo esc_attr($zone['id']); ?>">□ <?php echo esc_html($zone['tab_label']); ?></button><?php endforeach; ?>
+                </div>
+            </div>
+
             <!-- Advertencia técnica de rigor y seguridad (Principio 5) -->
             <div class="garage-breakdown-disclaimer">
                 <span class="garage-breakdown-disclaimer__icon" aria-hidden="true">ℹ️</span>
-                <p><strong>Nota técnica de referencia:</strong> Las cifras y especificaciones técnicas mostradas (presiones de inflado, voltajes de batería, espesores de pastilla y normas DOT) son valores medios representativos para turismos estándar. Cada vehículo tiene tolerancias específicas. Comprueba siempre el manual oficial del fabricante o el adhesivo de homologación en el pilar B de tu coche antes de intervenir o comprar.</p>
+                <p><strong>Valor orientativo:</strong> puede variar según marca, modelo, motor y versión. Las referencias mostradas son generales para turismos. Consulta siempre el manual del vehículo, la etiqueta de presión del pilar de la puerta o la documentación oficial antes de intervenir o comprar.</p>
             </div>
         </div>
     </section>

@@ -112,6 +112,7 @@
                 var isActive = tab.getAttribute('data-zone') === zoneId;
                 tab.classList.toggle('is-active', isActive);
                 tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                tab.setAttribute('tabindex', isActive ? '0' : '-1');
                 if (isActive) {
                     var labelElem = tab.querySelector('.garage-breakdown-tab__label');
                     if (zoneIndicator && labelElem) {
@@ -131,6 +132,7 @@
 
             steps.forEach(function(step, idx) {
                 step.classList.remove('is-active', 'is-prev', 'is-next');
+                step.setAttribute('aria-hidden', idx === activeIndex ? 'false' : 'true');
                 if (idx === activeIndex) {
                     step.classList.add('is-active');
                     if (statValElem) {
@@ -195,6 +197,10 @@
             try {
                 localStorage.setItem('cc_garage_last_zone', zoneId);
             } catch(e) {}
+
+            if (window.location.hash !== '#garage-despiece-' + zoneId) {
+                history.replaceState(null, '', '#garage-despiece-' + zoneId);
+            }
         }
 
         function onBreakdownScroll() {
@@ -221,7 +227,27 @@
                 var zone = tab.getAttribute('data-zone');
                 setActiveZone(zone, true);
             });
+            tab.addEventListener('keydown', function(e) {
+                var idx = zoneIds.indexOf(tab.getAttribute('data-zone'));
+                var target = null;
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') target = (idx + 1) % zoneIds.length;
+                if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') target = (idx - 1 + zoneIds.length) % zoneIds.length;
+                if (e.key === 'Home') target = 0;
+                if (e.key === 'End') target = zoneIds.length - 1;
+                if (target !== null) { e.preventDefault(); setActiveZone(zoneIds[target], true); tabs[target].focus(); }
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveZone(tab.getAttribute('data-zone'), true); }
+            });
         });
+
+        breakdown.querySelectorAll('.garage-breakdown-checklist button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var target = breakdown.querySelector('.garage-breakdown-tab[data-zone="' + button.getAttribute('data-zone') + '"]');
+                if (target) { setActiveZone(button.getAttribute('data-zone'), true); target.focus(); }
+            });
+        });
+
+        var initialHash = window.location.hash.replace('#garage-despiece-', '');
+        if (zoneIds.indexOf(initialHash) !== -1) setActiveZone(initialHash, false);
 
         hotspots.forEach(function(hotspot) {
             hotspot.addEventListener('click', function(e) {

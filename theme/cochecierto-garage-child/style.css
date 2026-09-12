@@ -3099,4 +3099,13 @@ body.theme-light .garage-breakdown-disclaimer {
     color: var(--cc-muted);
 }
 
-
+.garage-breakdown-guidance { margin: 18px 0; padding: 16px; border-left: 3px solid var(--cc-orange); background: rgba(255,255,255,.04); }
+.garage-breakdown-guidance p, .garage-breakdown-guidance div { margin: 0 0 10px; }
+.garage-breakdown-guidance ul { margin: 6px 0 12px; padding-left: 20px; }
+.garage-breakdown-guidance li { margin: 4px 0; }
+.garage-breakdown-step[aria-hidden="true"] { visibility: hidden; }
+.garage-breakdown-tab:focus-visible, .garage-breakdown-checklist button:focus-visible { outline: 3px solid var(--cc-orange); outline-offset: 3px; }
+.garage-breakdown-checklist { margin: 24px 0; padding: 16px; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; }
+.garage-breakdown-checklist__items { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.garage-breakdown-checklist button { border: 1px solid rgba(255,255,255,.2); border-radius: 999px; padding: 8px 12px; background: transparent; color: inherit; cursor: pointer; }
+.garage-breakdown-step__actions small { display: block; margin-top: 8px; color: var(--cc-muted); }
